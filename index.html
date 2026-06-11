@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restore After Care | Registration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap');
+        
+        body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; }
+        h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
+        
+        #hero-section {
+            background-size: cover; background-position: center; transition: background-image 0.5s ease-in-out;
+            background-image: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)); /* Default dark fallback */
+        }
+
+        .autocomplete-wrapper { position: relative; }
+        .autocomplete-items {
+            position: absolute; border: 1px solid #e2e8f0; border-top: none;
+            z-index: 99; top: 100%; left: 0; right: 0; background-color: #fff;
+            max-height: 250px; overflow-y: auto; border-radius: 0 0 8px 8px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+        .autocomplete-items div { padding: 12px 16px; cursor: pointer; border-bottom: 1px solid #f8fafc; color: #1e293b; }
+        .autocomplete-items div:hover { background-color: #fef3c7; color: #b45309; }
+        .hidden { display: none !important; }
+        
+        /* Spinner */
+        .loader { border: 4px solid #f3f3f3; border-top: 4px solid #f59e0b; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="antialiased text-slate-800 flex flex-col min-h-screen">
+
+    <header id="hero-section" class="text-white pt-12 pb-20 text-center px-4 relative shadow-2xl border-b-4 border-amber-500">
+        <div class="mb-6 flex justify-center">
+            <div class="bg-white p-3 rounded-full shadow-lg inline-block">
+                <img src="https://cdn-icons-png.flaticon.com/512/3598/3598188.png" alt="Restore Logo" class="h-16 w-16 opacity-90">
+            </div>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold mb-3 uppercase tracking-widest text-amber-400 serif">Restore</h1>
+        
+        <h2 id="displayTitle" class="text-lg md:text-2xl font-light tracking-wide text-slate-200">Loading Event...</h2>
+        <p id="displayDate" class="text-amber-300 font-bold mt-2 text-lg"><i class="fas fa-calendar-alt mr-2"></i> ---</p>
+    </header>
+
+    <main class="max-w-4xl mx-auto my-10 px-4 flex-grow w-full relative -mt-10">
+        
+        <section id="mainCard" class="bg-white rounded-xl shadow-2xl p-6 md:p-12 border border-slate-100">
+            
+            <div id="loadingView" class="text-center py-12">
+                <div class="loader mb-4"></div>
+                <h3 class="text-xl font-bold text-slate-700">Connecting to secure database...</h3>
+                <p class="text-slate-500">Please wait a moment.</p>
+            </div>
+
+            <div id="closedView" class="hidden text-center py-10">
+                <div class="inline-block p-5 rounded-full bg-slate-100 mb-6">
+                    <i class="fas fa-lock text-5xl text-slate-400"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-slate-800 mb-3 serif">Registration is Closed</h2>
+                <p class="text-slate-600 text-lg max-w-lg mx-auto">Registration for this gathering has concluded or is not yet open. Please stay tuned to our official Facebook page for announcements regarding our next event!</p>
+            </div>
+
+            <div id="step1" class="hidden">
+                <div class="text-center mb-8">
+                    <h3 class="text-3xl font-bold text-slate-800 mb-2 serif">Welcome! Let's get you registered.</h3>
+                    <p class="text-slate-500">Search for your name below. If you've joined us before, your profile will pop up automatically!</p>
+                </div>
+                
+                <div class="max-w-lg mx-auto bg-slate-50 p-6 rounded-xl border border-slate-200 shadow-sm">
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">Search Your Full Name</label>
+                    <div class="autocomplete-wrapper mb-6">
+                        <div class="relative">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400"><i class="fas fa-search"></i></span>
+                            <input type="text" id="searchName" placeholder="Start typing..." class="w-full pl-12 pr-4 py-4 text-lg border border-slate-300 rounded-lg focus:ring-amber-500 focus:border-amber-500 shadow-inner" autocomplete="off">
+                        </div>
+                        <div id="autocomplete-list" class="autocomplete-items hidden"></div>
+                    </div>
+
+                    <div class="flex items-center my-6">
+                        <div class="flex-grow border-t border-slate-300"></div>
+                        <span class="flex-shrink-0 mx-4 text-slate-400 text-sm font-medium uppercase">OR</span>
+                        <div class="flex-grow border-t border-slate-300"></div>
+                    </div>
+
+                    <button onclick="showNewForm()" class="w-full bg-white hover:bg-slate-100 text-slate-800 font-bold py-4 rounded-lg border-2 border-slate-300 shadow-sm flex justify-center items-center gap-2 transition">
+                        <i class="fas fa-user-plus text-amber-500"></i> Register as a First-Timer
+                    </button>
+                </div>
+            </div>
+
+            <div id="returningForm" class="hidden">
+                <div class="bg-emerald-50 border-l-4 border-emerald-500 p-5 rounded-r-lg mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <h4 class="text-emerald-900 font-bold text-xl"><i class="fas fa-check-circle mr-2 text-emerald-600"></i>Welcome back, <span id="welcomeName"></span>!</h4>
+                        <p class="text-emerald-700 text-sm">Please submit a question and confirm your attendance.</p>
+                    </div>
+                    <button onclick="resetToSearch()" class="text-sm text-slate-500 hover:text-slate-800 underline"><i class="fas fa-undo mr-1"></i> Not you?</button>
+                </div>
+                
+                <input type="hidden" id="retRow">
+                <div class="mb-8">
+                    <label class="block text-sm font-bold text-slate-700 mb-2">Advance question for our panelists:</label>
+                    <textarea id="retQuestion" rows="4" class="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-amber-500" placeholder="e.g., How do I maintain my freedom?"></textarea>
+                </div>
+                <button onclick="submitReturning()" id="retSubmitBtn" class="w-full bg-slate-900 hover:bg-amber-600 text-white font-bold py-4 rounded-lg shadow-lg text-lg transition">Confirm Attendance <i class="fas fa-arrow-right ml-2"></i></button>
+            </div>
+
+            <div id="newForm" class="hidden">
+                <div class="flex justify-between items-center mb-8 border-b border-slate-200 pb-4">
+                    <h3 class="text-3xl font-bold text-slate-800 serif">First Time Registration</h3>
+                    <button onclick="resetToSearch()" class="text-sm text-slate-500 hover:text-slate-800"><i class="fas fa-arrow-left mr-1"></i> Back</button>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div><label class="block text-sm font-bold text-slate-700 mb-1">Full Name *</label><input type="text" id="newName" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-amber-500"></div>
+                    <div><label class="block text-sm font-bold text-slate-700 mb-1">Email Address *</label><input type="email" id="newEmail" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-amber-500"></div>
+                    <div><label class="block text-sm font-bold text-slate-700 mb-1">Cellphone/Viber *</label><input type="text" id="newPhone" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-amber-500"></div>
+                    <div><label class="block text-sm font-bold text-slate-700 mb-1">Gender *</label><select id="newGender" class="w-full px-4 py-2 border border-slate-300 rounded-md"><option value="">Select...</option><option>Male</option><option>Female</option></select></div>
+                    <div><label class="block text-sm font-bold text-slate-700 mb-1">Age Group *</label><select id="newAge" class="w-full px-4 py-2 border border-slate-300 rounded-md"><option value="">Select...</option><option>18-25</option><option>26-35</option><option>36-50</option><option>51+</option></select></div>
+                    <div><label class="block text-sm font-bold text-slate-700 mb-1">CCF Satellite / Church</label><input type="text" id="newCCF" class="w-full px-4 py-2 border border-slate-300 rounded-md"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 p-5 bg-slate-50 rounded-lg border border-slate-200">
+                    <div class="md:col-span-2"><label class="block text-sm font-bold text-slate-700 mb-1">Undergone 1-on-1 deliverance with Restore?</label><select id="newCounseling" class="w-full px-4 py-2 border border-slate-300 rounded-md"><option>No</option><option>Yes</option></select></div>
+                    <div><label class="block text-sm font-bold text-slate-700 mb-1">If yes, counselor name?</label><input type="text" id="newCounselorName" class="w-full px-4 py-2 border border-slate-300 rounded-md"></div>
+                    <div><label class="block text-sm font-bold text-slate-700 mb-1">If yes, what year?</label><input type="text" id="newCounselingYear" class="w-full px-4 py-2 border border-slate-300 rounded-md"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div><label class="block text-sm font-bold text-slate-700 mb-1">Part of a Dgroup?</label><select id="newDgroup" class="w-full px-4 py-2 border border-slate-300 rounded-md"><option>Yes</option><option>No</option></select></div>
+                    <div><label class="block text-sm font-bold text-slate-700 mb-1">Attended Restore before?</label><select id="newPastEvents" class="w-full px-4 py-2 border border-slate-300 rounded-md"><option>No</option><option>Yes</option></select></div>
+                    <div class="md:col-span-2"><label class="block text-sm font-bold text-slate-700 mb-1">How did you learn about Restore?</label><input type="text" id="newHowLearned" class="w-full px-4 py-2 border border-slate-300 rounded-md"></div>
+                    <div class="md:col-span-2"><label class="block text-sm font-bold text-slate-700 mb-1">Advance Panel Question</label><textarea id="newQuestion" rows="3" class="w-full px-4 py-2 border border-slate-300 rounded-md"></textarea></div>
+                </div>
+
+                <button onclick="submitNew()" id="newSubmitBtn" class="w-full bg-slate-900 hover:bg-amber-600 text-white font-bold py-4 rounded-lg shadow-lg text-lg transition">Register & Confirm Attendance <i class="fas fa-check ml-2"></i></button>
+            </div>
+
+            <div id="successMsg" class="hidden text-center py-12">
+                <i class="fas fa-check-double text-6xl text-emerald-500 mb-4"></i>
+                <h2 class="text-4xl font-bold text-slate-800 mb-3 serif">Hallelujah!</h2>
+                <p class="text-slate-600 text-lg mb-8">Your registration is confirmed.</p>
+                <button onclick="location.reload()" class="bg-white border-2 border-slate-300 text-slate-700 font-bold py-2 px-6 rounded-lg hover:bg-slate-50">Register Another Person</button>
+            </div>
+        </section>
+
+        <section id="adminDashboard" class="hidden bg-white rounded-xl shadow-2xl p-6 md:p-8 border-t-8 border-slate-900">
+            <div class="flex justify-between items-center mb-8 border-b border-slate-200 pb-4">
+                <h3 class="text-2xl font-bold text-slate-800 serif">On-Site Check-in</h3>
+                <button onclick="closeAdmin()" class="text-slate-500 hover:text-slate-800 bg-slate-100 px-4 py-2 rounded-lg">Close</button>
+            </div>
+            <input type="text" id="searchRoster" placeholder="Search name..." class="w-full px-4 py-3 border border-slate-300 rounded-lg mb-6" onkeyup="filterTable()">
+            <div class="overflow-x-auto rounded-lg border border-slate-200">
+                <table class="min-w-full bg-white text-left">
+                    <thead class="bg-slate-900 text-white">
+                        <tr><th class="py-3 px-4">Name</th><th class="py-3 px-4">Email</th><th class="py-3 px-4 text-center">Status</th><th class="py-3 px-4 text-center">Action</th></tr>
+                    </thead>
+                    <tbody id="rosterBody" class="divide-y divide-slate-200"></tbody>
+                </table>
+            </div>
+            <button onclick="loadRoster()" class="mt-4 text-sm text-slate-500 hover:text-amber-600"><i class="fas fa-sync-alt mr-1"></i> Refresh</button>
+        </section>
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 py-8 text-center mt-auto">
+        <p class="font-serif text-amber-500 mb-2 text-lg">Restore Deliverance Ministry</p>
+        <button onclick="promptAdmin()" class="text-slate-600 text-xs hover:text-white mt-4"><i class="fas fa-lock mr-1"></i> Admin Access</button>
+    </footer>
+
+    <script>
+        // =======================================================================
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwlal0DgR5aKqvLkkyK2PR5QVZdmZJH4Koc4T0r8Dgw944pIOKxzqFonr3MqS6G1ozkZw/exec"; 
+        // =======================================================================
+
+        let databaseNames = [];
+
+        // 1. INITIALIZE SYSTEM
+        document.addEventListener("DOMContentLoaded", async () => {
+            try {
+                const response = await fetch(WEB_APP_URL, { method: 'POST', body: JSON.stringify({ action: "init" }) });
+                const data = await response.json();
+                
+                // Hide loader
+                document.getElementById('loadingView').classList.add('hidden');
+
+                // Inject Settings from Google Sheet
+                document.getElementById('displayTitle').innerText = data.settings.title;
+                document.getElementById('displayDate').innerHTML = `<i class="fas fa-calendar-alt mr-2"></i> ` + data.settings.date;
+                document.getElementById('hero-section').style.backgroundImage = `linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.9)), url('${data.settings.poster}')`;
+                
+                // Route based on Status
+                if(data.settings.status.toLowerCase() === "closed") {
+                    document.getElementById('closedView').classList.remove('hidden');
+                } else {
+                    document.getElementById('step1').classList.remove('hidden');
+                    databaseNames = data.names;
+                }
+            } catch(e) {
+                document.getElementById('loadingView').innerHTML = `<p class="text-red-500">Error connecting to server. Please refresh.</p>`;
+            }
+        });
+
+        // 2. AUTOCOMPLETE
+        const searchInput = document.getElementById("searchName");
+        const listDiv = document.getElementById("autocomplete-list");
+
+        searchInput.addEventListener("input", function() {
+            let val = this.value;
+            listDiv.innerHTML = "";
+            if (!val) { listDiv.classList.add("hidden"); return; }
+            
+            listDiv.classList.remove("hidden");
+            let matches = 0;
+            
+            for (let i = 0; i < databaseNames.length; i++) {
+                if (databaseNames[i].name.toLowerCase().includes(val.toLowerCase())) {
+                    matches++;
+                    let option = document.createElement("DIV");
+                    const regex = new RegExp(`(${val})`, "gi");
+                    option.innerHTML = databaseNames[i].name.replace(regex, "<strong class='text-amber-600'>$1</strong>");
+                    option.addEventListener("click", () => selectReturningUser(databaseNames[i]));
+                    listDiv.appendChild(option);
+                }
+            }
+            if(matches === 0) listDiv.innerHTML = `<div class="italic text-slate-500">No match. Register as First-Timer below.</div>`;
+        });
+        document.addEventListener("click", e => { if (e.target !== searchInput) listDiv.classList.add("hidden"); });
+
+        // 3. NAVIGATION
+        function selectReturningUser(userObj) {
+            document.getElementById('step1').classList.add('hidden');
+            document.getElementById('welcomeName').innerText = userObj.name;
+            document.getElementById('retRow').value = userObj.row;
+            document.getElementById('returningForm').classList.remove('hidden');
+        }
+        function showNewForm() {
+            document.getElementById('step1').classList.add('hidden');
+            document.getElementById('newForm').classList.remove('hidden');
+            document.getElementById('newName').value = document.getElementById('searchName').value;
+        }
+        function resetToSearch() {
+            document.getElementById('returningForm').classList.add('hidden');
+            document.getElementById('newForm').classList.add('hidden');
+            document.getElementById('step1').classList.remove('hidden');
+        }
+
+        // 4. FORM SUBMISSIONS
+        async function submitReturning() {
+            document.getElementById('retSubmitBtn').innerHTML = "Processing...";
+            await fetch(WEB_APP_URL, { method: 'POST', body: JSON.stringify({
+                action: "update_returning", row: document.getElementById('retRow').value, question: document.getElementById('retQuestion').value
+            })});
+            document.getElementById('returningForm').classList.add('hidden'); document.getElementById('successMsg').classList.remove('hidden');
+        }
+
+        async function submitNew() {
+            if(!document.getElementById('newName').value || !document.getElementById('newEmail').value) return alert("Name and Email required.");
+            document.getElementById('newSubmitBtn').innerHTML = "Processing...";
+            await fetch(WEB_APP_URL, { method: 'POST', body: JSON.stringify({
+                action: "register_new", fullName: document.getElementById('newName').value, email: document.getElementById('newEmail').value,
+                phone: document.getElementById('newPhone').value, gender: document.getElementById('newGender').value, ageGroup: document.getElementById('newAge').value,
+                counseling: document.getElementById('newCounseling').value, counselorName: document.getElementById('newCounselorName').value,
+                counselingYear: document.getElementById('newCounselingYear').value, ccfSatellite: document.getElementById('newCCF').value,
+                dgroup: document.getElementById('newDgroup').value, pastEvents: document.getElementById('newPastEvents').value,
+                howLearned: document.getElementById('newHowLearned').value, question: document.getElementById('newQuestion').value
+            })});
+            document.getElementById('newForm').classList.add('hidden'); document.getElementById('successMsg').classList.remove('hidden');
+        }
+
+        // 5. ADMIN TOOLS
+        function promptAdmin() {
+            if (prompt("Admin Passcode:") === "admin123") {
+                document.getElementById('mainCard').classList.add('hidden');
+                document.getElementById('adminDashboard').classList.remove('hidden');
+                loadRoster();
+            }
+        }
+        function closeAdmin() {
+            document.getElementById('adminDashboard').classList.add('hidden');
+            document.getElementById('mainCard').classList.remove('hidden');
+        }
+        async function loadRoster() {
+            document.getElementById('rosterBody').innerHTML = "<tr><td colspan='4'>Loading...</td></tr>";
+            const response = await fetch(WEB_APP_URL, { method: 'POST', body: JSON.stringify({ action: "get_roster" }) });
+            const roster = await response.json();
+            let html = "";
+            roster.forEach(p => {
+                const checked = p.status.includes("Onsite");
+                html += `<tr class="roster-row"><td class="py-4 px-4 font-bold name-col">${p.name}</td><td class="py-4 px-4">${p.email}</td>
+                <td class="py-4 px-4 text-center"><span class="${checked ? 'text-emerald-600' : 'text-amber-600'}">${p.status}</span></td>
+                <td class="py-4 px-4 text-center">${checked ? 'Done' : `<button onclick="checkIn(${p.row}, event)" class="bg-slate-900 text-white px-3 py-1 rounded">Check-In</button>`}</td></tr>`;
+            });
+            document.getElementById('rosterBody').innerHTML = html;
+        }
+        async function checkIn(r, e) {
+            e.target.outerHTML = `<span>...</span>`;
+            await fetch(WEB_APP_URL, { method: 'POST', body: JSON.stringify({ action: "check_in", row: r }) }); loadRoster(); 
+        }
+        function filterTable() {
+            const f = document.getElementById("searchRoster").value.toUpperCase();
+            const rows = document.getElementsByClassName("roster-row");
+            for (let i = 0; i < rows.length; i++) rows[i].style.display = rows[i].querySelector(".name-col").innerText.toUpperCase().indexOf(f) > -1 ? "" : "none";
+        }
+    </script>
+</body>
+</html>
