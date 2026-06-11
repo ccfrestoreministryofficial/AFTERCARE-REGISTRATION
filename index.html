@@ -11,7 +11,7 @@
         
         body { 
             font-family: 'Inter', sans-serif; 
-            background-color: #f0fdf4; /* Light mint base */
+            background-color: #f0fdf4; 
             color: #064e3b; 
         }
         h1, h2, h3, h4, .serif { font-family: 'Playfair Display', serif; }
@@ -66,6 +66,19 @@
         .bible-verse::before, .bible-verse::after { content: "“"; font-size: 1.4em; color: #fbbf24; opacity: 0.8; margin: 0 0.1em; vertical-align: bottom;}
         .bible-verse::after { content: "”"; vertical-align: top;}
         .bible-ref { font-family: 'Inter', sans-serif; font-style: normal; text-transform: uppercase; letter-spacing: 0.15em; font-size: 0.75em; font-weight: 700; color: #047857; margin-top: 0.5rem; display: block;}
+
+        /* Ticket styling */
+        .digital-pass {
+            background-image: radial-gradient(circle at top left, transparent 10px, #ffffff 11px),
+                              radial-gradient(circle at top right, transparent 10px, #ffffff 11px),
+                              radial-gradient(circle at bottom left, transparent 10px, #ffffff 11px),
+                              radial-gradient(circle at bottom right, transparent 10px, #ffffff 11px);
+            background-size: 51% 51%;
+            background-repeat: no-repeat;
+            background-position: top left, top right, bottom left, bottom right;
+            border: 1px solid #d1fae5;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 <body class="antialiased flex flex-col min-h-screen relative">
@@ -146,19 +159,35 @@
                 </div>
             </div>
 
-            <div id="alreadyConfirmedView" class="hidden animate-fade-in text-center py-10">
-                <div class="inline-block p-5 rounded-full bg-amber-50 mb-6 border border-amber-200 shadow-sm">
-                    <i class="fas fa-ticket-alt text-6xl text-amber-500"></i>
-                </div>
-                <h2 class="text-3xl font-bold text-emerald-900 mb-4 serif">Already Confirmed!</h2>
-                <p class="text-emerald-700 text-lg mb-6 font-medium max-w-md mx-auto">Hi <strong id="confirmedName" class="text-emerald-900 border-b-2 border-amber-400"></strong>, see you on the day of the event!</p>
+            <div id="alreadyConfirmedView" class="hidden animate-fade-in text-center py-8">
+                <h2 class="text-3xl font-bold text-emerald-900 mb-2 serif">Already Confirmed!</h2>
+                <p class="text-emerald-700 text-base mb-6 font-medium max-w-md mx-auto">You have successfully secured your spot. See you on the day of the event!</p>
                 
-                <div class="bg-amber-50/80 border-2 border-amber-400 border-dashed rounded-xl p-6 mb-8 max-w-sm mx-auto shadow-sm">
-                    <p class="text-amber-800 font-bold text-sm uppercase tracking-widest mb-2"><i class="fas fa-camera mr-2"></i>Screenshot Required</p>
-                    <p class="text-amber-900 text-sm font-medium">Please screenshot this page and show it at the entrance as proof of your attendance confirmation.</p>
+                <div class="digital-pass max-w-sm mx-auto mb-4 relative text-left">
+                    <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-amber-400 to-amber-600 rounded-t-xl"></div>
+                    <div class="p-6">
+                        <div class="text-center mb-4 border-b border-emerald-100 pb-4">
+                            <i class="fas fa-ticket-alt text-3xl text-amber-500 mb-2"></i>
+                            <h4 class="text-lg font-bold text-emerald-900 uppercase tracking-widest">Registration Pass</h4>
+                        </div>
+                        <div class="mb-4">
+                            <p class="text-[10px] font-bold text-emerald-500 uppercase tracking-widest mb-1">Attendee Name</p>
+                            <p id="ticketName1" class="text-lg font-bold text-emerald-950 uppercase"></p>
+                        </div>
+                        <div class="mb-4">
+                            <p class="text-[10px] font-bold text-emerald-500 uppercase tracking-widest mb-1">Event Details</p>
+                            <p id="ticketEvent1" class="text-sm font-bold text-emerald-900 leading-tight mb-1"></p>
+                            <p id="ticketDate1" class="text-xs font-semibold text-emerald-700 leading-tight"></p>
+                        </div>
+                        <div class="bg-emerald-50 text-emerald-800 text-xs font-bold uppercase tracking-widest py-2 rounded text-center border border-emerald-100">
+                            Status: Confirmed <i class="fas fa-check-circle ml-1 text-emerald-600"></i>
+                        </div>
+                    </div>
                 </div>
                 
-                <button onclick="location.reload()" class="bg-white border border-emerald-200 text-emerald-800 font-bold py-3 px-8 rounded-lg hover:bg-emerald-50 transition-colors shadow-sm uppercase tracking-wide text-sm"><i class="fas fa-arrow-left mr-2"></i> Return to Home</button>
+                <p class="text-emerald-700 text-sm font-bold tracking-wide mb-8 bg-white inline-block px-4 py-2 rounded-full shadow-sm border border-emerald-100"><i class="fas fa-camera mr-2 text-amber-500"></i>Please take a screenshot of this pass to present at the entrance.</p>
+                <br>
+                <button onclick="location.reload()" class="bg-white border border-emerald-200 text-emerald-800 font-bold py-3 px-8 rounded-lg hover:bg-emerald-50 transition-colors shadow-sm uppercase tracking-wide text-xs"><i class="fas fa-arrow-left mr-2"></i> Return to Home</button>
             </div>
 
             <div id="alreadyCheckedInView" class="hidden animate-fade-in text-center py-10">
@@ -189,7 +218,18 @@
                 <button onclick="submitReturning()" id="retSubmitBtn" class="w-full bg-emerald-800 hover:bg-emerald-900 text-white font-bold py-4 rounded-xl shadow-lg text-lg transition-colors uppercase tracking-widest">Confirm Attendance <i class="fas fa-arrow-right ml-2"></i></button>
             </div>
 
-            <div id="newForm" class="hidden animate-fade-in">
+            <div id="newForm" class="hidden animate-fade-in relative">
+                
+                <div id="duplicateWarning" class="hidden absolute top-0 left-0 w-full h-full bg-white/95 backdrop-blur-md z-50 flex flex-col items-center justify-center rounded-xl p-8 text-center animate-fade-in border-4 border-amber-400 shadow-2xl">
+                    <i class="fas fa-exclamation-circle text-7xl text-amber-500 mb-4 animate-pulse"></i>
+                    <h3 class="text-3xl font-bold text-emerald-900 serif mb-2">Record Detected!</h3>
+                    <p class="text-emerald-700 font-medium text-lg max-w-md mx-auto">We found your profile in our Data Hub. Locking this form to prevent duplicate entry.</p>
+                    <div class="mt-6 flex items-center justify-center gap-3 bg-emerald-50 px-6 py-3 rounded-full border border-emerald-200">
+                        <i class="fas fa-spinner fa-spin text-emerald-600"></i>
+                        <span class="text-emerald-800 font-bold uppercase tracking-widest text-sm">Redirecting to your status...</span>
+                    </div>
+                </div>
+
                 <div class="flex justify-between items-center mb-8 border-b border-emerald-100 pb-6">
                     <h3 class="text-3xl font-bold text-emerald-900 serif">First Time Registration</h3>
                     <button onclick="resetToSearch()" class="text-sm text-emerald-600 hover:text-emerald-900 font-bold bg-emerald-50 px-4 py-2 rounded-md shadow-sm transition-colors border border-emerald-100"><i class="fas fa-arrow-left mr-1"></i> Back</button>
@@ -198,6 +238,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                     <div><label class="block text-xs font-bold text-emerald-800 mb-2 uppercase tracking-widest">Full Name *</label><input type="text" id="newName" class="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-amber-400 bg-white shadow-sm font-medium text-emerald-900"></div>
                     <div><label class="block text-xs font-bold text-emerald-800 mb-2 uppercase tracking-widest">Email Address *</label><input type="email" id="newEmail" class="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-amber-400 bg-white shadow-sm font-medium text-emerald-900"></div>
+                    
                     <div><label class="block text-xs font-bold text-emerald-800 mb-2 uppercase tracking-widest">Cellphone/Viber *</label><input type="text" id="newPhone" class="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-amber-400 bg-white shadow-sm font-medium text-emerald-900"></div>
                     <div><label class="block text-xs font-bold text-emerald-800 mb-2 uppercase tracking-widest">Gender *</label><select id="newGender" class="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-amber-400 bg-white shadow-sm font-medium text-emerald-900"><option value="">Select...</option><option>Male</option><option>Female</option></select></div>
                     <div><label class="block text-xs font-bold text-emerald-800 mb-2 uppercase tracking-widest">Age Group *</label><select id="newAge" class="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-amber-400 bg-white shadow-sm font-medium text-emerald-900"><option value="">Select...</option><option>18-25</option><option>26-35</option><option>36-50</option><option>51+</option></select></div>
@@ -220,11 +261,35 @@
                 <button onclick="submitNew()" id="newSubmitBtn" class="w-full bg-emerald-800 hover:bg-emerald-900 text-white font-bold py-4 rounded-xl shadow-lg text-lg transition-colors uppercase tracking-widest">Register & Confirm Attendance <i class="fas fa-check ml-2"></i></button>
             </div>
 
-            <div id="successMsg" class="hidden text-center py-16">
-                <i class="fas fa-check-circle text-7xl text-emerald-500 mb-6 drop-shadow-sm transition-all scale-110"></i>
-                <h2 class="text-4xl font-bold text-emerald-900 mb-4 serif">Hallelujah!</h2>
-                <p class="text-emerald-700 text-lg mb-10 font-medium">Your registration is confirmed. Prepare your heart for an amazing time in the Lord.</p>
-                <button onclick="location.reload()" class="bg-white border border-emerald-200 text-emerald-800 font-bold py-3 px-8 rounded-lg hover:bg-emerald-50 transition-colors shadow-sm uppercase tracking-wide text-sm">Register Another Person</button>
+            <div id="successMsg" class="hidden text-center py-8">
+                <h2 class="text-3xl font-bold text-emerald-900 mb-2 serif">Hallelujah!</h2>
+                <p class="text-emerald-700 text-base mb-6 font-medium max-w-md mx-auto">Your registration is confirmed. Prepare your heart for an amazing time in the Lord.</p>
+                
+                <div class="digital-pass max-w-sm mx-auto mb-4 relative text-left">
+                    <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-amber-400 to-amber-600 rounded-t-xl"></div>
+                    <div class="p-6">
+                        <div class="text-center mb-4 border-b border-emerald-100 pb-4">
+                            <i class="fas fa-ticket-alt text-3xl text-amber-500 mb-2"></i>
+                            <h4 class="text-lg font-bold text-emerald-900 uppercase tracking-widest">Registration Pass</h4>
+                        </div>
+                        <div class="mb-4">
+                            <p class="text-[10px] font-bold text-emerald-500 uppercase tracking-widest mb-1">Attendee Name</p>
+                            <p id="ticketName2" class="text-lg font-bold text-emerald-950 uppercase"></p>
+                        </div>
+                        <div class="mb-4">
+                            <p class="text-[10px] font-bold text-emerald-500 uppercase tracking-widest mb-1">Event Details</p>
+                            <p id="ticketEvent2" class="text-sm font-bold text-emerald-900 leading-tight mb-1"></p>
+                            <p id="ticketDate2" class="text-xs font-semibold text-emerald-700 leading-tight"></p>
+                        </div>
+                        <div class="bg-emerald-50 text-emerald-800 text-xs font-bold uppercase tracking-widest py-2 rounded text-center border border-emerald-100">
+                            Status: Confirmed <i class="fas fa-check-circle ml-1 text-emerald-600"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <p class="text-emerald-700 text-sm font-bold tracking-wide mb-8 bg-white inline-block px-4 py-2 rounded-full shadow-sm border border-emerald-100"><i class="fas fa-camera mr-2 text-amber-500"></i>Please take a screenshot of this pass to present at the entrance.</p>
+                <br>
+                <button onclick="location.reload()" class="bg-white border border-emerald-200 text-emerald-800 font-bold py-3 px-8 rounded-lg hover:bg-emerald-50 transition-colors shadow-sm uppercase tracking-wide text-xs"><i class="fas fa-user-plus mr-2"></i> Register Another Person</button>
             </div>
         </section>
 
@@ -307,6 +372,8 @@
         // =======================================================================
 
         let databaseNames = [];
+        let currentEventTitle = "";
+        let currentEventDate = "";
 
         function convertDriveLink(url) {
             if (url && url.includes("drive.google.com/file/d/")) {
@@ -318,7 +385,6 @@
 
         document.addEventListener("DOMContentLoaded", async () => {
             try {
-                // Fetch settings AND roster simultaneously to securely get user statuses
                 const [initRes, rosterRes] = await Promise.all([
                     fetch(WEB_APP_URL, { method: 'POST', body: JSON.stringify({ action: "init" }) }),
                     fetch(WEB_APP_URL, { method: 'POST', body: JSON.stringify({ action: "get_roster" }) })
@@ -329,8 +395,12 @@
                 
                 document.getElementById('loadingView').classList.add('hidden');
 
-                document.getElementById('displayTitle').innerText = data.settings.title;
-                document.getElementById('displayDate').innerHTML = `<i class="fas fa-calendar-alt mr-2"></i> ` + data.settings.date;
+                // Store globally for the tickets
+                currentEventTitle = data.settings.title;
+                currentEventDate = data.settings.date;
+
+                document.getElementById('displayTitle').innerText = currentEventTitle;
+                document.getElementById('displayDate').innerHTML = `<i class="fas fa-calendar-alt mr-2"></i> ` + currentEventDate;
                 
                 if(data.settings.poster && data.settings.poster.trim() !== "") {
                     const posterImg = document.getElementById('eventPosterDisplay');
@@ -343,12 +413,13 @@
                 } else {
                     document.getElementById('step1').classList.remove('hidden');
                     
-                    // Map the statuses to the database names for the autocomplete check
+                    // Map emails and statuses securely 
                     databaseNames = data.names.map(person => {
                         const rosterEntry = rosterData.find(r => r.row === person.row);
-                        return {
-                            ...person,
-                            status: rosterEntry ? rosterEntry.status : "" // "" means they haven't confirmed yet for this specific event
+                        return { 
+                            ...person, 
+                            email: rosterEntry ? rosterEntry.email : "",
+                            status: rosterEntry ? rosterEntry.status : "" 
                         };
                     });
                 }
@@ -357,6 +428,54 @@
             }
         });
 
+        // ----------------------------------------------------
+        // DUPLICATE ENTRY & ACTIVE KEYSTROKE DETECTION LOGIC
+        // ----------------------------------------------------
+        function handleDuplicateCheck() {
+            const nameVal = document.getElementById('newName').value.trim().toLowerCase();
+            const emailVal = document.getElementById('newEmail').value.trim().toLowerCase();
+
+            if (!nameVal && !emailVal) return;
+
+            const matchedUser = databaseNames.find(u => {
+                const matchName = nameVal && u.name.toLowerCase() === nameVal;
+                const matchEmail = emailVal && u.email && u.email.toLowerCase() === emailVal;
+                return matchName || matchEmail; // Triggers if either perfectly matches
+            });
+
+            if (matchedUser) {
+                // Instantly lock the form inputs
+                document.getElementById('newName').disabled = true;
+                document.getElementById('newEmail').disabled = true;
+                
+                // Show the secure warning UI
+                document.getElementById('duplicateWarning').classList.remove('hidden');
+                document.getElementById('newSubmitBtn').disabled = true;
+
+                // After a short delay, route them to their actual status
+                setTimeout(() => {
+                    // Reset form state in case they navigate back later
+                    document.getElementById('newName').disabled = false;
+                    document.getElementById('newEmail').disabled = false;
+                    document.getElementById('newName').value = "";
+                    document.getElementById('newEmail').value = "";
+                    document.getElementById('duplicateWarning').classList.add('hidden');
+                    document.getElementById('newSubmitBtn').disabled = false;
+                    
+                    document.getElementById('newForm').classList.add('hidden');
+                    selectReturningUser(matchedUser); // Safely routes them!
+                }, 2800);
+            }
+        }
+
+        // Attach the active listeners to the New Form inputs
+        document.getElementById('newName').addEventListener('input', handleDuplicateCheck);
+        document.getElementById('newEmail').addEventListener('input', handleDuplicateCheck);
+
+
+        // ----------------------------------------------------
+        // REGULAR SEARCH BAR LOGIC
+        // ----------------------------------------------------
         const searchInput = document.getElementById("searchName");
         const listDiv = document.getElementById("autocomplete-list");
 
@@ -385,15 +504,16 @@
         function selectReturningUser(userObj) {
             document.getElementById('step1').classList.add('hidden');
             
-            // NEW LOGIC: Intelligent Routing based on Status
             if (userObj.status === "Checked-In (Onsite)") {
                 document.getElementById('checkedInName').innerText = userObj.name;
                 document.getElementById('alreadyCheckedInView').classList.remove('hidden');
             } else if (userObj.status === "Confirmed") {
-                document.getElementById('confirmedName').innerText = userObj.name;
+                // Populate Pass Details
+                document.getElementById('ticketName1').innerText = userObj.name;
+                document.getElementById('ticketEvent1').innerText = currentEventTitle;
+                document.getElementById('ticketDate1').innerText = currentEventDate;
                 document.getElementById('alreadyConfirmedView').classList.remove('hidden');
             } else {
-                // They have not confirmed yet for this specific gathering
                 document.getElementById('welcomeName').innerText = userObj.name;
                 document.getElementById('retRow').value = userObj.row;
                 document.getElementById('returningForm').classList.remove('hidden');
@@ -416,21 +536,38 @@
             await fetch(WEB_APP_URL, { method: 'POST', body: JSON.stringify({
                 action: "update_returning", row: document.getElementById('retRow').value, question: document.getElementById('retQuestion').value
             })});
-            document.getElementById('returningForm').classList.add('hidden'); document.getElementById('successMsg').classList.remove('hidden');
+            
+            // Populate Ticket and show Success
+            document.getElementById('ticketName2').innerText = document.getElementById('welcomeName').innerText;
+            document.getElementById('ticketEvent2').innerText = currentEventTitle;
+            document.getElementById('ticketDate2').innerText = currentEventDate;
+            
+            document.getElementById('returningForm').classList.add('hidden'); 
+            document.getElementById('successMsg').classList.remove('hidden');
         }
 
         async function submitNew() {
             if(!document.getElementById('newName').value || !document.getElementById('newEmail').value) return alert("Name and Email are required fields.");
             document.getElementById('newSubmitBtn').innerHTML = `<i class="fas fa-spinner fa-spin mr-2"></i> Processing...`;
+            
+            const registrantName = document.getElementById('newName').value;
+            
             await fetch(WEB_APP_URL, { method: 'POST', body: JSON.stringify({
-                action: "register_new", fullName: document.getElementById('newName').value, email: document.getElementById('newEmail').value,
+                action: "register_new", fullName: registrantName, email: document.getElementById('newEmail').value,
                 phone: document.getElementById('newPhone').value, gender: document.getElementById('newGender').value, ageGroup: document.getElementById('newAge').value,
                 counseling: document.getElementById('newCounseling').value, counselorName: document.getElementById('newCounselorName').value,
                 counselingYear: document.getElementById('newCounselingYear').value, ccfSatellite: document.getElementById('newCCF').value,
                 dgroup: document.getElementById('newDgroup').value, pastEvents: document.getElementById('newPastEvents').value,
                 howLearned: document.getElementById('newHowLearned').value, question: document.getElementById('newQuestion').value
             })});
-            document.getElementById('newForm').classList.add('hidden'); document.getElementById('successMsg').classList.remove('hidden');
+            
+            // Populate Ticket and show Success
+            document.getElementById('ticketName2').innerText = registrantName;
+            document.getElementById('ticketEvent2').innerText = currentEventTitle;
+            document.getElementById('ticketDate2').innerText = currentEventDate;
+
+            document.getElementById('newForm').classList.add('hidden'); 
+            document.getElementById('successMsg').classList.remove('hidden');
         }
 
         function promptAdmin() {
