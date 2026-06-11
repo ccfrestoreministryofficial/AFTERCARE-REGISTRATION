@@ -3,76 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Restore After Care | Registration & Data Hub</title>
+    <title>CCF Restore Deliverance Ministry | Registration</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
         
-        body { font-family: 'Inter', sans-serif; background-color: #f0fdf4; /* Fallback light green */ }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #f8fafc; 
+            color: #064e3b; /* Deep emerald base text color */
+        }
         h1, h2, h3, h4, .serif { font-family: 'Playfair Display', serif; }
         
-        /* 1. INTERNATIONALLY AESTHETIC BACKGROUND COLLAGE (REQUESTED) */
-        /* Fixed, washed-out photo collage texture behind everything */
-        #fixed-collage-bg {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1; /* Placed behind content */
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(2, 1fr);
-            opacity: 0.08; /* Heavily washed out */
-            filter: grayscale(100%) blur(1px); /* Professional grayscale, not messy */
+        /* 1. LIGHT, ETHEREAL WASHED-OUT COLLAGE BACKGROUND */
+        #collage-layer {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -2;
+            display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 1fr);
+            opacity: 0.15; /* Soft texture */
+            filter: grayscale(50%) sepia(20%) hue-rotate(90deg); /* Subtle green tinting */
         }
-        .collage-tile {
-            background-size: cover;
-            background-position: center;
-            width: 100%; height: 100%;
+        .collage-tile { background-size: cover; background-position: center; width: 100%; height: 100%; }
+        
+        /* White/Mint Frosted Overlay to push the collage to the background */
+        #overlay-layer {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background: rgba(240, 253, 244, 0.88); /* Light mint frosted overlay */
+            backdrop-filter: blur(3px);
         }
 
-        /* 2. WORLD-CLASS "GLASSMORPHISM" UI CARDS */
-        /* Semi-transparent frosted glass panels floating over collage */
+        /* 2. WORLD-CLASS UI CARDS */
         .glass-panel {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 10px 30px rgba(6, 78, 59, 0.1);
-            border-radius: 1.5rem; /* Large rounded corners */
-        }
-
-        .hero-header {
-            background: linear-gradient(135deg, rgba(6, 78, 59, 0.95) 0%, rgba(2, 44, 34, 0.95) 100%);
+            background: rgba(255, 255, 255, 0.98);
+            border: 1px solid rgba(16, 185, 129, 0.1);
+            box-shadow: 0 20px 40px rgba(6, 78, 59, 0.08);
+            border-radius: 1.5rem;
         }
 
         .autocomplete-wrapper { position: relative; }
         .autocomplete-items {
             position: absolute; border: 1px solid #10b981; border-top: none;
             z-index: 99; top: 100%; left: 0; right: 0; background-color: #fff;
-            max-height: 250px; overflow-y: auto; border-radius: 0 0 8px 8px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.2);
+            max-height: 250px; overflow-y: auto; border-radius: 0 0 8px 8px; box-shadow: 0 15px 30px rgba(0,0,0,0.1);
         }
-        .autocomplete-items div { padding: 12px 16px; cursor: pointer; border-bottom: 1px solid #ecfdf5; color: #064e3b; font-weight: 500; }
-        .autocomplete-items div:hover { background-color: #fef3c7; color: #b45309; }
+        .autocomplete-items div { padding: 12px 16px; cursor: pointer; border-bottom: 1px solid #f0fdf4; color: #064e3b; font-weight: 500; transition: background 0.2s; }
+        .autocomplete-items div:hover { background-color: #fef3c7; color: #d97706; }
         .hidden { display: none !important; }
         
-        /* Spinner */
-        .loader { border: 4px solid #064e3b; border-top: 4px solid #fbbf24; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto; }
+        .loader { border: 4px solid #e2e8f0; border-top: 4px solid #fbbf24; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         
-        /* Photo Gallery Hover */
-        .gallery-img-container { transition: transform 0.3s ease, box-shadow 0.3s ease; }
-        .gallery-img-container:hover { transform: scale(1.03); box-shadow: 0 20px 40px rgba(6, 78, 59, 0.4); z-index: 10; position: relative; }
+        .gallery-img-container { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s; }
+        .gallery-img-container:hover { transform: translateY(-8px); box-shadow: 0 25px 50px -12px rgba(6, 78, 59, 0.25); z-index: 10; position: relative; }
     
-        /* BIBLE VERSE TYPOGRAPHY */
-        .bible-verse { font-family: 'Playfair Display', serif; font-style: italic; color: #fbbf24; font-weight: 500; text-align: center; display: block; width: 100%; }
-        .bible-verse::before, .bible-verse::after { content: "“"; font-size: 1.2em; opacity: 0.5; margin: 0 0.1em; }
-        .bible-verse::after { content: "”"; }
-        .bible-ref { font-family: 'Inter', sans-serif; font-style: normal; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.8em; font-weight: 700; color: rgba(251, 191, 36, 0.7); }
+        /* ELEGANT BIBLE VERSE TYPOGRAPHY */
+        .bible-verse { font-family: 'Playfair Display', serif; font-style: italic; color: #064e3b; font-weight: 500; text-align: center; display: block; width: 100%; line-height: 1.6; }
+        .bible-verse::before, .bible-verse::after { content: "“"; font-size: 1.4em; color: #fbbf24; opacity: 0.8; margin: 0 0.1em; vertical-align: bottom;}
+        .bible-verse::after { content: "”"; vertical-align: top;}
+        .bible-ref { font-family: 'Inter', sans-serif; font-style: normal; text-transform: uppercase; letter-spacing: 0.15em; font-size: 0.75em; font-weight: 700; color: #047857; margin-top: 0.5rem; display: block;}
     </style>
 </head>
-<body class="antialiased text-emerald-950 flex flex-col min-h-screen relative">
+<body class="antialiased flex flex-col min-h-screen relative">
 
-    <div id="fixed-collage-bg">
+    <div id="collage-layer">
         <div class="collage-tile" style="background-image: url('https://scontent.fmnl17-1.fna.fbcdn.net/v/t39.30808-6/687036979_122187381848801335_8705664737008705459_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx2048x1182&ctp=s2048x1182&_nc_cat=101&ccb=1-7&_nc_sid=f727a1&_nc_eui2=AeFyqhuMlKePe_TaBAqKoyrEPbETmiw9RVU9sROaLD1FVcPyNLsJqr2xJ-zntyi2p8USmBMNVC7hsN2tlmE-fInW&_nc_ohc=VAzowUHsqeQQ7kNvwG6rCmy&_nc_oc=AdogCmafchM6ncMdEqV_uziMSj58uuq27rrQMZW9aL8Q_p3wpc8lOPSp96BM-ckKrco&_nc_zt=23&_nc_ht=scontent.fmnl17-1.fna&_nc_gid=6zaU81P5B1O2mMsZzEhi8g&_nc_ss=7b2a8&oh=00_Af_CuEDFMbpJVNqUuAWaYp4dYXSJ-lPWAzrOEFms5a5WVA&oe=6A2FCCAD');"></div>
         <div class="collage-tile" style="background-image: url('https://scontent.fmnl17-3.fna.fbcdn.net/v/t39.30808-6/648852326_122180022254801335_2753708875267114202_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx1920x1080&ctp=s1920x1080&_nc_cat=106&ccb=1-7&_nc_sid=f727a1&_nc_eui2=AeHfE0lXFZdnJwIcTtfRNFDBWRHYnlJ2eSZZEdieUnZ5JkK9AgUOl22dietlyH287JgJONNJ213rnyAIOMrAt0YY&_nc_ohc=VXsKA_UJtC8Q7kNvwGhBcWB&_nc_oc=AdpoN7ch4qHctoeM1EqyXO06SWeqraud_60aP0gwjjqvbyYIJBFzUpzS3KSEu21pfUs&_nc_zt=23&_nc_ht=scontent.fmnl17-3.fna&_nc_gid=C5IJHiD-KdndqzjVma7V8w&_nc_ss=7a2a8&oh=00_Af_h5iYM-fLHf2hEjEb1q2CWW9FH26yXiauB82546sbjFQ&oe=6A2FDCBB');"></div>
         <div class="collage-tile" style="background-image: url('https://scontent.fmnl17-1.fna.fbcdn.net/v/t39.30808-6/593272000_122166437450801335_3199477507902202451_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx2921x1435&ctp=s2921x1435&_nc_cat=100&ccb=1-7&_nc_sid=f727a1&_nc_eui2=AeElVW8vctSX8Fa2cGzPua-9kz3R1ZWGFGmTPdHVlYYUaVz_CTX8c1VNUzq4610Pyj7dz8yAewANobpL4e398poU&_nc_ohc=wOehG4eDKKwQ7kNvwFb-x0x&_nc_oc=AdobLwS9DzIc2al4H5Vw2JfdG-kqw6_sMvWxEYuv0yflJHaz00EL-SdXm2lMicjhEQw&_nc_zt=23&_nc_ht=scontent.fmnl17-1.fna&_nc_gid=WuQVuWTIN-lqF6Ugm8XigA&_nc_ss=7a2a8&oh=00_Af9ZIvjGFlE1khdM9_jukcNGfMeBuLJBPF4RcWdgb_xAhg&oe=6A2FCAF8');"></div>
@@ -80,191 +75,194 @@
         <div class="collage-tile" style="background-image: url('https://scontent.fmnl17-1.fna.fbcdn.net/v/t39.30808-6/687036979_122187381848801335_8705664737008705459_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx2048x1182&ctp=s2048x1182&_nc_cat=101&ccb=1-7&_nc_sid=f727a1&_nc_eui2=AeFyqhuMlKePe_TaBAqKoyrEPbETmiw9RVU9sROaLD1FVcPyNLsJqr2xJ-zntyi2p8USmBMNVC7hsN2tlmE-fInW&_nc_ohc=VAzowUHsqeQQ7kNvwG6rCmy&_nc_oc=AdogCmafchM6ncMdEqV_uziMSj58uuq27rrQMZW9aL8Q_p3wpc8lOPSp96BM-ckKrco&_nc_zt=23&_nc_ht=scontent.fmnl17-1.fna&_nc_gid=6zaU81P5B1O2mMsZzEhi8g&_nc_ss=7b2a8&oh=00_Af_CuEDFMbpJVNqUuAWaYp4dYXSJ-lPWAzrOEFms5a5WVA&oe=6A2FCCAD');"></div>
         <div class="collage-tile" style="background-image: url('https://scontent.fmnl17-1.fna.fbcdn.net/v/t39.30808-6/593272000_122166437450801335_3199477507902202451_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx2921x1435&ctp=s2921x1435&_nc_cat=100&ccb=1-7&_nc_sid=f727a1&_nc_eui2=AeElVW8vctSX8Fa2cGzPua-9kz3R1ZWGFGmTPdHVlYYUaVz_CTX8c1VNUzq4610Pyj7dz8yAewANobpL4e398poU&_nc_ohc=wOehG4eDKKwQ7kNvwFb-x0x&_nc_oc=AdobLwS9DzIc2al4H5Vw2JfdG-kqw6_sMvWxEYuv0yflJHaz00EL-SdXm2lMicjhEQw&_nc_zt=23&_nc_ht=scontent.fmnl17-1.fna&_nc_gid=WuQVuWTIN-lqF6Ugm8XigA&_nc_ss=7a2a8&oh=00_Af9ZIvjGFlE1khdM9_jukcNGfMeBuLJBPF4RcWdgb_xAhg&oe=6A2FCAF8');"></div>
     </div>
+    <div id="overlay-layer"></div>
 
-    <header id="hero-section" class="text-white pt-16 pb-32 text-center px-4 relative z-10 shadow-2xl border-b-4 border-amber-500 rounded-b-3xl">
-        <div class="mb-6 flex justify-center relative z-20">
+    <header class="pt-16 pb-12 text-center px-4 relative z-10 w-full flex flex-col items-center">
+        <div class="mb-6 relative z-20">
             <img src="https://scontent.fmnl17-3.fna.fbcdn.net/v/t39.30808-6/481299737_9246321822069834_618208103750774435_n.jpg?stp=dst-jpg_tt6&cstp=mx567x567&ctp=s567x567&_nc_cat=103&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeHIQz6hEsGUpMM0S_5uvvNnChrbaHxzaVYKGttofHNpVq67OOhJQB-b7VlbeNJJCh5HPvMzjhYWiDIcSUwJGKlY&_nc_ohc=uJImr-iJk_kQ7kNvwFRyAdj&_nc_oc=Adq6Pew8EroKnnkI3YT7lQF32VECHmCzGsrMcKcTUFq9L6_MTw6OTPHIGE4QpeCeMRI&_nc_zt=23&_nc_ht=scontent.fmnl17-3.fna&_nc_gid=0313XmjyxcYC2GIA-VVmpQ&_nc_ss=7b2a8&oh=00_Af_jQTW-UDQyTuF2wku3NYgsSRTe3FfVoLMte9bY-sysHg&oe=6A2FEC5B" 
-                 alt="Restore Logo" class="h-28 w-28 rounded-full border-4 border-amber-500 shadow-xl object-cover">
+                 alt="Restore Logo" class="h-28 w-28 rounded-full border-4 border-amber-400 shadow-xl object-cover hover:scale-105 transition-transform duration-500">
         </div>
-        <h1 class="text-4xl md:text-6xl font-bold mb-3 uppercase tracking-widest text-amber-400 serif relative z-20 drop-shadow-lg">CCF Restore Deliverance Ministry</h1>
         
-        <h2 id="displayTitle" class="text-xl md:text-3xl font-light tracking-wide text-emerald-100 relative z-20">Loading Event...</h2>
-        <p id="displayDate" class="text-amber-400 font-bold mt-3 text-lg md:text-xl tracking-wider relative z-20"><i class="fas fa-calendar-alt mr-2"></i> ---</p>
+        <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold mb-3 uppercase tracking-widest text-amber-500 serif drop-shadow-sm max-w-5xl">CCF Restore Deliverance Ministry</h1>
+        
+        <h2 id="displayTitle" class="text-xl md:text-2xl font-medium tracking-wide text-emerald-800 relative z-20 mt-2">Loading Event Details...</h2>
+        <p id="displayDate" class="text-emerald-600 font-bold mt-2 text-sm md:text-base tracking-widest uppercase relative z-20"><i class="fas fa-calendar-alt mr-2"></i> ---</p>
 
-        <p class="mt-8 px-4 text-center">
-            <span class="bible-verse">It is for freedom that Christ has set us free. Stand firm, then, and do not let yourselves be burdened again by a yoke of slavery.</span>
+        <div class="mt-10 px-4 max-w-3xl mx-auto">
+            <span class="bible-verse text-lg md:text-xl">It is for freedom that Christ has set us free. Stand firm, then, and do not let yourselves be burdened again by a yoke of slavery.</span>
             <span class="bible-ref">Galatians 5:1 NIV</span>
-        </p>
+        </div>
     </header>
 
-    <main class="max-w-4xl mx-auto px-4 flex-grow w-full relative z-20 -mt-24">
+    <main class="max-w-4xl mx-auto px-4 flex-grow w-full relative z-20 mt-6 mb-12">
         
-        <section id="mainCard" class="glass-panel rounded-2xl shadow-2xl p-6 md:p-12 relative">
-            
-            <div id="posterContainer" class="hidden mb-10 text-center">
-                <img id="eventPosterDisplay" src="" alt="Event Poster" class="mx-auto rounded-xl shadow-2xl border-4 border-emerald-800 max-w-full h-auto" style="max-height: 600px;">
+        <section id="mainCard" class="glass-panel p-8 md:p-14 relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600"></div>
+
+            <div id="posterContainer" class="hidden mb-12 text-center">
+                <img id="eventPosterDisplay" src="" alt="Event Poster" class="mx-auto rounded-xl shadow-2xl border border-emerald-100 max-w-full h-auto" style="max-height: 600px;">
             </div>
 
-            <div id="loadingView" class="text-center py-12">
-                <div class="loader mb-4"></div>
-                <h3 class="text-xl font-bold text-emerald-800 serif">Equipping the saints...</h3>
-                <p class="text-emerald-600 font-medium mt-1">Connecting to secure database.</p>
+            <div id="loadingView" class="text-center py-16">
+                <div class="loader mb-6"></div>
+                <h3 class="text-2xl font-bold text-emerald-900 serif">Equipping the saints...</h3>
+                <p class="text-emerald-600 font-medium mt-2">Connecting to secure database.</p>
             </div>
 
-            <div id="closedView" class="hidden text-center py-10">
-                <div class="inline-block p-5 rounded-full bg-emerald-50 mb-6 border-2 border-emerald-200">
+            <div id="closedView" class="hidden text-center py-12">
+                <div class="inline-block p-6 rounded-full bg-emerald-50 mb-6 border border-emerald-100">
                     <i class="fas fa-shield-alt text-6xl text-emerald-700"></i>
                 </div>
-                <h2 class="text-3xl font-bold text-emerald-900 mb-3 serif">Registration is Closed</h2>
+                <h2 class="text-3xl font-bold text-emerald-900 mb-4 serif">Registration is Closed</h2>
                 <p class="text-emerald-700 text-lg max-w-lg mx-auto">Registration for this gathering has concluded or is not yet open. Please stay tuned to our official Facebook page for announcements regarding our next event!</p>
             </div>
 
             <div id="step1" class="hidden">
-                <div class="text-center mb-10 pt-4 px-4">
-                    <h3 class="text-3xl font-bold text-emerald-950 mb-2 serif">Welcome Back to freedom</h3>
-                    <p class="text-emerald-700 font-medium text-lg">Search for your name below. If you've joined us before, your profile will pop up automatically!</p>
+                <div class="text-center mb-10">
+                    <h3 class="text-3xl md:text-4xl font-bold text-emerald-900 mb-3 serif">Welcome Back to Freedom.</h3>
+                    <p class="text-emerald-700 font-medium text-lg">Search for your name below. If you've joined us before, your profile will load automatically.</p>
                     
-                    <p class="mt-6">
-                        <span class="bible-verse" style="font-size: 1.2rem; color: #b45309;">The righteous cry out, and the LORD hears them; he delivers them from all their troubles.</span>
-                        <span class="bible-ref" style="color: #065f46;">Psalm 34:17 NIV</span>
-                    </p>
+                    <div class="mt-8 mb-4 max-w-2xl mx-auto">
+                        <span class="bible-verse text-emerald-800 text-base">The righteous cry out, and the LORD hears them; he delivers them from all their troubles.</span>
+                        <span class="bible-ref">Psalm 34:17 NIV</span>
+                    </div>
                 </div>
                 
-                <div class="max-w-lg mx-auto bg-white/50 p-6 md:p-8 rounded-2xl border border-emerald-100 shadow-inner backdrop-blur-sm">
-                    <label class="block text-sm font-bold text-emerald-900 mb-2 uppercase tracking-wide">Search Your Full Name</label>
+                <div class="max-w-lg mx-auto">
+                    <label class="block text-xs font-bold text-emerald-800 mb-2 uppercase tracking-widest">Search Your Full Name</label>
                     <div class="autocomplete-wrapper mb-6">
-                        <div class="relative">
-                            <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-emerald-600"><i class="fas fa-search"></i></span>
-                            <input type="text" id="searchName" placeholder="Start typing your name..." class="w-full pl-12 pr-4 py-4 text-lg border-2 border-emerald-300 rounded-lg focus:ring-amber-500 focus:border-amber-500 shadow-sm transition-all text-emerald-950 font-medium bg-white/80" autocomplete="off">
+                        <div class="relative group">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-emerald-400 group-focus-within:text-amber-500 transition-colors"><i class="fas fa-search text-lg"></i></span>
+                            <input type="text" id="searchName" placeholder="Start typing your name..." class="w-full pl-12 pr-4 py-4 text-lg border border-emerald-200 rounded-xl focus:ring-2 focus:ring-amber-400 focus:border-amber-400 shadow-sm transition-all text-emerald-950 font-medium bg-white" autocomplete="off">
                         </div>
                         <div id="autocomplete-list" class="autocomplete-items hidden"></div>
                     </div>
 
-                    <div class="flex items-center my-6">
-                        <div class="flex-grow border-t border-emerald-200"></div>
-                        <span class="flex-shrink-0 mx-4 text-emerald-500 text-sm font-bold uppercase tracking-widest">OR</span>
-                        <div class="flex-grow border-t border-emerald-200"></div>
+                    <div class="flex items-center my-8">
+                        <div class="flex-grow border-t border-emerald-100"></div>
+                        <span class="flex-shrink-0 mx-4 text-emerald-400 text-xs font-bold uppercase tracking-widest">OR</span>
+                        <div class="flex-grow border-t border-emerald-100"></div>
                     </div>
 
-                    <button onclick="showNewForm()" class="w-full bg-white hover:bg-emerald-100 text-emerald-950 font-bold py-4 rounded-lg border-2 border-emerald-300 shadow-sm flex justify-center items-center gap-3 transition-colors text-lg uppercase tracking-wide">
-                        <i class="fas fa-user-plus text-amber-500 text-xl"></i> Register as a First-Timer
+                    <button onclick="showNewForm()" class="w-full bg-white hover:bg-emerald-50 text-emerald-800 font-bold py-4 rounded-xl border border-emerald-200 shadow-sm flex justify-center items-center gap-3 transition-colors text-base uppercase tracking-wider">
+                        <i class="fas fa-user-plus text-amber-500 text-lg"></i> Register as a First-Timer
                     </button>
                 </div>
             </div>
 
-            <div id="returningForm" class="hidden">
-                <div class="bg-gradient-to-r from-emerald-50 to-green-100 border-l-4 border-emerald-600 p-6 rounded-r-lg mb-8 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div id="returningForm" class="hidden animate-fade-in">
+                <div class="bg-emerald-50 border-l-4 border-emerald-500 p-6 rounded-lg mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div>
-                        <h4 class="text-emerald-900 font-bold text-xl"><i class="fas fa-check-circle mr-2 text-emerald-600"></i>Welcome back, <span id="welcomeName" class="text-amber-600 serif"></span>!</h4>
-                        <p class="text-emerald-700 font-medium mt-1">Please submit a question and confirm your attendance.</p>
+                        <h4 class="text-emerald-900 font-bold text-xl"><i class="fas fa-check-circle mr-2 text-emerald-500"></i>Welcome back, <span id="welcomeName" class="text-amber-600 serif italic"></span>!</h4>
+                        <p class="text-emerald-700 font-medium mt-1 text-sm">Please submit a question and confirm your attendance.</p>
                     </div>
-                    <button onclick="resetToSearch()" class="text-sm text-emerald-600 hover:text-emerald-900 font-bold bg-white/60 px-3 py-1 rounded-md shadow-sm transition-colors"><i class="fas fa-undo mr-1"></i> Not you?</button>
+                    <button onclick="resetToSearch()" class="text-sm text-emerald-600 hover:text-emerald-900 font-bold bg-white px-4 py-2 rounded-md shadow-sm transition-colors border border-emerald-100"><i class="fas fa-undo mr-1"></i> Not you?</button>
                 </div>
                 
                 <input type="hidden" id="retRow">
-                <div class="mb-8 p-6 bg-emerald-50/50 rounded-lg border border-emerald-100">
-                    <label class="block text-sm font-bold text-emerald-900 mb-2 uppercase tracking-wide">Advance question for our panelists:</label>
-                    <textarea id="retQuestion" rows="4" class="w-full px-4 py-3 border-2 border-emerald-200 rounded-lg focus:ring-amber-500 focus:border-amber-500 bg-white/80 text-emerald-950 font-medium" placeholder="e.g., How do I maintain my freedom in daily life?"></textarea>
+                <div class="mb-8">
+                    <label class="block text-xs font-bold text-emerald-800 mb-2 uppercase tracking-widest">Advance question for our panelists:</label>
+                    <textarea id="retQuestion" rows="4" class="w-full px-4 py-4 border border-emerald-200 rounded-xl focus:ring-2 focus:ring-amber-400 focus:border-amber-400 bg-white text-emerald-950 font-medium transition-shadow" placeholder="e.g., How do I maintain my freedom in daily life?"></textarea>
                 </div>
-                <button onclick="submitReturning()" id="retSubmitBtn" class="w-full bg-emerald-900 hover:bg-amber-500 text-white font-bold py-4 rounded-lg shadow-xl text-xl transition-colors uppercase tracking-wide border-2 border-emerald-950">Confirm Attendance <i class="fas fa-arrow-right ml-2"></i></button>
+                <button onclick="submitReturning()" id="retSubmitBtn" class="w-full bg-emerald-800 hover:bg-emerald-900 text-white font-bold py-4 rounded-xl shadow-lg text-lg transition-colors uppercase tracking-widest">Confirm Attendance <i class="fas fa-arrow-right ml-2"></i></button>
             </div>
 
-            <div id="newForm" class="hidden">
-                <div class="flex justify-between items-center mb-8 border-b-2 border-emerald-200/50 pb-4">
-                    <h3 class="text-3xl font-bold text-emerald-950 serif">First Time Registration</h3>
-                    <button onclick="resetToSearch()" class="text-sm text-emerald-600 hover:text-emerald-900 font-bold bg-white/60 px-3 py-1 rounded-md shadow-sm transition-colors"><i class="fas fa-arrow-left mr-1"></i> Back</button>
+            <div id="newForm" class="hidden animate-fade-in">
+                <div class="flex justify-between items-center mb-8 border-b border-emerald-100 pb-6">
+                    <h3 class="text-3xl font-bold text-emerald-900 serif">First Time Registration</h3>
+                    <button onclick="resetToSearch()" class="text-sm text-emerald-600 hover:text-emerald-900 font-bold bg-emerald-50 px-4 py-2 rounded-md shadow-sm transition-colors"><i class="fas fa-arrow-left mr-1"></i> Back</button>
                 </div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <div><label class="block text-sm font-bold text-emerald-900 mb-1">Full Name *</label><input type="text" id="newName" class="w-full px-4 py-3 border-2 border-emerald-200 rounded-lg focus:ring-amber-500 bg-white/80"></div>
-                    <div><label class="block text-sm font-bold text-emerald-900 mb-1">Email Address *</label><input type="email" id="newEmail" class="w-full px-4 py-3 border-2 border-emerald-200 rounded-lg focus:ring-amber-500 bg-white/80"></div>
-                    <div><label class="block text-sm font-bold text-emerald-900 mb-1">Cellphone/Viber *</label><input type="text" id="newPhone" class="w-full px-4 py-3 border-2 border-emerald-200 rounded-lg focus:ring-amber-500 bg-white/80"></div>
-                    <div><label class="block text-sm font-bold text-emerald-900 mb-1">Gender *</label><select id="newGender" class="w-full px-4 py-3 border-2 border-emerald-200 rounded-lg focus:ring-amber-500 bg-white/80"><option value="">Select...</option><option>Male</option><option>Female</option></select></div>
-                    <div><label class="block text-sm font-bold text-emerald-900 mb-1">Age Group *</label><select id="newAge" class="w-full px-4 py-3 border-2 border-emerald-200 rounded-lg focus:ring-amber-500 bg-white/80"><option value="">Select...</option><option>18-25</option><option>26-35</option><option>36-50</option><option>51+</option></select></div>
-                    <div><label class="block text-sm font-bold text-emerald-900 mb-1">CCF Satellite / Church</label><input type="text" id="newCCF" class="w-full px-4 py-3 border-2 border-emerald-200 rounded-lg focus:ring-amber-500 bg-white/80"></div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 p-6 bg-white/50 rounded-xl border border-emerald-100 shadow-sm backdrop-blur-sm">
-                    <div class="md:col-span-2"><label class="block text-sm font-bold text-emerald-900 mb-1">Undergone 1-on-1 deliverance with Restore?</label><select id="newCounseling" class="w-full px-4 py-3 border border-emerald-200 rounded-lg bg-white/90 focus:ring-amber-500"><option>No</option><option>Yes</option></select></div>
-                    <div><label class="block text-sm font-bold text-emerald-900 mb-1">If yes, counselor name?</label><input type="text" id="newCounselorName" class="w-full px-4 py-3 border border-emerald-200 rounded-lg bg-white/90 focus:ring-amber-500"></div>
-                    <div><label class="block text-sm font-bold text-emerald-900 mb-1">If yes, what year?</label><input type="text" id="newCounselingYear" class="w-full px-4 py-3 border border-emerald-200 rounded-lg bg-white/90 focus:ring-amber-500"></div>
-                </div>
-
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                    <div><label class="block text-sm font-bold text-emerald-900 mb-1">Part of a Dgroup?</label><select id="newDgroup" class="w-full px-4 py-3 border-2 border-emerald-200 rounded-lg bg-white/80 focus:ring-amber-500"><option>Yes</option><option>No</option></select></div>
-                    <div><label class="block text-sm font-bold text-emerald-900 mb-1">Attended Restore before?</label><select id="newPastEvents" class="w-full px-4 py-3 border-2 border-emerald-200 rounded-lg bg-white/80 focus:ring-amber-500"><option>No</option><option>Yes</option></select></div>
-                    <div class="md:col-span-2"><label class="block text-sm font-bold text-emerald-900 mb-1">How did you learn about Restore Ministry?</label><input type="text" id="newHowLearned" class="w-full px-4 py-3 border-2 border-emerald-200 rounded-lg bg-white/80 focus:ring-amber-500"></div>
-                    <div class="md:col-span-2"><label class="block text-sm font-bold text-emerald-900 mb-1">Advance Panel Question</label><textarea id="newQuestion" rows="3" class="w-full px-4 py-3 border-2 border-emerald-200 rounded-lg bg-white/80 focus:ring-amber-500"></textarea></div>
+                    <div><label class="block text-xs font-bold text-emerald-800 mb-2 uppercase tracking-widest">Full Name *</label><input type="text" id="newName" class="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-amber-400 bg-white shadow-sm font-medium text-emerald-900"></div>
+                    <div><label class="block text-xs font-bold text-emerald-800 mb-2 uppercase tracking-widest">Email Address *</label><input type="email" id="newEmail" class="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-amber-400 bg-white shadow-sm font-medium text-emerald-900"></div>
+                    <div><label class="block text-xs font-bold text-emerald-800 mb-2 uppercase tracking-widest">Cellphone/Viber *</label><input type="text" id="newPhone" class="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-amber-400 bg-white shadow-sm font-medium text-emerald-900"></div>
+                    <div><label class="block text-xs font-bold text-emerald-800 mb-2 uppercase tracking-widest">Gender *</label><select id="newGender" class="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-amber-400 bg-white shadow-sm font-medium text-emerald-900"><option value="">Select...</option><option>Male</option><option>Female</option></select></div>
+                    <div><label class="block text-xs font-bold text-emerald-800 mb-2 uppercase tracking-widest">Age Group *</label><select id="newAge" class="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-amber-400 bg-white shadow-sm font-medium text-emerald-900"><option value="">Select...</option><option>18-25</option><option>26-35</option><option>36-50</option><option>51+</option></select></div>
+                    <div><label class="block text-xs font-bold text-emerald-800 mb-2 uppercase tracking-widest">CCF Satellite / Church</label><input type="text" id="newCCF" class="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-amber-400 bg-white shadow-sm font-medium text-emerald-900"></div>
                 </div>
 
-                <button onclick="submitNew()" id="newSubmitBtn" class="w-full bg-emerald-900 hover:bg-amber-500 text-white font-bold py-4 rounded-lg shadow-xl text-xl transition-colors uppercase tracking-wide border-2 border-emerald-950">Register & Confirm Attendance <i class="fas fa-check ml-2"></i></button>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 p-6 bg-emerald-50/50 rounded-xl border border-emerald-100">
+                    <div class="md:col-span-2"><label class="block text-xs font-bold text-emerald-800 mb-2 uppercase tracking-widest">Undergone 1-on-1 deliverance with Restore?</label><select id="newCounseling" class="w-full px-4 py-3 border border-emerald-200 rounded-lg bg-white focus:ring-2 focus:ring-amber-400 shadow-sm font-medium text-emerald-900"><option>No</option><option>Yes</option></select></div>
+                    <div><label class="block text-xs font-bold text-emerald-800 mb-2 uppercase tracking-widest">If yes, counselor name?</label><input type="text" id="newCounselorName" class="w-full px-4 py-3 border border-emerald-200 rounded-lg bg-white focus:ring-2 focus:ring-amber-400 shadow-sm font-medium text-emerald-900"></div>
+                    <div><label class="block text-xs font-bold text-emerald-800 mb-2 uppercase tracking-widest">If yes, what year?</label><input type="text" id="newCounselingYear" class="w-full px-4 py-3 border border-emerald-200 rounded-lg bg-white focus:ring-2 focus:ring-amber-400 shadow-sm font-medium text-emerald-900"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+                    <div><label class="block text-xs font-bold text-emerald-800 mb-2 uppercase tracking-widest">Part of a Dgroup?</label><select id="newDgroup" class="w-full px-4 py-3 border border-emerald-200 rounded-lg bg-white focus:ring-2 focus:ring-amber-400 shadow-sm font-medium text-emerald-900"><option>Yes</option><option>No</option></select></div>
+                    <div><label class="block text-xs font-bold text-emerald-800 mb-2 uppercase tracking-widest">Attended Restore before?</label><select id="newPastEvents" class="w-full px-4 py-3 border border-emerald-200 rounded-lg bg-white focus:ring-2 focus:ring-amber-400 shadow-sm font-medium text-emerald-900"><option>No</option><option>Yes</option></select></div>
+                    <div class="md:col-span-2"><label class="block text-xs font-bold text-emerald-800 mb-2 uppercase tracking-widest">How did you learn about Restore Ministry?</label><input type="text" id="newHowLearned" class="w-full px-4 py-3 border border-emerald-200 rounded-lg bg-white focus:ring-2 focus:ring-amber-400 shadow-sm font-medium text-emerald-900"></div>
+                    <div class="md:col-span-2"><label class="block text-xs font-bold text-emerald-800 mb-2 uppercase tracking-widest">Advance Panel Question</label><textarea id="newQuestion" rows="3" class="w-full px-4 py-3 border border-emerald-200 rounded-lg bg-white focus:ring-2 focus:ring-amber-400 shadow-sm font-medium text-emerald-900"></textarea></div>
+                </div>
+
+                <button onclick="submitNew()" id="newSubmitBtn" class="w-full bg-emerald-800 hover:bg-emerald-900 text-white font-bold py-4 rounded-xl shadow-lg text-lg transition-colors uppercase tracking-widest">Register & Confirm Attendance <i class="fas fa-check ml-2"></i></button>
             </div>
 
-            <div id="successMsg" class="hidden text-center py-12">
-                <i class="fas fa-check-double text-7xl text-amber-500 mb-6 drop-shadow-md transition-all scale-110"></i>
-                <h2 class="text-4xl font-bold text-emerald-950 mb-4 serif">Hallelujah!</h2>
-                <p class="text-emerald-800 text-lg mb-8 font-medium">Your registration is confirmed. Prepare your heart for an amazing time.</p>
-                <button onclick="location.reload()" class="bg-white border-2 border-emerald-300 text-emerald-800 font-bold py-3 px-8 rounded-lg hover:bg-emerald-50 transition-colors shadow-sm">Register Another Person</button>
+            <div id="successMsg" class="hidden text-center py-16">
+                <i class="fas fa-check-circle text-7xl text-emerald-500 mb-6 drop-shadow-sm transition-all scale-110"></i>
+                <h2 class="text-4xl font-bold text-emerald-900 mb-4 serif">Hallelujah!</h2>
+                <p class="text-emerald-700 text-lg mb-10 font-medium">Your registration is confirmed. Prepare your heart for an amazing time in the Lord.</p>
+                <button onclick="location.reload()" class="bg-white border border-emerald-200 text-emerald-800 font-bold py-3 px-8 rounded-lg hover:bg-emerald-50 transition-colors shadow-sm uppercase tracking-wide text-sm">Register Another Person</button>
             </div>
         </section>
 
-        <section class="mt-12 mb-10 glass-panel p-8 rounded-2xl shadow-xl">
-            <div class="text-center mb-8 px-4">
-                <h3 class="text-3xl font-bold text-emerald-950 serif inline-block border-b-4 border-amber-500 pb-2">Ask the Breakthrough Panel</h3>
-                <p class="text-emerald-700 mt-3 font-medium text-lg">We welcome your deepest questions on spiritual warfare and victory.</p>
+        <section class="mt-12 mb-10 glass-panel p-8 md:p-12">
+            <div class="text-center mb-6">
+                <h3 class="text-2xl md:text-3xl font-bold text-emerald-900 serif inline-block border-b-2 border-amber-400 pb-2">Ask the Breakthrough Panel</h3>
+                <p class="text-emerald-700 mt-4 font-medium text-base md:text-lg">We welcome your deepest questions on spiritual warfare and victory.</p>
                 
-                <p class="mt-6 p-4 rounded-lg bg-emerald-900/10 border border-emerald-200">
-                    <span class="bible-verse" style="color: #b45309;">The weapons we fight with are not the weapons of the world. On the contrary, they have divine power to demolish strongholds.</span>
-                    <span class="bible-ref" style="color: #166534;">2 Corinthians 10:4 NIV</span>
-                </p>
+                <div class="mt-8 mb-4 max-w-2xl mx-auto">
+                    <span class="bible-verse text-emerald-800 text-base">The weapons we fight with are not the weapons of the world. On the contrary, they have divine power to demolish strongholds.</span>
+                    <span class="bible-ref">2 Corinthians 10:4 NIV</span>
+                </div>
             </div>
             
-            <div class="max-w-2xl mx-auto space-y-4">
-                <p class="text-center text-emerald-600 font-medium italic">* Submit your questions through the registration form above, and our panelists will address them during the event.</p>
+            <div class="max-w-2xl mx-auto text-center mt-6 pt-6 border-t border-emerald-100">
+                <p class="text-emerald-600 font-medium italic text-sm"><i class="fas fa-info-circle mr-1"></i> Submit your questions through the registration form above, and our panelists will address them during the event.</p>
             </div>
         </section>
 
-        <section id="adminDashboard" class="hidden glass-panel rounded-xl shadow-2xl p-6 md:p-8 border-t-8 border-emerald-900 mt-6">
-            <div class="flex justify-between items-center mb-8 border-b-2 border-emerald-100 pb-4">
+        <section id="adminDashboard" class="hidden glass-panel p-6 md:p-10 border-t-8 border-emerald-800 mt-6">
+            <div class="flex justify-between items-center mb-8 border-b border-emerald-100 pb-4">
                 <h3 class="text-2xl font-bold text-emerald-900 serif"><i class="fas fa-clipboard-list text-amber-500 mr-2"></i> On-Site Check-in</h3>
-                <button onclick="closeAdmin()" class="text-emerald-700 hover:text-white hover:bg-emerald-800 font-bold border border-emerald-700 px-4 py-2 rounded-lg transition-colors bg-white/60">Close</button>
+                <button onclick="closeAdmin()" class="text-emerald-700 hover:bg-emerald-50 font-bold border border-emerald-200 px-4 py-2 rounded-lg transition-colors bg-white text-sm">Close Dashboard</button>
             </div>
-            <input type="text" id="searchRoster" placeholder="Quick search attendee name..." class="w-full px-4 py-3 border-2 border-emerald-200 rounded-lg mb-6 bg-white/80 focus:ring-amber-500" onkeyup="filterTable()">
-            <div class="overflow-x-auto rounded-lg border border-emerald-200 shadow-sm">
+            <input type="text" id="searchRoster" placeholder="Quick search attendee name..." class="w-full px-4 py-3 border border-emerald-200 rounded-lg mb-6 bg-white focus:ring-2 focus:ring-amber-400 shadow-sm" onkeyup="filterTable()">
+            <div class="overflow-x-auto rounded-xl border border-emerald-100 shadow-sm">
                 <table class="min-w-full bg-white text-left">
-                    <thead class="bg-emerald-900 text-amber-400">
-                        <tr><th class="py-3 px-4 uppercase tracking-wider text-sm font-bold">Name</th><th class="py-3 px-4 uppercase tracking-wider text-sm font-bold">Email</th><th class="py-3 px-4 text-center uppercase tracking-wider text-sm font-bold">Status</th><th class="py-3 px-4 text-center uppercase tracking-wider text-sm font-bold">Action</th></tr>
+                    <thead class="bg-emerald-50 text-emerald-800">
+                        <tr><th class="py-4 px-5 uppercase tracking-widest text-xs font-bold border-b border-emerald-100">Name</th><th class="py-4 px-5 uppercase tracking-widest text-xs font-bold border-b border-emerald-100">Email</th><th class="py-4 px-5 text-center uppercase tracking-widest text-xs font-bold border-b border-emerald-100">Status</th><th class="py-4 px-5 text-center uppercase tracking-widest text-xs font-bold border-b border-emerald-100">Action</th></tr>
                     </thead>
-                    <tbody id="rosterBody" class="divide-y divide-emerald-100 text-emerald-900 font-medium backdrop-blur-sm bg-white/70"></tbody>
+                    <tbody id="rosterBody" class="divide-y divide-emerald-50 text-emerald-900 font-medium bg-white"></tbody>
                 </table>
             </div>
-            <button onclick="loadRoster()" class="mt-6 text-sm text-emerald-600 font-bold hover:text-amber-600 bg-white/60 px-4 py-2 rounded border border-emerald-200 shadow-sm transition-colors"><i class="fas fa-sync-alt mr-1"></i> Refresh List</button>
+            <button onclick="loadRoster()" class="mt-6 text-xs text-emerald-600 font-bold hover:text-emerald-900 uppercase tracking-widest bg-white px-4 py-2 rounded-md border border-emerald-200 shadow-sm transition-colors"><i class="fas fa-sync-alt mr-1"></i> Refresh List</button>
         </section>
         
-        <section class="mt-16 mb-10 glass-panel p-8 rounded-2xl shadow-xl">
-            <div class="text-center mb-8">
-                <h3 class="text-3xl font-bold text-emerald-950 serif inline-block border-b-4 border-amber-500 pb-2">Highlights from Past Gatherings</h3>
-                <p class="text-emerald-700 mt-3 font-medium text-lg">Testimonies of freedom and worship.</p>
+        <section class="mt-12 mb-8 glass-panel p-8 md:p-12">
+            <div class="text-center mb-10">
+                <h3 class="text-2xl md:text-3xl font-bold text-emerald-900 serif inline-block border-b-2 border-amber-400 pb-2">Highlights from Past Gatherings</h3>
+                <p class="text-emerald-700 mt-4 font-medium text-lg">Testimonies of freedom and worship.</p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 p-4 bg-emerald-50 rounded-xl border border-emerald-100">
-                <div class="gallery-img-container overflow-hidden rounded-xl border-4 border-white shadow-lg"><img src="https://scontent.fmnl17-1.fna.fbcdn.net/v/t39.30808-6/687036979_122187381848801335_8705664737008705459_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx2048x1182&ctp=s2048x1182&_nc_cat=101&ccb=1-7&_nc_sid=f727a1&_nc_eui2=AeFyqhuMlKePe_TaBAqKoyrEPbETmiw9RVU9sROaLD1FVcPyNLsJqr2xJ-zntyi2p8USmBMNVC7hsN2tlmE-fInW&_nc_ohc=VAzowUHsqeQQ7kNvwG6rCmy&_nc_oc=AdogCmafchM6ncMdEqV_uziMSj58uuq27rrQMZW9aL8Q_p3wpc8lOPSp96BM-ckKrco&_nc_zt=23&_nc_ht=scontent.fmnl17-1.fna&_nc_gid=6zaU81P5B1O2mMsZzEhi8g&_nc_ss=7b2a8&oh=00_Af_CuEDFMbpJVNqUuAWaYp4dYXSJ-lPWAzrOEFms5a5WVA&oe=6A2FCCAD" alt="Restore Highlight 1" class="w-full h-56 object-cover"></div>
-                <div class="gallery-img-container overflow-hidden rounded-xl border-4 border-white shadow-lg"><img src="https://scontent.fmnl17-3.fna.fbcdn.net/v/t39.30808-6/648852326_122180022254801335_2753708875267114202_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx1920x1080&ctp=s1920x1080&_nc_cat=106&ccb=1-7&_nc_sid=f727a1&_nc_eui2=AeHfE0lXFZdnJwIcTtfRNFDBWRHYnlJ2eSZZEdieUnZ5JkK9AgUOl22dietlyH287JgJONNJ213rnyAIOMrAt0YY&_nc_ohc=VXsKA_UJtC8Q7kNvwGhBcWB&_nc_oc=AdpoN7ch4qHctoeM1EqyXO06SWeqraud_60aP0gwjjqvbyYIJBFzUpzS3KSEu21pfUs&_nc_zt=23&_nc_ht=scontent.fmnl17-3.fna&_nc_gid=C5IJHiD-KdndqzjVma7V8w&_nc_ss=7a2a8&oh=00_Af_h5iYM-fLHf2hEjEb1q2CWW9FH26yXiauB82546sbjFQ&oe=6A2FDCBB" alt="Restore Highlight 2" class="w-full h-56 object-cover"></div>
-                <div class="gallery-img-container overflow-hidden rounded-xl border-4 border-white shadow-lg"><img src="https://scontent.fmnl17-1.fna.fbcdn.net/v/t39.30808-6/593272000_122166437450801335_3199477507902202451_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx2921x1435&ctp=s2921x1435&_nc_cat=100&ccb=1-7&_nc_sid=f727a1&_nc_eui2=AeElVW8vctSX8Fa2cGzPua-9kz3R1ZWGFGmTPdHVlYYUaVz_CTX8c1VNUzq4610Pyj7dz8yAewANobpL4e398poU&_nc_ohc=wOehG4eDKKwQ7kNvwFb-x0x&_nc_oc=AdobLwS9DzIc2al4H5Vw2JfdG-kqw6_sMvWxEYuv0yflJHaz00EL-SdXm2lMicjhEQw&_nc_zt=23&_nc_ht=scontent.fmnl17-1.fna&_nc_gid=WuQVuWTIN-lqF6Ugm8XigA&_nc_ss=7a2a8&oh=00_Af9ZIvjGFlE1khdM9_jukcNGfMeBuLJBPF4RcWdgb_xAhg&oe=6A2FCAF8" alt="Restore Highlight 3" class="w-full h-56 object-cover"></div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="gallery-img-container overflow-hidden rounded-2xl border border-emerald-100 shadow-md bg-white p-2"><img src="https://scontent.fmnl17-1.fna.fbcdn.net/v/t39.30808-6/687036979_122187381848801335_8705664737008705459_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx2048x1182&ctp=s2048x1182&_nc_cat=101&ccb=1-7&_nc_sid=f727a1&_nc_eui2=AeFyqhuMlKePe_TaBAqKoyrEPbETmiw9RVU9sROaLD1FVcPyNLsJqr2xJ-zntyi2p8USmBMNVC7hsN2tlmE-fInW&_nc_ohc=VAzowUHsqeQQ7kNvwG6rCmy&_nc_oc=AdogCmafchM6ncMdEqV_uziMSj58uuq27rrQMZW9aL8Q_p3wpc8lOPSp96BM-ckKrco&_nc_zt=23&_nc_ht=scontent.fmnl17-1.fna&_nc_gid=6zaU81P5B1O2mMsZzEhi8g&_nc_ss=7b2a8&oh=00_Af_CuEDFMbpJVNqUuAWaYp4dYXSJ-lPWAzrOEFms5a5WVA&oe=6A2FCCAD" alt="Restore Highlight 1" class="w-full h-48 md:h-56 object-cover rounded-xl"></div>
+                <div class="gallery-img-container overflow-hidden rounded-2xl border border-emerald-100 shadow-md bg-white p-2"><img src="https://scontent.fmnl17-3.fna.fbcdn.net/v/t39.30808-6/648852326_122180022254801335_2753708875267114202_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx1920x1080&ctp=s1920x1080&_nc_cat=106&ccb=1-7&_nc_sid=f727a1&_nc_eui2=AeHfE0lXFZdnJwIcTtfRNFDBWRHYnlJ2eSZZEdieUnZ5JkK9AgUOl22dietlyH287JgJONNJ213rnyAIOMrAt0YY&_nc_ohc=VXsKA_UJtC8Q7kNvwGhBcWB&_nc_oc=AdpoN7ch4qHctoeM1EqyXO06SWeqraud_60aP0gwjjqvbyYIJBFzUpzS3KSEu21pfUs&_nc_zt=23&_nc_ht=scontent.fmnl17-3.fna&_nc_gid=C5IJHiD-KdndqzjVma7V8w&_nc_ss=7a2a8&oh=00_Af_h5iYM-fLHf2hEjEb1q2CWW9FH26yXiauB82546sbjFQ&oe=6A2FDCBB" alt="Restore Highlight 2" class="w-full h-48 md:h-56 object-cover rounded-xl"></div>
+                <div class="gallery-img-container overflow-hidden rounded-2xl border border-emerald-100 shadow-md bg-white p-2"><img src="https://scontent.fmnl17-1.fna.fbcdn.net/v/t39.30808-6/593272000_122166437450801335_3199477507902202451_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx2921x1435&ctp=s2921x1435&_nc_cat=100&ccb=1-7&_nc_sid=f727a1&_nc_eui2=AeElVW8vctSX8Fa2cGzPua-9kz3R1ZWGFGmTPdHVlYYUaVz_CTX8c1VNUzq4610Pyj7dz8yAewANobpL4e398poU&_nc_ohc=wOehG4eDKKwQ7kNvwFb-x0x&_nc_oc=AdobLwS9DzIc2al4H5Vw2JfdG-kqw6_sMvWxEYuv0yflJHaz00EL-SdXm2lMicjhEQw&_nc_zt=23&_nc_ht=scontent.fmnl17-1.fna&_nc_gid=WuQVuWTIN-lqF6Ugm8XigA&_nc_ss=7a2a8&oh=00_Af9ZIvjGFlE1khdM9_jukcNGfMeBuLJBPF4RcWdgb_xAhg&oe=6A2FCAF8" alt="Restore Highlight 3" class="w-full h-48 md:h-56 object-cover rounded-xl"></div>
             </div>
         </section>
         
     </main>
 
-    <footer class="bg-emerald-950 text-emerald-400 py-12 text-center mt-auto border-t-4 border-amber-500 rounded-t-3xl relative z-20">
-        <p class="font-serif text-amber-500 mb-2 text-xl font-bold tracking-widest uppercase">CCF Restore Deliverance Ministry</p>
+    <footer class="text-emerald-800 py-12 text-center mt-auto border-t border-emerald-200 relative z-20 bg-white/40 backdrop-blur-md">
+        <p class="font-serif text-emerald-900 mb-2 text-lg font-bold tracking-widest uppercase">CCF Restore Deliverance Ministry</p>
         
-        <p class="mt-4 mb-8 max-w-lg mx-auto">
-            <span class="bible-verse" style="font-size: 1rem; color: #a7f3d0;">So if the Son sets you free, you will be free indeed.</span>
-            <span class="bible-ref" style="color: #6ee7b7; font-size: 0.7rem;">John 8:36 NIV</span>
-        </p>
+        <div class="mt-4 mb-8 max-w-lg mx-auto px-4">
+            <span class="bible-verse" style="font-size: 1rem;">So if the Son sets you free, you will be free indeed.</span>
+            <span class="bible-ref">John 8:36 NIV</span>
+        </div>
 
-        <button onclick="promptAdmin()" class="text-emerald-700 font-bold text-xs hover:text-amber-400 mt-4 border border-emerald-800 px-3 py-1 rounded transition-colors bg-white/5"><i class="fas fa-lock mr-1"></i> Admin Access</button>
+        <button onclick="promptAdmin()" class="text-emerald-500 font-bold text-xs hover:text-emerald-800 mt-2 border border-emerald-200 px-3 py-1 rounded transition-colors bg-white shadow-sm"><i class="fas fa-lock mr-1"></i> Admin Access</button>
     </footer>
 
     <script>
@@ -307,7 +305,7 @@
                     databaseNames = data.names;
                 }
             } catch(e) {
-                document.getElementById('loadingView').innerHTML = `<p class="text-red-600 font-bold bg-red-50 p-4 rounded-lg">Error connecting to server. Please refresh.</p>`;
+                document.getElementById('loadingView').innerHTML = `<p class="text-amber-600 font-bold bg-amber-50 border border-amber-100 p-4 rounded-lg">Notice: Trying to connect to secure database...</p>`;
             }
         });
 
@@ -327,12 +325,12 @@
                     matches++;
                     let option = document.createElement("DIV");
                     const regex = new RegExp(`(${val})`, "gi");
-                    option.innerHTML = databaseNames[i].name.replace(regex, "<strong class='text-amber-600'>$1</strong>");
+                    option.innerHTML = databaseNames[i].name.replace(regex, "<strong class='text-amber-500'>$1</strong>");
                     option.addEventListener("click", () => selectReturningUser(databaseNames[i]));
                     listDiv.appendChild(option);
                 }
             }
-            if(matches === 0) listDiv.innerHTML = `<div class="italic text-emerald-700 p-3 bg-white/90">No match found. Register as First-Timer below.</div>`;
+            if(matches === 0) listDiv.innerHTML = `<div class="italic text-emerald-600 p-4 font-medium text-sm">No exact match found. Please Register as a First-Timer below.</div>`;
         });
         document.addEventListener("click", e => { if (e.target !== searchInput) listDiv.classList.add("hidden"); });
 
@@ -362,7 +360,7 @@
         }
 
         async function submitNew() {
-            if(!document.getElementById('newName').value || !document.getElementById('newEmail').value) return alert("Name and Email required.");
+            if(!document.getElementById('newName').value || !document.getElementById('newEmail').value) return alert("Name and Email are required fields.");
             document.getElementById('newSubmitBtn').innerHTML = `<i class="fas fa-spinner fa-spin mr-2"></i> Processing...`;
             await fetch(WEB_APP_URL, { method: 'POST', body: JSON.stringify({
                 action: "register_new", fullName: document.getElementById('newName').value, email: document.getElementById('newEmail').value,
@@ -387,15 +385,15 @@
             document.getElementById('mainCard').classList.remove('hidden');
         }
         async function loadRoster() {
-            document.getElementById('rosterBody').innerHTML = "<tr><td colspan='4' class='text-center py-6'><i class='fas fa-spinner fa-spin text-2xl text-emerald-700'></i></td></tr>";
+            document.getElementById('rosterBody').innerHTML = "<tr><td colspan='4' class='text-center py-8'><i class='fas fa-spinner fa-spin text-2xl text-emerald-700'></i></td></tr>";
             const response = await fetch(WEB_APP_URL, { method: 'POST', body: JSON.stringify({ action: "get_roster" }) });
             const roster = await response.json();
             let html = "";
             roster.forEach(p => {
                 const checked = p.status.includes("Onsite");
-                html += `<tr class="roster-row hover:bg-white/50 transition-colors"><td class="py-4 px-4 font-bold name-col">${p.name}</td><td class="py-4 px-4">${p.email}</td>
-                <td class="py-4 px-4 text-center"><span class="px-2 py-1 rounded-full text-xs font-bold ${checked ? 'bg-amber-100 text-amber-800' : 'bg-emerald-100 text-emerald-800'}">${p.status}</span></td>
-                <td class="py-4 px-4 text-center">${checked ? '<i class="fas fa-check text-emerald-600"></i> Done' : `<button onclick="checkIn(${p.row}, event)" class="bg-emerald-800 hover:bg-amber-500 text-white px-3 py-1 rounded transition-colors text-sm font-bold shadow-sm">Check-In</button>`}</td></tr>`;
+                html += `<tr class="roster-row hover:bg-emerald-50 transition-colors"><td class="py-4 px-5 font-bold name-col text-sm border-b border-emerald-50">${p.name}</td><td class="py-4 px-5 text-sm text-emerald-700 border-b border-emerald-50">${p.email}</td>
+                <td class="py-4 px-5 text-center border-b border-emerald-50"><span class="px-3 py-1 rounded-full text-[10px] uppercase tracking-widest font-bold ${checked ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">${p.status}</span></td>
+                <td class="py-4 px-5 text-center border-b border-emerald-50">${checked ? '<i class="fas fa-check text-emerald-600"></i> Done' : `<button onclick="checkIn(${p.row}, event)" class="bg-white border border-emerald-200 hover:bg-emerald-800 hover:text-white text-emerald-800 px-4 py-1.5 rounded-md transition-colors text-xs font-bold shadow-sm uppercase tracking-wider">Check-In</button>`}</td></tr>`;
             });
             document.getElementById('rosterBody').innerHTML = html;
         }
