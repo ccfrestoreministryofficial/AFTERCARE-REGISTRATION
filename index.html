@@ -16,27 +16,25 @@
         }
         h1, h2, h3, h4, .serif { font-family: 'Playfair Display', serif; }
         
-        /* 1. LUXURIOUS BACKGROUND IMAGE */
+        /* LUXURIOUS BACKGROUND IMAGE */
         #lux-background {
             position: fixed; 
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: -2;
-            /* Using the wide crowd shot for a premium atmospheric feel */
             background-image: url('https://scontent.fmnl17-1.fna.fbcdn.net/v/t39.30808-6/593272000_122166437450801335_3199477507902202451_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx2921x1435&ctp=s2921x1435&_nc_cat=100&ccb=1-7&_nc_sid=f727a1&_nc_eui2=AeElVW8vctSX8Fa2cGzPua-9kz3R1ZWGFGmTPdHVlYYUaVz_CTX8c1VNUzq4610Pyj7dz8yAewANobpL4e398poU&_nc_ohc=wOehG4eDKKwQ7kNvwFb-x0x&_nc_oc=AdobLwS9DzIc2al4H5Vw2JfdG-kqw6_sMvWxEYuv0yflJHaz00EL-SdXm2lMicjhEQw&_nc_zt=23&_nc_ht=scontent.fmnl17-1.fna&_nc_gid=WuQVuWTIN-lqF6Ugm8XigA&_nc_ss=7a2a8&oh=00_Af9ZIvjGFlE1khdM9_jukcNGfMeBuLJBPF4RcWdgb_xAhg&oe=6A2FCAF8');
             background-size: cover; 
             background-position: center top;
-            opacity: 0.35; /* Luxuriously visible but not overpowering */
-            mix-blend-mode: luminosity; /* Blends beautifully with the green background */
+            opacity: 0.35; 
+            mix-blend-mode: luminosity; 
         }
         
-        /* Radial Gradient Overlay: Clear at the top/center, fades to solid mint behind the form */
         #gradient-fade {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1;
             background: radial-gradient(circle at 50% 20%, rgba(240, 253, 244, 0.4) 0%, rgba(240, 253, 244, 0.95) 70%, rgba(240, 253, 244, 1) 100%);
         }
 
-        /* 2. WORLD-CLASS UI CARDS */
+        /* WORLD-CLASS UI CARDS */
         .glass-panel {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(16px);
@@ -46,10 +44,7 @@
             border-radius: 1.5rem;
         }
 
-        /* Text Shadow for Gold Headers to pop against the background */
-        .gold-text-pop {
-            text-shadow: 0px 2px 10px rgba(251, 191, 36, 0.2), 0px 1px 2px rgba(0, 0, 0, 0.05);
-        }
+        .gold-text-pop { text-shadow: 0px 2px 10px rgba(251, 191, 36, 0.2), 0px 1px 2px rgba(0, 0, 0, 0.05); }
 
         .autocomplete-wrapper { position: relative; }
         .autocomplete-items {
@@ -67,7 +62,6 @@
         .gallery-img-container { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s; }
         .gallery-img-container:hover { transform: translateY(-8px); box-shadow: 0 25px 50px -12px rgba(6, 78, 59, 0.25); z-index: 10; position: relative; }
     
-        /* ELEGANT BIBLE VERSE TYPOGRAPHY */
         .bible-verse { font-family: 'Playfair Display', serif; font-style: italic; color: #064e3b; font-weight: 500; text-align: center; display: block; width: 100%; line-height: 1.6; }
         .bible-verse::before, .bible-verse::after { content: "“"; font-size: 1.4em; color: #fbbf24; opacity: 0.8; margin: 0 0.1em; vertical-align: bottom;}
         .bible-verse::after { content: "”"; vertical-align: top;}
@@ -225,11 +219,23 @@
         </section>
 
         <section id="adminDashboard" class="hidden glass-panel p-6 md:p-10 border-t-8 border-emerald-800 mt-6">
-            <div class="flex justify-between items-center mb-8 border-b border-emerald-100 pb-4">
+            <div class="flex justify-between items-center mb-6 border-b border-emerald-100 pb-4">
                 <h3 class="text-2xl font-bold text-emerald-900 serif"><i class="fas fa-clipboard-list text-amber-500 mr-2"></i> On-Site Check-in</h3>
-                <button onclick="closeAdmin()" class="text-emerald-700 hover:bg-emerald-50 font-bold border border-emerald-200 px-4 py-2 rounded-lg transition-colors bg-white text-sm">Close Dashboard</button>
+                <button onclick="closeAdmin()" class="text-emerald-700 hover:bg-emerald-50 font-bold border border-emerald-200 px-4 py-2 rounded-lg transition-colors bg-white text-sm shadow-sm">Close Dashboard</button>
             </div>
-            <input type="text" id="searchRoster" placeholder="Quick search attendee name..." class="w-full px-4 py-3 border border-emerald-200 rounded-lg mb-6 bg-white focus:ring-2 focus:ring-amber-400 shadow-sm" onkeyup="filterTable()">
+
+            <div class="grid grid-cols-2 gap-4 md:gap-8 mb-8">
+                <div class="bg-white/80 border border-emerald-100 rounded-xl p-6 text-center shadow-sm">
+                    <h4 class="text-xs uppercase tracking-widest text-emerald-500 font-bold mb-2"><i class="fas fa-users mr-1"></i> Total Registered</h4>
+                    <p id="stat-registered" class="text-4xl font-bold text-emerald-900 serif">0</p>
+                </div>
+                <div class="bg-emerald-50/80 border border-emerald-200 rounded-xl p-6 text-center shadow-sm">
+                    <h4 class="text-xs uppercase tracking-widest text-emerald-700 font-bold mb-2"><i class="fas fa-user-check mr-1"></i> Total On-Site</h4>
+                    <p id="stat-onsite" class="text-4xl font-bold text-emerald-600 serif">0</p>
+                </div>
+            </div>
+
+            <input type="text" id="searchRoster" placeholder="Quick search attendee name..." class="w-full px-4 py-3 border border-emerald-200 rounded-lg mb-6 bg-white focus:ring-2 focus:ring-amber-400 shadow-sm transition-shadow" onkeyup="filterTable()">
             <div class="overflow-x-auto rounded-xl border border-emerald-100 shadow-sm">
                 <table class="min-w-full bg-white text-left">
                     <thead class="bg-emerald-50 text-emerald-800">
@@ -386,23 +392,46 @@
             document.getElementById('adminDashboard').classList.add('hidden');
             document.getElementById('mainCard').classList.remove('hidden');
         }
+
+        // ==========================================
+        // UPDATED: FETCH ROSTER & CALCULATE LIVE STATS
+        // ==========================================
         async function loadRoster() {
             document.getElementById('rosterBody').innerHTML = "<tr><td colspan='4' class='text-center py-8'><i class='fas fa-spinner fa-spin text-2xl text-emerald-700'></i></td></tr>";
+            
+            // Set stats to loading state
+            document.getElementById('stat-registered').innerText = "...";
+            document.getElementById('stat-onsite').innerText = "...";
+
             const response = await fetch(WEB_APP_URL, { method: 'POST', body: JSON.stringify({ action: "get_roster" }) });
             const roster = await response.json();
+            
             let html = "";
+            let totalRegistered = roster.length;
+            let totalOnsite = 0;
+
             roster.forEach(p => {
                 const checked = p.status.includes("Onsite");
+                if (checked) totalOnsite++; // Increment onsite counter
+
                 html += `<tr class="roster-row hover:bg-emerald-50 transition-colors"><td class="py-4 px-5 font-bold name-col text-sm border-b border-emerald-50">${p.name}</td><td class="py-4 px-5 text-sm text-emerald-700 border-b border-emerald-50">${p.email}</td>
                 <td class="py-4 px-5 text-center border-b border-emerald-50"><span class="px-3 py-1 rounded-full text-[10px] uppercase tracking-widest font-bold ${checked ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">${p.status}</span></td>
                 <td class="py-4 px-5 text-center border-b border-emerald-50">${checked ? '<i class="fas fa-check text-emerald-600"></i> Done' : `<button onclick="checkIn(${p.row}, event)" class="bg-white border border-emerald-200 hover:bg-emerald-800 hover:text-white text-emerald-800 px-4 py-1.5 rounded-md transition-colors text-xs font-bold shadow-sm uppercase tracking-wider">Check-In</button>`}</td></tr>`;
             });
+            
             document.getElementById('rosterBody').innerHTML = html;
+            
+            // Update the live stat numbers
+            document.getElementById('stat-registered').innerText = totalRegistered;
+            document.getElementById('stat-onsite').innerText = totalOnsite;
         }
+
         async function checkIn(r, e) {
             e.target.outerHTML = `<span><i class="fas fa-spinner fa-spin text-emerald-600"></i></span>`;
-            await fetch(WEB_APP_URL, { method: 'POST', body: JSON.stringify({ action: "check_in", row: r }) }); loadRoster(); 
+            await fetch(WEB_APP_URL, { method: 'POST', body: JSON.stringify({ action: "check_in", row: r }) }); 
+            loadRoster(); // Reloads list and instantly updates stats!
         }
+
         function filterTable() {
             const f = document.getElementById("searchRoster").value.toUpperCase();
             const rows = document.getElementsByClassName("roster-row");
