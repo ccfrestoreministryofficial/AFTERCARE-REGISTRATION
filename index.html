@@ -223,7 +223,7 @@
                 <div id="duplicateWarning" class="hidden absolute top-0 left-0 w-full h-full bg-white/95 backdrop-blur-md z-50 flex flex-col items-center justify-center rounded-xl p-8 text-center animate-fade-in border-4 border-amber-400 shadow-2xl">
                     <i class="fas fa-exclamation-circle text-7xl text-amber-500 mb-4 animate-pulse"></i>
                     <h3 class="text-3xl font-bold text-emerald-900 serif mb-2">Record Detected!</h3>
-                    <p class="text-emerald-700 font-medium text-lg max-w-md mx-auto">We found your profile in our Data Hub. Locking this form to prevent duplicate entry.</p>
+                    <p class="text-emerald-700 font-medium text-lg max-w-md mx-auto">We found your profile in our database. Locking this form to prevent a duplicate entry.</p>
                     <div class="mt-6 flex items-center justify-center gap-3 bg-emerald-50 px-6 py-3 rounded-full border border-emerald-200">
                         <i class="fas fa-spinner fa-spin text-emerald-600"></i>
                         <span class="text-emerald-800 font-bold uppercase tracking-widest text-sm">Redirecting to your status...</span>
@@ -238,7 +238,6 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                     <div><label class="block text-xs font-bold text-emerald-800 mb-2 uppercase tracking-widest">Full Name *</label><input type="text" id="newName" class="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-amber-400 bg-white shadow-sm font-medium text-emerald-900"></div>
                     <div><label class="block text-xs font-bold text-emerald-800 mb-2 uppercase tracking-widest">Email Address *</label><input type="email" id="newEmail" class="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-amber-400 bg-white shadow-sm font-medium text-emerald-900"></div>
-                    
                     <div><label class="block text-xs font-bold text-emerald-800 mb-2 uppercase tracking-widest">Cellphone/Viber *</label><input type="text" id="newPhone" class="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-amber-400 bg-white shadow-sm font-medium text-emerald-900"></div>
                     <div><label class="block text-xs font-bold text-emerald-800 mb-2 uppercase tracking-widest">Gender *</label><select id="newGender" class="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-amber-400 bg-white shadow-sm font-medium text-emerald-900"><option value="">Select...</option><option>Male</option><option>Female</option></select></div>
                     <div><label class="block text-xs font-bold text-emerald-800 mb-2 uppercase tracking-widest">Age Group *</label><select id="newAge" class="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-amber-400 bg-white shadow-sm font-medium text-emerald-900"><option value="">Select...</option><option>18-25</option><option>26-35</option><option>36-50</option><option>51+</option></select></div>
@@ -366,8 +365,6 @@
 
     <script>
         // =======================================================================
-        // YOUR SECURE GOOGLE SHEET CONNECTION IS 100% INTACT BELOW
-        // =======================================================================
         const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwlal0DgR5aKqvLkkyK2PR5QVZdmZJH4Koc4T0r8Dgw944pIOKxzqFonr3MqS6G1ozkZw/exec"; 
         // =======================================================================
 
@@ -395,7 +392,6 @@
                 
                 document.getElementById('loadingView').classList.add('hidden');
 
-                // Store globally for the tickets
                 currentEventTitle = data.settings.title;
                 currentEventDate = data.settings.date;
 
@@ -413,7 +409,6 @@
                 } else {
                     document.getElementById('step1').classList.remove('hidden');
                     
-                    // Map emails and statuses securely 
                     databaseNames = data.names.map(person => {
                         const rosterEntry = rosterData.find(r => r.row === person.row);
                         return { 
@@ -429,32 +424,57 @@
         });
 
         // ----------------------------------------------------
-        // DUPLICATE ENTRY & ACTIVE KEYSTROKE DETECTION LOGIC
+        // THE FUZZY MATCH ALGORITHM
         // ----------------------------------------------------
+        function isNameDuplicate(inputStr, dbStr) {
+            if(!inputStr || !dbStr) return false;
+            
+            // Clean up: lowercase, remove periods and commas, split into words
+            const cleanInput = inputStr.toLowerCase().replace(/[.,]/g, '').trim().split(/\s+/);
+            const cleanDb = dbStr.toLowerCase().replace(/[.,]/g, '').trim().split(/\s+/);
+            
+            // If they haven't typed at least two words, do not trigger a fuzzy match yet 
+            // (prevents locking them out while they are still typing their first name)
+            if (cleanInput.length < 2) return false;
+
+            const inputFirst = cleanInput[0];
+            const inputLast = cleanInput[cleanInput.length - 1];
+            const dbFirst = cleanDb[0];
+            const dbLast = cleanDb[cleanDb.length - 1];
+
+            // If the first name matches AND the last name matches 
+            // (Ignoring whatever middle initials/names are between them)
+            if (inputFirst === dbFirst && inputLast === dbLast && inputLast.length > 1) {
+                return true;
+            }
+            
+            // Fallback: If they perfectly match after just cleaning the periods
+            if (cleanInput.join(' ') === cleanDb.join(' ')) return true;
+
+            return false;
+        }
+
         function handleDuplicateCheck() {
-            const nameVal = document.getElementById('newName').value.trim().toLowerCase();
+            const nameVal = document.getElementById('newName').value.trim();
             const emailVal = document.getElementById('newEmail').value.trim().toLowerCase();
 
-            if (!nameVal && !emailVal) return;
+            // Don't start checking until they have typed at least a space in the name or filled the email
+            if (!nameVal.includes(' ') && !emailVal) return;
 
             const matchedUser = databaseNames.find(u => {
-                const matchName = nameVal && u.name.toLowerCase() === nameVal;
+                const matchName = nameVal && u.name && isNameDuplicate(nameVal, u.name);
                 const matchEmail = emailVal && u.email && u.email.toLowerCase() === emailVal;
-                return matchName || matchEmail; // Triggers if either perfectly matches
+                return matchName || matchEmail; 
             });
 
             if (matchedUser) {
-                // Instantly lock the form inputs
                 document.getElementById('newName').disabled = true;
                 document.getElementById('newEmail').disabled = true;
                 
-                // Show the secure warning UI
                 document.getElementById('duplicateWarning').classList.remove('hidden');
                 document.getElementById('newSubmitBtn').disabled = true;
 
-                // After a short delay, route them to their actual status
                 setTimeout(() => {
-                    // Reset form state in case they navigate back later
                     document.getElementById('newName').disabled = false;
                     document.getElementById('newEmail').disabled = false;
                     document.getElementById('newName').value = "";
@@ -463,15 +483,16 @@
                     document.getElementById('newSubmitBtn').disabled = false;
                     
                     document.getElementById('newForm').classList.add('hidden');
-                    selectReturningUser(matchedUser); // Safely routes them!
-                }, 2800);
+                    selectReturningUser(matchedUser); 
+                }, 3000);
             }
         }
 
-        // Attach the active listeners to the New Form inputs
-        document.getElementById('newName').addEventListener('input', handleDuplicateCheck);
-        document.getElementById('newEmail').addEventListener('input', handleDuplicateCheck);
-
+        // Attach listeners to trigger when they finish typing/leave the field
+        document.getElementById('newName').addEventListener('blur', handleDuplicateCheck);
+        document.getElementById('newEmail').addEventListener('blur', handleDuplicateCheck);
+        // Also listen on keyup but only if they pause typing (debounce-like feel)
+        document.getElementById('newName').addEventListener('keyup', (e) => { if(e.key === ' ' || e.key === 'Enter') handleDuplicateCheck(); });
 
         // ----------------------------------------------------
         // REGULAR SEARCH BAR LOGIC
@@ -487,12 +508,19 @@
             listDiv.classList.remove("hidden");
             let matches = 0;
             
+            // Also apply a basic fuzzy logic to the search bar to help them find themselves easier!
+            const cleanValWords = val.toLowerCase().replace(/[.,]/g, '').trim().split(/\s+/);
+            
             for (let i = 0; i < databaseNames.length; i++) {
-                if (databaseNames[i].name.toLowerCase().includes(val.toLowerCase())) {
+                const dbNameClean = databaseNames[i].name.toLowerCase().replace(/[.,]/g, '');
+                
+                // If every word they type is found somewhere in the database name
+                const isMatch = cleanValWords.every(word => dbNameClean.includes(word));
+                
+                if (isMatch) {
                     matches++;
                     let option = document.createElement("DIV");
-                    const regex = new RegExp(`(${val})`, "gi");
-                    option.innerHTML = databaseNames[i].name.replace(regex, "<strong class='text-amber-500'>$1</strong>");
+                    option.innerHTML = `<strong>${databaseNames[i].name}</strong>`;
                     option.addEventListener("click", () => selectReturningUser(databaseNames[i]));
                     listDiv.appendChild(option);
                 }
@@ -508,7 +536,6 @@
                 document.getElementById('checkedInName').innerText = userObj.name;
                 document.getElementById('alreadyCheckedInView').classList.remove('hidden');
             } else if (userObj.status === "Confirmed") {
-                // Populate Pass Details
                 document.getElementById('ticketName1').innerText = userObj.name;
                 document.getElementById('ticketEvent1').innerText = currentEventTitle;
                 document.getElementById('ticketDate1').innerText = currentEventDate;
@@ -537,7 +564,6 @@
                 action: "update_returning", row: document.getElementById('retRow').value, question: document.getElementById('retQuestion').value
             })});
             
-            // Populate Ticket and show Success
             document.getElementById('ticketName2').innerText = document.getElementById('welcomeName').innerText;
             document.getElementById('ticketEvent2').innerText = currentEventTitle;
             document.getElementById('ticketDate2').innerText = currentEventDate;
@@ -561,7 +587,6 @@
                 howLearned: document.getElementById('newHowLearned').value, question: document.getElementById('newQuestion').value
             })});
             
-            // Populate Ticket and show Success
             document.getElementById('ticketName2').innerText = registrantName;
             document.getElementById('ticketEvent2').innerText = currentEventTitle;
             document.getElementById('ticketDate2').innerText = currentEventDate;
