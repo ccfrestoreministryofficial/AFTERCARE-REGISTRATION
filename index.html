@@ -11,35 +11,44 @@
         
         body { 
             font-family: 'Inter', sans-serif; 
-            background-color: #f8fafc; 
-            color: #064e3b; /* Deep emerald base text color */
+            background-color: #f0fdf4; /* Light mint base */
+            color: #064e3b; 
         }
         h1, h2, h3, h4, .serif { font-family: 'Playfair Display', serif; }
         
-        /* 1. LIGHT, ETHEREAL WASHED-OUT COLLAGE BACKGROUND */
-        #collage-layer {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        /* 1. LUXURIOUS BACKGROUND IMAGE */
+        #lux-background {
+            position: fixed; 
+            top: 0; left: 0; width: 100%; height: 100%;
             z-index: -2;
-            display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 1fr);
-            opacity: 0.15; /* Soft texture */
-            filter: grayscale(50%) sepia(20%) hue-rotate(90deg); /* Subtle green tinting */
+            /* Using the wide crowd shot for a premium atmospheric feel */
+            background-image: url('https://scontent.fmnl17-1.fna.fbcdn.net/v/t39.30808-6/593272000_122166437450801335_3199477507902202451_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx2921x1435&ctp=s2921x1435&_nc_cat=100&ccb=1-7&_nc_sid=f727a1&_nc_eui2=AeElVW8vctSX8Fa2cGzPua-9kz3R1ZWGFGmTPdHVlYYUaVz_CTX8c1VNUzq4610Pyj7dz8yAewANobpL4e398poU&_nc_ohc=wOehG4eDKKwQ7kNvwFb-x0x&_nc_oc=AdobLwS9DzIc2al4H5Vw2JfdG-kqw6_sMvWxEYuv0yflJHaz00EL-SdXm2lMicjhEQw&_nc_zt=23&_nc_ht=scontent.fmnl17-1.fna&_nc_gid=WuQVuWTIN-lqF6Ugm8XigA&_nc_ss=7a2a8&oh=00_Af9ZIvjGFlE1khdM9_jukcNGfMeBuLJBPF4RcWdgb_xAhg&oe=6A2FCAF8');
+            background-size: cover; 
+            background-position: center top;
+            opacity: 0.35; /* Luxuriously visible but not overpowering */
+            mix-blend-mode: luminosity; /* Blends beautifully with the green background */
         }
-        .collage-tile { background-size: cover; background-position: center; width: 100%; height: 100%; }
         
-        /* White/Mint Frosted Overlay to push the collage to the background */
-        #overlay-layer {
+        /* Radial Gradient Overlay: Clear at the top/center, fades to solid mint behind the form */
+        #gradient-fade {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1;
-            background: rgba(240, 253, 244, 0.88); /* Light mint frosted overlay */
-            backdrop-filter: blur(3px);
+            background: radial-gradient(circle at 50% 20%, rgba(240, 253, 244, 0.4) 0%, rgba(240, 253, 244, 0.95) 70%, rgba(240, 253, 244, 1) 100%);
         }
 
         /* 2. WORLD-CLASS UI CARDS */
         .glass-panel {
-            background: rgba(255, 255, 255, 0.98);
-            border: 1px solid rgba(16, 185, 129, 0.1);
-            box-shadow: 0 20px 40px rgba(6, 78, 59, 0.08);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 25px 50px -12px rgba(6, 78, 59, 0.15);
             border-radius: 1.5rem;
+        }
+
+        /* Text Shadow for Gold Headers to pop against the background */
+        .gold-text-pop {
+            text-shadow: 0px 2px 10px rgba(251, 191, 36, 0.2), 0px 1px 2px rgba(0, 0, 0, 0.05);
         }
 
         .autocomplete-wrapper { position: relative; }
@@ -67,15 +76,8 @@
 </head>
 <body class="antialiased flex flex-col min-h-screen relative">
 
-    <div id="collage-layer">
-        <div class="collage-tile" style="background-image: url('https://scontent.fmnl17-1.fna.fbcdn.net/v/t39.30808-6/687036979_122187381848801335_8705664737008705459_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx2048x1182&ctp=s2048x1182&_nc_cat=101&ccb=1-7&_nc_sid=f727a1&_nc_eui2=AeFyqhuMlKePe_TaBAqKoyrEPbETmiw9RVU9sROaLD1FVcPyNLsJqr2xJ-zntyi2p8USmBMNVC7hsN2tlmE-fInW&_nc_ohc=VAzowUHsqeQQ7kNvwG6rCmy&_nc_oc=AdogCmafchM6ncMdEqV_uziMSj58uuq27rrQMZW9aL8Q_p3wpc8lOPSp96BM-ckKrco&_nc_zt=23&_nc_ht=scontent.fmnl17-1.fna&_nc_gid=6zaU81P5B1O2mMsZzEhi8g&_nc_ss=7b2a8&oh=00_Af_CuEDFMbpJVNqUuAWaYp4dYXSJ-lPWAzrOEFms5a5WVA&oe=6A2FCCAD');"></div>
-        <div class="collage-tile" style="background-image: url('https://scontent.fmnl17-3.fna.fbcdn.net/v/t39.30808-6/648852326_122180022254801335_2753708875267114202_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx1920x1080&ctp=s1920x1080&_nc_cat=106&ccb=1-7&_nc_sid=f727a1&_nc_eui2=AeHfE0lXFZdnJwIcTtfRNFDBWRHYnlJ2eSZZEdieUnZ5JkK9AgUOl22dietlyH287JgJONNJ213rnyAIOMrAt0YY&_nc_ohc=VXsKA_UJtC8Q7kNvwGhBcWB&_nc_oc=AdpoN7ch4qHctoeM1EqyXO06SWeqraud_60aP0gwjjqvbyYIJBFzUpzS3KSEu21pfUs&_nc_zt=23&_nc_ht=scontent.fmnl17-3.fna&_nc_gid=C5IJHiD-KdndqzjVma7V8w&_nc_ss=7a2a8&oh=00_Af_h5iYM-fLHf2hEjEb1q2CWW9FH26yXiauB82546sbjFQ&oe=6A2FDCBB');"></div>
-        <div class="collage-tile" style="background-image: url('https://scontent.fmnl17-1.fna.fbcdn.net/v/t39.30808-6/593272000_122166437450801335_3199477507902202451_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx2921x1435&ctp=s2921x1435&_nc_cat=100&ccb=1-7&_nc_sid=f727a1&_nc_eui2=AeElVW8vctSX8Fa2cGzPua-9kz3R1ZWGFGmTPdHVlYYUaVz_CTX8c1VNUzq4610Pyj7dz8yAewANobpL4e398poU&_nc_ohc=wOehG4eDKKwQ7kNvwFb-x0x&_nc_oc=AdobLwS9DzIc2al4H5Vw2JfdG-kqw6_sMvWxEYuv0yflJHaz00EL-SdXm2lMicjhEQw&_nc_zt=23&_nc_ht=scontent.fmnl17-1.fna&_nc_gid=WuQVuWTIN-lqF6Ugm8XigA&_nc_ss=7a2a8&oh=00_Af9ZIvjGFlE1khdM9_jukcNGfMeBuLJBPF4RcWdgb_xAhg&oe=6A2FCAF8');"></div>
-        <div class="collage-tile" style="background-image: url('https://scontent.fmnl17-3.fna.fbcdn.net/v/t39.30808-6/648852326_122180022254801335_2753708875267114202_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx1920x1080&ctp=s1920x1080&_nc_cat=106&ccb=1-7&_nc_sid=f727a1&_nc_eui2=AeHfE0lXFZdnJwIcTtfRNFDBWRHYnlJ2eSZZEdieUnZ5JkK9AgUOl22dietlyH287JgJONNJ213rnyAIOMrAt0YY&_nc_ohc=VXsKA_UJtC8Q7kNvwGhBcWB&_nc_oc=AdpoN7ch4qHctoeM1EqyXO06SWeqraud_60aP0gwjjqvbyYIJBFzUpzS3KSEu21pfUs&_nc_zt=23&_nc_ht=scontent.fmnl17-3.fna&_nc_gid=C5IJHiD-KdndqzjVma7V8w&_nc_ss=7a2a8&oh=00_Af_h5iYM-fLHf2hEjEb1q2CWW9FH26yXiauB82546sbjFQ&oe=6A2FDCBB');"></div>
-        <div class="collage-tile" style="background-image: url('https://scontent.fmnl17-1.fna.fbcdn.net/v/t39.30808-6/687036979_122187381848801335_8705664737008705459_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx2048x1182&ctp=s2048x1182&_nc_cat=101&ccb=1-7&_nc_sid=f727a1&_nc_eui2=AeFyqhuMlKePe_TaBAqKoyrEPbETmiw9RVU9sROaLD1FVcPyNLsJqr2xJ-zntyi2p8USmBMNVC7hsN2tlmE-fInW&_nc_ohc=VAzowUHsqeQQ7kNvwG6rCmy&_nc_oc=AdogCmafchM6ncMdEqV_uziMSj58uuq27rrQMZW9aL8Q_p3wpc8lOPSp96BM-ckKrco&_nc_zt=23&_nc_ht=scontent.fmnl17-1.fna&_nc_gid=6zaU81P5B1O2mMsZzEhi8g&_nc_ss=7b2a8&oh=00_Af_CuEDFMbpJVNqUuAWaYp4dYXSJ-lPWAzrOEFms5a5WVA&oe=6A2FCCAD');"></div>
-        <div class="collage-tile" style="background-image: url('https://scontent.fmnl17-1.fna.fbcdn.net/v/t39.30808-6/593272000_122166437450801335_3199477507902202451_n.jpg?stp=cp6_dst-jpg_tt6&cstp=mx2921x1435&ctp=s2921x1435&_nc_cat=100&ccb=1-7&_nc_sid=f727a1&_nc_eui2=AeElVW8vctSX8Fa2cGzPua-9kz3R1ZWGFGmTPdHVlYYUaVz_CTX8c1VNUzq4610Pyj7dz8yAewANobpL4e398poU&_nc_ohc=wOehG4eDKKwQ7kNvwFb-x0x&_nc_oc=AdobLwS9DzIc2al4H5Vw2JfdG-kqw6_sMvWxEYuv0yflJHaz00EL-SdXm2lMicjhEQw&_nc_zt=23&_nc_ht=scontent.fmnl17-1.fna&_nc_gid=WuQVuWTIN-lqF6Ugm8XigA&_nc_ss=7a2a8&oh=00_Af9ZIvjGFlE1khdM9_jukcNGfMeBuLJBPF4RcWdgb_xAhg&oe=6A2FCAF8');"></div>
-    </div>
-    <div id="overlay-layer"></div>
+    <div id="lux-background"></div>
+    <div id="gradient-fade"></div>
 
     <header class="pt-16 pb-12 text-center px-4 relative z-10 w-full flex flex-col items-center">
         <div class="mb-6 relative z-20">
@@ -83,18 +85,18 @@
                  alt="Restore Logo" class="h-28 w-28 rounded-full border-4 border-amber-400 shadow-xl object-cover hover:scale-105 transition-transform duration-500">
         </div>
         
-        <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold mb-3 uppercase tracking-widest text-amber-500 serif drop-shadow-sm max-w-5xl">CCF Restore Deliverance Ministry</h1>
+        <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold mb-3 uppercase tracking-widest text-amber-500 serif gold-text-pop max-w-5xl">CCF Restore Deliverance Ministry</h1>
         
-        <h2 id="displayTitle" class="text-xl md:text-2xl font-medium tracking-wide text-emerald-800 relative z-20 mt-2">Loading Event Details...</h2>
-        <p id="displayDate" class="text-emerald-600 font-bold mt-2 text-sm md:text-base tracking-widest uppercase relative z-20"><i class="fas fa-calendar-alt mr-2"></i> ---</p>
+        <h2 id="displayTitle" class="text-xl md:text-2xl font-medium tracking-wide text-emerald-800 relative z-20 mt-2 capitalize">Loading Event Details...</h2>
+        <p id="displayDate" class="text-amber-600 font-bold mt-2 text-sm md:text-base tracking-widest uppercase relative z-20 drop-shadow-sm"><i class="fas fa-calendar-alt mr-2"></i> ---</p>
 
-        <div class="mt-10 px-4 max-w-3xl mx-auto">
+        <div class="mt-8 px-4 max-w-3xl mx-auto">
             <span class="bible-verse text-lg md:text-xl">It is for freedom that Christ has set us free. Stand firm, then, and do not let yourselves be burdened again by a yoke of slavery.</span>
             <span class="bible-ref">Galatians 5:1 NIV</span>
         </div>
     </header>
 
-    <main class="max-w-4xl mx-auto px-4 flex-grow w-full relative z-20 mt-6 mb-12">
+    <main class="max-w-4xl mx-auto px-4 flex-grow w-full relative z-20 mt-4 mb-12">
         
         <section id="mainCard" class="glass-panel p-8 md:p-14 relative overflow-hidden">
             <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600"></div>
@@ -110,7 +112,7 @@
             </div>
 
             <div id="closedView" class="hidden text-center py-12">
-                <div class="inline-block p-6 rounded-full bg-emerald-50 mb-6 border border-emerald-100">
+                <div class="inline-block p-6 rounded-full bg-emerald-50 mb-6 border border-emerald-100 shadow-inner">
                     <i class="fas fa-shield-alt text-6xl text-emerald-700"></i>
                 </div>
                 <h2 class="text-3xl font-bold text-emerald-900 mb-4 serif">Registration is Closed</h2>
@@ -162,7 +164,7 @@
                 <input type="hidden" id="retRow">
                 <div class="mb-8">
                     <label class="block text-xs font-bold text-emerald-800 mb-2 uppercase tracking-widest">Advance question for our panelists:</label>
-                    <textarea id="retQuestion" rows="4" class="w-full px-4 py-4 border border-emerald-200 rounded-xl focus:ring-2 focus:ring-amber-400 focus:border-amber-400 bg-white text-emerald-950 font-medium transition-shadow" placeholder="e.g., How do I maintain my freedom in daily life?"></textarea>
+                    <textarea id="retQuestion" rows="4" class="w-full px-4 py-4 border border-emerald-200 rounded-xl focus:ring-2 focus:ring-amber-400 focus:border-amber-400 bg-white text-emerald-950 font-medium transition-shadow shadow-inner" placeholder="e.g., How do I maintain my freedom in daily life?"></textarea>
                 </div>
                 <button onclick="submitReturning()" id="retSubmitBtn" class="w-full bg-emerald-800 hover:bg-emerald-900 text-white font-bold py-4 rounded-xl shadow-lg text-lg transition-colors uppercase tracking-widest">Confirm Attendance <i class="fas fa-arrow-right ml-2"></i></button>
             </div>
@@ -170,7 +172,7 @@
             <div id="newForm" class="hidden animate-fade-in">
                 <div class="flex justify-between items-center mb-8 border-b border-emerald-100 pb-6">
                     <h3 class="text-3xl font-bold text-emerald-900 serif">First Time Registration</h3>
-                    <button onclick="resetToSearch()" class="text-sm text-emerald-600 hover:text-emerald-900 font-bold bg-emerald-50 px-4 py-2 rounded-md shadow-sm transition-colors"><i class="fas fa-arrow-left mr-1"></i> Back</button>
+                    <button onclick="resetToSearch()" class="text-sm text-emerald-600 hover:text-emerald-900 font-bold bg-emerald-50 px-4 py-2 rounded-md shadow-sm transition-colors border border-emerald-100"><i class="fas fa-arrow-left mr-1"></i> Back</button>
                 </div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
@@ -182,7 +184,7 @@
                     <div><label class="block text-xs font-bold text-emerald-800 mb-2 uppercase tracking-widest">CCF Satellite / Church</label><input type="text" id="newCCF" class="w-full px-4 py-3 border border-emerald-200 rounded-lg focus:ring-2 focus:ring-amber-400 bg-white shadow-sm font-medium text-emerald-900"></div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 p-6 bg-emerald-50/50 rounded-xl border border-emerald-100">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 p-6 bg-emerald-50/80 rounded-xl border border-emerald-100 shadow-inner">
                     <div class="md:col-span-2"><label class="block text-xs font-bold text-emerald-800 mb-2 uppercase tracking-widest">Undergone 1-on-1 deliverance with Restore?</label><select id="newCounseling" class="w-full px-4 py-3 border border-emerald-200 rounded-lg bg-white focus:ring-2 focus:ring-amber-400 shadow-sm font-medium text-emerald-900"><option>No</option><option>Yes</option></select></div>
                     <div><label class="block text-xs font-bold text-emerald-800 mb-2 uppercase tracking-widest">If yes, counselor name?</label><input type="text" id="newCounselorName" class="w-full px-4 py-3 border border-emerald-200 rounded-lg bg-white focus:ring-2 focus:ring-amber-400 shadow-sm font-medium text-emerald-900"></div>
                     <div><label class="block text-xs font-bold text-emerald-800 mb-2 uppercase tracking-widest">If yes, what year?</label><input type="text" id="newCounselingYear" class="w-full px-4 py-3 border border-emerald-200 rounded-lg bg-white focus:ring-2 focus:ring-amber-400 shadow-sm font-medium text-emerald-900"></div>
