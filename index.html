@@ -146,6 +146,32 @@
                 </div>
             </div>
 
+            <div id="alreadyConfirmedView" class="hidden animate-fade-in text-center py-10">
+                <div class="inline-block p-5 rounded-full bg-amber-50 mb-6 border border-amber-200 shadow-sm">
+                    <i class="fas fa-ticket-alt text-6xl text-amber-500"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-emerald-900 mb-4 serif">Already Confirmed!</h2>
+                <p class="text-emerald-700 text-lg mb-6 font-medium max-w-md mx-auto">Hi <strong id="confirmedName" class="text-emerald-900 border-b-2 border-amber-400"></strong>, see you on the day of the event!</p>
+                
+                <div class="bg-amber-50/80 border-2 border-amber-400 border-dashed rounded-xl p-6 mb-8 max-w-sm mx-auto shadow-sm">
+                    <p class="text-amber-800 font-bold text-sm uppercase tracking-widest mb-2"><i class="fas fa-camera mr-2"></i>Screenshot Required</p>
+                    <p class="text-amber-900 text-sm font-medium">Please screenshot this page and show it at the entrance as proof of your attendance confirmation.</p>
+                </div>
+                
+                <button onclick="location.reload()" class="bg-white border border-emerald-200 text-emerald-800 font-bold py-3 px-8 rounded-lg hover:bg-emerald-50 transition-colors shadow-sm uppercase tracking-wide text-sm"><i class="fas fa-arrow-left mr-2"></i> Return to Home</button>
+            </div>
+
+            <div id="alreadyCheckedInView" class="hidden animate-fade-in text-center py-10">
+                <div class="inline-block p-5 rounded-full bg-emerald-50 mb-6 border border-emerald-200 shadow-sm">
+                    <i class="fas fa-couch text-6xl text-emerald-600"></i>
+                </div>
+                <h2 class="text-3xl font-bold text-emerald-900 mb-4 serif">Welcome to Restore!</h2>
+                <p class="text-emerald-700 text-lg mb-4 font-medium max-w-md mx-auto">Hi <strong id="checkedInName" class="text-emerald-900 border-b-2 border-amber-400"></strong>, you are already checked in.</p>
+                <p class="text-emerald-600 mb-10 max-w-md mx-auto italic text-sm border-t border-emerald-100 pt-4 mt-2">Please find a comfortable seat and prepare your heart to enjoy the presence of the Lord today.</p>
+                
+                <button onclick="location.reload()" class="bg-white border border-emerald-200 text-emerald-800 font-bold py-3 px-8 rounded-lg hover:bg-emerald-50 transition-colors shadow-sm uppercase tracking-wide text-sm"><i class="fas fa-arrow-left mr-2"></i> Return to Home</button>
+            </div>
+
             <div id="returningForm" class="hidden animate-fade-in">
                 <div class="bg-emerald-50 border-l-4 border-emerald-500 p-6 rounded-lg mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div>
@@ -292,8 +318,14 @@
 
         document.addEventListener("DOMContentLoaded", async () => {
             try {
-                const response = await fetch(WEB_APP_URL, { method: 'POST', body: JSON.stringify({ action: "init" }) });
-                const data = await response.json();
+                // Fetch settings AND roster simultaneously to securely get user statuses
+                const [initRes, rosterRes] = await Promise.all([
+                    fetch(WEB_APP_URL, { method: 'POST', body: JSON.stringify({ action: "init" }) }),
+                    fetch(WEB_APP_URL, { method: 'POST', body: JSON.stringify({ action: "get_roster" }) })
+                ]);
+                
+                const data = await initRes.json();
+                const rosterData = await rosterRes.json();
                 
                 document.getElementById('loadingView').classList.add('hidden');
 
@@ -310,7 +342,15 @@
                     document.getElementById('closedView').classList.remove('hidden');
                 } else {
                     document.getElementById('step1').classList.remove('hidden');
-                    databaseNames = data.names;
+                    
+                    // Map the statuses to the database names for the autocomplete check
+                    databaseNames = data.names.map(person => {
+                        const rosterEntry = rosterData.find(r => r.row === person.row);
+                        return {
+                            ...person,
+                            status: rosterEntry ? rosterEntry.status : "" // "" means they haven't confirmed yet for this specific event
+                        };
+                    });
                 }
             } catch(e) {
                 document.getElementById('loadingView').innerHTML = `<p class="text-amber-600 font-bold bg-amber-50 border border-amber-100 p-4 rounded-lg">Notice: Trying to connect to secure database...</p>`;
@@ -344,10 +384,22 @@
 
         function selectReturningUser(userObj) {
             document.getElementById('step1').classList.add('hidden');
-            document.getElementById('welcomeName').innerText = userObj.name;
-            document.getElementById('retRow').value = userObj.row;
-            document.getElementById('returningForm').classList.remove('hidden');
+            
+            // NEW LOGIC: Intelligent Routing based on Status
+            if (userObj.status === "Checked-In (Onsite)") {
+                document.getElementById('checkedInName').innerText = userObj.name;
+                document.getElementById('alreadyCheckedInView').classList.remove('hidden');
+            } else if (userObj.status === "Confirmed") {
+                document.getElementById('confirmedName').innerText = userObj.name;
+                document.getElementById('alreadyConfirmedView').classList.remove('hidden');
+            } else {
+                // They have not confirmed yet for this specific gathering
+                document.getElementById('welcomeName').innerText = userObj.name;
+                document.getElementById('retRow').value = userObj.row;
+                document.getElementById('returningForm').classList.remove('hidden');
+            }
         }
+
         function showNewForm() {
             document.getElementById('step1').classList.add('hidden');
             document.getElementById('newForm').classList.remove('hidden');
@@ -393,13 +445,9 @@
             document.getElementById('mainCard').classList.remove('hidden');
         }
 
-        // ==========================================
-        // UPDATED: FETCH ROSTER & CALCULATE LIVE STATS
-        // ==========================================
         async function loadRoster() {
             document.getElementById('rosterBody').innerHTML = "<tr><td colspan='4' class='text-center py-8'><i class='fas fa-spinner fa-spin text-2xl text-emerald-700'></i></td></tr>";
             
-            // Set stats to loading state
             document.getElementById('stat-registered').innerText = "...";
             document.getElementById('stat-onsite').innerText = "...";
 
@@ -412,7 +460,7 @@
 
             roster.forEach(p => {
                 const checked = p.status.includes("Onsite");
-                if (checked) totalOnsite++; // Increment onsite counter
+                if (checked) totalOnsite++;
 
                 html += `<tr class="roster-row hover:bg-emerald-50 transition-colors"><td class="py-4 px-5 font-bold name-col text-sm border-b border-emerald-50">${p.name}</td><td class="py-4 px-5 text-sm text-emerald-700 border-b border-emerald-50">${p.email}</td>
                 <td class="py-4 px-5 text-center border-b border-emerald-50"><span class="px-3 py-1 rounded-full text-[10px] uppercase tracking-widest font-bold ${checked ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">${p.status}</span></td>
@@ -421,7 +469,6 @@
             
             document.getElementById('rosterBody').innerHTML = html;
             
-            // Update the live stat numbers
             document.getElementById('stat-registered').innerText = totalRegistered;
             document.getElementById('stat-onsite').innerText = totalOnsite;
         }
@@ -429,7 +476,7 @@
         async function checkIn(r, e) {
             e.target.outerHTML = `<span><i class="fas fa-spinner fa-spin text-emerald-600"></i></span>`;
             await fetch(WEB_APP_URL, { method: 'POST', body: JSON.stringify({ action: "check_in", row: r }) }); 
-            loadRoster(); // Reloads list and instantly updates stats!
+            loadRoster(); 
         }
 
         function filterTable() {
