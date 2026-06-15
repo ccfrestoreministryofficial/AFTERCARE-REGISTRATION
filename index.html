@@ -79,6 +79,19 @@
             border: 1px solid #d1fae5;
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
         }
+
+        .vip-pass {
+            background-image: radial-gradient(circle at top left, transparent 10px, #ecfdf5 11px),
+                              radial-gradient(circle at top right, transparent 10px, #ecfdf5 11px),
+                              radial-gradient(circle at bottom left, transparent 10px, #ecfdf5 11px),
+                              radial-gradient(circle at bottom right, transparent 10px, #ecfdf5 11px);
+            background-size: 51% 51%;
+            background-repeat: no-repeat;
+            background-position: top left, top right, bottom left, bottom right;
+            border: 1px solid #6ee7b7;
+            box-shadow: 0 10px 30px -5px rgba(6, 78, 59, 0.2);
+            background-color: #ecfdf5;
+        }
     </style>
 </head>
 <body class="antialiased flex flex-col min-h-screen relative">
@@ -159,11 +172,13 @@
                 </div>
             </div>
 
+            <!-- ALREADY CONFIRMED VIEW WITH DIGITAL PASS -->
             <div id="alreadyConfirmedView" class="hidden animate-fade-in text-center py-8">
                 <h2 class="text-3xl font-bold text-emerald-900 mb-2 serif">Already Confirmed!</h2>
                 <p class="text-emerald-700 text-base mb-6 font-medium max-w-md mx-auto">You have successfully secured your spot. See you on the day of the event!</p>
                 
-                <div class="digital-pass max-w-sm mx-auto mb-4 relative text-left">
+                <!-- Registration Digital Pass (Amber) -->
+                <div class="digital-pass max-w-sm mx-auto mb-4 relative text-left bg-white">
                     <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-amber-400 to-amber-600 rounded-t-xl"></div>
                     <div class="p-6">
                         <div class="text-center mb-4 border-b border-emerald-100 pb-4">
@@ -190,17 +205,40 @@
                 <button onclick="location.reload()" class="bg-white border border-emerald-200 text-emerald-800 font-bold py-3 px-8 rounded-lg hover:bg-emerald-50 transition-colors shadow-sm uppercase tracking-wide text-xs"><i class="fas fa-arrow-left mr-2"></i> Return to Home</button>
             </div>
 
-            <div id="alreadyCheckedInView" class="hidden animate-fade-in text-center py-10">
-                <div class="inline-block p-5 rounded-full bg-emerald-50 mb-6 border border-emerald-200 shadow-sm">
-                    <i class="fas fa-couch text-6xl text-emerald-600"></i>
-                </div>
-                <h2 class="text-3xl font-bold text-emerald-900 mb-4 serif">Welcome to Restore!</h2>
-                <p class="text-emerald-700 text-lg mb-4 font-medium max-w-md mx-auto">Hi <strong id="checkedInName" class="text-emerald-900 border-b-2 border-amber-400"></strong>, you are already checked in.</p>
-                <p class="text-emerald-600 mb-10 max-w-md mx-auto italic text-sm border-t border-emerald-100 pt-4 mt-2">Please find a comfortable seat and prepare your heart to enjoy the presence of the Lord today.</p>
+            <!-- ALREADY CHECKED-IN VIEW WITH VIP PASS -->
+            <div id="alreadyCheckedInView" class="hidden animate-fade-in text-center py-8">
+                <h2 class="text-3xl font-bold text-emerald-900 mb-2 serif">Welcome to Restore!</h2>
+                <p class="text-emerald-700 text-base mb-6 font-medium max-w-md mx-auto">You have successfully checked in at the venue today.</p>
                 
-                <button onclick="location.reload()" class="bg-white border border-emerald-200 text-emerald-800 font-bold py-3 px-8 rounded-lg hover:bg-emerald-50 transition-colors shadow-sm uppercase tracking-wide text-sm"><i class="fas fa-arrow-left mr-2"></i> Return to Home</button>
+                <!-- VIP Checked-In Pass (Emerald) -->
+                <div class="vip-pass max-w-sm mx-auto mb-6 relative text-left">
+                    <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-emerald-500 to-emerald-700 rounded-t-xl"></div>
+                    <div class="p-6">
+                        <div class="text-center mb-4 border-b border-emerald-200 pb-4">
+                            <i class="fas fa-id-badge text-4xl text-emerald-600 mb-2"></i>
+                            <h4 class="text-lg font-bold text-emerald-900 uppercase tracking-widest">VIP Access Pass</h4>
+                        </div>
+                        <div class="mb-4">
+                            <p class="text-[10px] font-bold text-emerald-600 uppercase tracking-widest mb-1">Attendee Name</p>
+                            <p id="ticketNameVIP" class="text-lg font-bold text-emerald-950 uppercase"></p>
+                        </div>
+                        <div class="mb-4">
+                            <p class="text-[10px] font-bold text-emerald-600 uppercase tracking-widest mb-1">Event Details</p>
+                            <p id="ticketEventVIP" class="text-sm font-bold text-emerald-900 leading-tight mb-1"></p>
+                            <p id="ticketDateVIP" class="text-xs font-semibold text-emerald-700 leading-tight"></p>
+                        </div>
+                        <div class="bg-emerald-600 text-white text-xs font-bold uppercase tracking-widest py-2 rounded text-center shadow-inner">
+                            Status: Checked-In <i class="fas fa-check-double ml-1 text-emerald-200"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="text-emerald-800 bg-emerald-100/50 mb-10 max-w-md mx-auto font-medium text-sm p-4 rounded-xl border border-emerald-200 shadow-sm">Please find a comfortable seat and prepare your heart to enjoy the presence of the Lord today.</p>
+                
+                <button onclick="location.reload()" class="bg-white border border-emerald-200 text-emerald-800 font-bold py-3 px-8 rounded-lg hover:bg-emerald-50 transition-colors shadow-sm uppercase tracking-wide text-xs"><i class="fas fa-arrow-left mr-2"></i> Return to Home</button>
             </div>
 
+            <!-- RETURNING ATTENDEE FORM -->
             <div id="returningForm" class="hidden animate-fade-in">
                 <div class="bg-emerald-50 border-l-4 border-emerald-500 p-6 rounded-lg mb-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                     <div>
@@ -218,12 +256,14 @@
                 <button onclick="submitReturning()" id="retSubmitBtn" class="w-full bg-emerald-800 hover:bg-emerald-900 text-white font-bold py-4 rounded-xl shadow-lg text-lg transition-colors uppercase tracking-widest">Confirm Attendance <i class="fas fa-arrow-right ml-2"></i></button>
             </div>
 
+            <!-- NEW ATTENDEE FORM -->
             <div id="newForm" class="hidden animate-fade-in relative">
                 
+                <!-- SECRET DUPLICATE WARNING OVERLAY -->
                 <div id="duplicateWarning" class="hidden absolute top-0 left-0 w-full h-full bg-white/95 backdrop-blur-md z-50 flex flex-col items-center justify-center rounded-xl p-8 text-center animate-fade-in border-4 border-amber-400 shadow-2xl">
                     <i class="fas fa-exclamation-circle text-7xl text-amber-500 mb-4 animate-pulse"></i>
-                    <h3 class="text-3xl font-bold text-emerald-900 serif mb-2">Record Detected!</h3>
-                    <p class="text-emerald-700 font-medium text-lg max-w-md mx-auto">We found your profile in our database. Locking this form to prevent a duplicate entry.</p>
+                    <h3 id="duplicateWarningTitle" class="text-3xl font-bold text-emerald-900 serif mb-2">Record Detected!</h3>
+                    <p id="duplicateWarningText" class="text-emerald-700 font-medium text-lg max-w-md mx-auto">We found your profile in our database. Locking this form to prevent a duplicate entry.</p>
                     <div class="mt-6 flex items-center justify-center gap-3 bg-emerald-50 px-6 py-3 rounded-full border border-emerald-200">
                         <i class="fas fa-spinner fa-spin text-emerald-600"></i>
                         <span class="text-emerald-800 font-bold uppercase tracking-widest text-sm">Redirecting to your status...</span>
@@ -260,11 +300,12 @@
                 <button onclick="submitNew()" id="newSubmitBtn" class="w-full bg-emerald-800 hover:bg-emerald-900 text-white font-bold py-4 rounded-xl shadow-lg text-lg transition-colors uppercase tracking-widest">Register & Confirm Attendance <i class="fas fa-check ml-2"></i></button>
             </div>
 
+            <!-- SUCCESS MESSAGE FOR FIRST TIMERS -->
             <div id="successMsg" class="hidden text-center py-8">
                 <h2 class="text-3xl font-bold text-emerald-900 mb-2 serif">Hallelujah!</h2>
                 <p class="text-emerald-700 text-base mb-6 font-medium max-w-md mx-auto">Your registration is confirmed. Prepare your heart for an amazing time in the Lord.</p>
                 
-                <div class="digital-pass max-w-sm mx-auto mb-4 relative text-left">
+                <div class="digital-pass max-w-sm mx-auto mb-4 relative text-left bg-white">
                     <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-amber-400 to-amber-600 rounded-t-xl"></div>
                     <div class="p-6">
                         <div class="text-center mb-4 border-b border-emerald-100 pb-4">
@@ -292,6 +333,7 @@
             </div>
         </section>
 
+        <!-- ASK THE PANEL SECTION -->
         <section class="mt-12 mb-10 glass-panel p-8 md:p-12">
             <div class="text-center mb-6">
                 <h3 class="text-2xl md:text-3xl font-bold text-emerald-900 serif inline-block border-b-2 border-amber-400 pb-2">Ask the Breakthrough Panel</h3>
@@ -308,6 +350,7 @@
             </div>
         </section>
 
+        <!-- ADMIN DASHBOARD -->
         <section id="adminDashboard" class="hidden glass-panel p-6 md:p-10 border-t-8 border-emerald-800 mt-6">
             <div class="flex justify-between items-center mb-6 border-b border-emerald-100 pb-4">
                 <h3 class="text-2xl font-bold text-emerald-900 serif"><i class="fas fa-clipboard-list text-amber-500 mr-2"></i> On-Site Check-in</h3>
@@ -337,6 +380,7 @@
             <button onclick="loadRoster()" class="mt-6 text-xs text-emerald-600 font-bold hover:text-emerald-900 uppercase tracking-widest bg-white px-4 py-2 rounded-md border border-emerald-200 shadow-sm transition-colors"><i class="fas fa-sync-alt mr-1"></i> Refresh List</button>
         </section>
         
+        <!-- HIGHLIGHTS SECTION -->
         <section class="mt-12 mb-8 glass-panel p-8 md:p-12">
             <div class="text-center mb-10">
                 <h3 class="text-2xl md:text-3xl font-bold text-emerald-900 serif inline-block border-b-2 border-amber-400 pb-2">Highlights from Past Gatherings</h3>
@@ -364,6 +408,8 @@
     </footer>
 
     <script>
+        // =======================================================================
+        // YOUR SECURE GOOGLE SHEET CONNECTION IS 100% INTACT BELOW
         // =======================================================================
         const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwlal0DgR5aKqvLkkyK2PR5QVZdmZJH4Koc4T0r8Dgw944pIOKxzqFonr3MqS6G1ozkZw/exec"; 
         // =======================================================================
@@ -429,12 +475,9 @@
         function isNameDuplicate(inputStr, dbStr) {
             if(!inputStr || !dbStr) return false;
             
-            // Clean up: lowercase, remove periods and commas, split into words
             const cleanInput = inputStr.toLowerCase().replace(/[.,]/g, '').trim().split(/\s+/);
             const cleanDb = dbStr.toLowerCase().replace(/[.,]/g, '').trim().split(/\s+/);
             
-            // If they haven't typed at least two words, do not trigger a fuzzy match yet 
-            // (prevents locking them out while they are still typing their first name)
             if (cleanInput.length < 2) return false;
 
             const inputFirst = cleanInput[0];
@@ -442,13 +485,9 @@
             const dbFirst = cleanDb[0];
             const dbLast = cleanDb[cleanDb.length - 1];
 
-            // If the first name matches AND the last name matches 
-            // (Ignoring whatever middle initials/names are between them)
             if (inputFirst === dbFirst && inputLast === dbLast && inputLast.length > 1) {
                 return true;
             }
-            
-            // Fallback: If they perfectly match after just cleaning the periods
             if (cleanInput.join(' ') === cleanDb.join(' ')) return true;
 
             return false;
@@ -458,7 +497,6 @@
             const nameVal = document.getElementById('newName').value.trim();
             const emailVal = document.getElementById('newEmail').value.trim().toLowerCase();
 
-            // Don't start checking until they have typed at least a space in the name or filled the email
             if (!nameVal.includes(' ') && !emailVal) return;
 
             const matchedUser = databaseNames.find(u => {
@@ -471,6 +509,18 @@
                 document.getElementById('newName').disabled = true;
                 document.getElementById('newEmail').disabled = true;
                 
+                // Dynamically update the warning text based on status
+                if (matchedUser.status === "Checked-In (Onsite)") {
+                    document.getElementById('duplicateWarningTitle').innerText = "Already Checked In!";
+                    document.getElementById('duplicateWarningText').innerText = "You have already checked in at the venue. Redirecting you to your access pass...";
+                } else if (matchedUser.status === "Confirmed") {
+                    document.getElementById('duplicateWarningTitle').innerText = "Already Confirmed!";
+                    document.getElementById('duplicateWarningText').innerText = "You have already confirmed your attendance for this gathering. Redirecting you to your pass...";
+                } else {
+                    document.getElementById('duplicateWarningTitle').innerText = "Record Found!";
+                    document.getElementById('duplicateWarningText').innerText = "We found your profile in our database. Redirecting you to confirm your attendance...";
+                }
+
                 document.getElementById('duplicateWarning').classList.remove('hidden');
                 document.getElementById('newSubmitBtn').disabled = true;
 
@@ -484,14 +534,12 @@
                     
                     document.getElementById('newForm').classList.add('hidden');
                     selectReturningUser(matchedUser); 
-                }, 3000);
+                }, 3500);
             }
         }
 
-        // Attach listeners to trigger when they finish typing/leave the field
         document.getElementById('newName').addEventListener('blur', handleDuplicateCheck);
         document.getElementById('newEmail').addEventListener('blur', handleDuplicateCheck);
-        // Also listen on keyup but only if they pause typing (debounce-like feel)
         document.getElementById('newName').addEventListener('keyup', (e) => { if(e.key === ' ' || e.key === 'Enter') handleDuplicateCheck(); });
 
         // ----------------------------------------------------
@@ -508,13 +556,10 @@
             listDiv.classList.remove("hidden");
             let matches = 0;
             
-            // Also apply a basic fuzzy logic to the search bar to help them find themselves easier!
             const cleanValWords = val.toLowerCase().replace(/[.,]/g, '').trim().split(/\s+/);
             
             for (let i = 0; i < databaseNames.length; i++) {
                 const dbNameClean = databaseNames[i].name.toLowerCase().replace(/[.,]/g, '');
-                
-                // If every word they type is found somewhere in the database name
                 const isMatch = cleanValWords.every(word => dbNameClean.includes(word));
                 
                 if (isMatch) {
@@ -533,6 +578,9 @@
             document.getElementById('step1').classList.add('hidden');
             
             if (userObj.status === "Checked-In (Onsite)") {
+                document.getElementById('ticketNameVIP').innerText = userObj.name;
+                document.getElementById('ticketEventVIP').innerText = currentEventTitle;
+                document.getElementById('ticketDateVIP').innerText = currentEventDate;
                 document.getElementById('checkedInName').innerText = userObj.name;
                 document.getElementById('alreadyCheckedInView').classList.remove('hidden');
             } else if (userObj.status === "Confirmed") {
