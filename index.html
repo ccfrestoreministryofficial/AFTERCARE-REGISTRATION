@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CCF Restore Deliverance Ministry | Registration</title>
+    <link rel="icon" type="image/jpeg" href="https://i.ibb.co/QjTXFCbd/restore-logo.jpg">
+    
+    <meta name="description" content="Official registration and data hub for the CCF Restore Deliverance Ministry. Secure your spot for our next gathering, ask the panel, and experience freedom in Christ.">
+    <meta name="keywords" content="CCF Restore, CCF Deliverance Ministry, CCF Registration, Spiritual Warfare, Deliverance Gathering">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -16,16 +21,21 @@
         }
         h1, h2, h3, h4, .serif { font-family: 'Playfair Display', serif; }
         
-        /* LUXURIOUS BACKGROUND IMAGE (Replaced with a permanent stable link) */
+        /* LUXURIOUS 4-GRID BACKGROUND COLLAGE */
         #lux-background {
             position: fixed; 
             top: 0; left: 0; width: 100%; height: 100%;
             z-index: -2;
-            background-image: url('https://images.unsplash.com/photo-1438283173091-5dbf5c5a3206?q=80&w=2000&auto=format&fit=crop');
-            background-size: cover; 
-            background-position: center top;
-            opacity: 0.25; 
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            opacity: 0.25; /* Washed out aesthetic */
             mix-blend-mode: luminosity; 
+        }
+        .bg-tile {
+            background-size: cover;
+            background-position: center;
+            width: 100%; height: 100%;
         }
         
         #gradient-fade {
@@ -96,13 +106,18 @@
 </head>
 <body class="antialiased flex flex-col min-h-screen relative">
 
-    <div id="lux-background"></div>
+    <div id="lux-background">
+        <div class="bg-tile" style="background-image: url('https://i.ibb.co/nqCH003B/restore-group-photo-1.jpg');"></div>
+        <div class="bg-tile" style="background-image: url('https://i.ibb.co/ZrN1VrZ/restore-group-photo-2.jpg');"></div>
+        <div class="bg-tile" style="background-image: url('https://i.ibb.co/0pcn7TK8/restore-group-photo-3.jpg');"></div>
+        <div class="bg-tile" style="background-image: url('https://i.ibb.co/Kxx9HgQX/restore-group-photo-4.jpg');"></div>
+    </div>
     <div id="gradient-fade"></div>
 
     <header class="pt-16 pb-12 text-center px-4 relative z-10 w-full flex flex-col items-center">
         <div class="mb-6 relative z-20">
-            <img src="https://cdn-icons-png.flaticon.com/512/3598/3598188.png" 
-                 alt="Restore Logo" class="h-28 w-28 rounded-full border-4 border-amber-400 shadow-xl object-cover hover:scale-105 transition-transform duration-500 bg-white p-2">
+            <img src="https://i.ibb.co/QjTXFCbd/restore-logo.jpg" 
+                 alt="Restore Logo" class="h-28 w-28 rounded-full border-4 border-amber-400 shadow-xl object-cover hover:scale-105 transition-transform duration-500">
         </div>
         
         <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold mb-3 uppercase tracking-widest text-amber-500 serif gold-text-pop max-w-5xl">CCF Restore Deliverance Ministry</h1>
@@ -377,15 +392,16 @@
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="gallery-img-container overflow-hidden rounded-2xl border border-emerald-100 shadow-md bg-white p-2"><img src="https://images.unsplash.com/photo-1544427920-c49ccfb85579?auto=format&fit=crop&q=80" alt="Restore Highlight 1" class="w-full h-48 md:h-56 object-cover rounded-xl"></div>
-                <div class="gallery-img-container overflow-hidden rounded-2xl border border-emerald-100 shadow-md bg-white p-2"><img src="https://images.unsplash.com/photo-1438283173091-5dbf5c5a3206?auto=format&fit=crop&q=80" alt="Restore Highlight 2" class="w-full h-48 md:h-56 object-cover rounded-xl"></div>
-                <div class="gallery-img-container overflow-hidden rounded-2xl border border-emerald-100 shadow-md bg-white p-2"><img src="https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&q=80" alt="Restore Highlight 3" class="w-full h-48 md:h-56 object-cover rounded-xl"></div>
+                <div class="gallery-img-container overflow-hidden rounded-2xl border border-emerald-100 shadow-md bg-white p-2"><img src="https://i.ibb.co/nqCH003B/restore-group-photo-1.jpg" alt="Restore Highlight 1" class="w-full h-48 md:h-56 object-cover rounded-xl"></div>
+                <div class="gallery-img-container overflow-hidden rounded-2xl border border-emerald-100 shadow-md bg-white p-2"><img src="https://i.ibb.co/ZrN1VrZ/restore-group-photo-2.jpg" alt="Restore Highlight 2" class="w-full h-48 md:h-56 object-cover rounded-xl"></div>
+                <div class="gallery-img-container overflow-hidden rounded-2xl border border-emerald-100 shadow-md bg-white p-2"><img src="https://i.ibb.co/0pcn7TK8/restore-group-photo-3.jpg" alt="Restore Highlight 3" class="w-full h-48 md:h-56 object-cover rounded-xl"></div>
             </div>
         </section>
         
     </main>
 
     <footer class="text-emerald-800 py-12 text-center mt-auto border-t border-emerald-200 relative z-20 bg-white/40 backdrop-blur-md">
+        <img src="https://i.ibb.co/QjTXFCbd/restore-logo.jpg" alt="Restore Logo" class="h-12 w-12 mx-auto mb-4 rounded-full opacity-90 border border-emerald-200 shadow-sm">
         <p class="font-serif text-emerald-900 mb-2 text-lg font-bold tracking-widest uppercase">CCF Restore Deliverance Ministry</p>
         
         <div class="mt-4 mb-8 max-w-lg mx-auto px-4">
@@ -397,6 +413,8 @@
     </footer>
 
     <script>
+        // =======================================================================
+        // YOUR SECURE GOOGLE SHEET CONNECTION IS 100% INTACT BELOW
         // =======================================================================
         const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwlal0DgR5aKqvLkkyK2PR5QVZdmZJH4Koc4T0r8Dgw944pIOKxzqFonr3MqS6G1ozkZw/exec"; 
         // =======================================================================
@@ -456,9 +474,6 @@
             }
         });
 
-        // ----------------------------------------------------
-        // THE FUZZY MATCH ALGORITHM
-        // ----------------------------------------------------
         function isNameDuplicate(inputStr, dbStr) {
             if(!inputStr || !dbStr) return false;
             
@@ -528,9 +543,6 @@
         document.getElementById('newEmail').addEventListener('blur', handleDuplicateCheck);
         document.getElementById('newName').addEventListener('keyup', (e) => { if(e.key === ' ' || e.key === 'Enter') handleDuplicateCheck(); });
 
-        // ----------------------------------------------------
-        // REGULAR SEARCH BAR LOGIC
-        // ----------------------------------------------------
         const searchInput = document.getElementById("searchName");
         const listDiv = document.getElementById("autocomplete-list");
 
