@@ -61,7 +61,6 @@
         
         .otp-input { letter-spacing: 0.5em; text-align: center; font-size: 1.5rem; font-weight: 700; }
     </style>
-    <!-- Include YouTube IFrame API -->
     <script src="https://www.youtube.com/iframe_api"></script>
 </head>
 <body class="antialiased flex flex-col min-h-screen relative">
@@ -99,7 +98,6 @@
 
     <main class="max-w-4xl mx-auto px-4 flex-grow w-full relative z-20 mt-4 mb-16">
         
-        <!-- REGISTRATION HUB SECTION -->
         <section id="mainCard" class="glass-panel p-8 md:p-14 relative overflow-hidden transition-all duration-700">
             <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-amber-300 via-amber-500 to-amber-600"></div>
 
@@ -154,7 +152,6 @@
                 </div>
             </div>
 
-            <!-- OTP SECURITY OVERLAY -->
             <div id="otpView" class="hidden text-center py-8">
                 <i class="fas fa-shield-alt text-6xl text-emerald-600 mb-4 drop-shadow-sm"></i>
                 <h3 class="text-3xl font-bold text-emerald-950 serif mb-2">Identity Verification</h3>
@@ -180,7 +177,6 @@
                 </div>
             </div>
 
-            <!-- ALREADY CONFIRMED VIEW -->
             <div id="alreadyConfirmedView" class="hidden text-center py-8">
                 <h2 class="text-4xl font-bold text-emerald-900 mb-3 serif">Already Confirmed!</h2>
                 <p class="text-emerald-700 text-lg mb-8 font-medium max-w-md mx-auto">You have successfully secured your spot. See you on the day of the event!</p>
@@ -212,7 +208,6 @@
                 <button onclick="location.reload()" class="bg-white border-2 border-emerald-200 text-emerald-800 font-bold py-4 px-10 rounded-xl hover:bg-emerald-50 hover:border-emerald-300 transition-all shadow-sm uppercase tracking-widest text-xs"><i class="fas fa-arrow-left mr-2"></i> Return to Home</button>
             </div>
 
-            <!-- ALREADY CHECKED-IN VIEW -->
             <div id="alreadyCheckedInView" class="hidden text-center py-8">
                 <h2 class="text-4xl font-bold text-emerald-900 mb-3 serif">Welcome to Restore!</h2>
                 <p class="text-emerald-700 text-lg mb-8 font-medium max-w-md mx-auto">You have successfully checked in at the venue today.</p>
@@ -243,7 +238,6 @@
                 <button onclick="location.reload()" class="bg-white border-2 border-emerald-200 text-emerald-800 font-bold py-4 px-10 rounded-xl hover:bg-emerald-50 hover:border-emerald-300 transition-all shadow-sm uppercase tracking-widest text-xs"><i class="fas fa-arrow-left mr-2"></i> Return to Home</button>
             </div>
 
-            <!-- RETURNING ATTENDEE FORM -->
             <div id="returningForm" class="hidden">
                 <div class="bg-emerald-50 border-l-4 border-emerald-500 p-8 rounded-xl mb-10 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                     <div>
@@ -258,7 +252,6 @@
                     <textarea id="retQuestion" rows="5" class="w-full px-5 py-5 border-2 border-emerald-200 rounded-2xl focus:ring-0 shadow-inner bg-white text-emerald-950 font-medium transition-all text-lg placeholder:text-emerald-300" placeholder="e.g., How do I maintain my freedom in daily life?"></textarea>
                 </div>
 
-                <!-- DPA DISCLAIMER -->
                 <div class="mb-8 p-5 bg-emerald-100/50 rounded-xl border border-emerald-200">
                     <p class="text-xs text-emerald-800 leading-relaxed text-justify">
                         <strong class="uppercase tracking-widest text-emerald-950 block mb-1"><i class="fas fa-shield-alt mr-1"></i> Data Privacy Notice:</strong> By submitting this form, you consent to the processing of your data by the CCF Restore Deliverance Ministry strictly for event management in compliance with the <strong>Data Privacy Act of 2012 (RA 10173)</strong>.
@@ -268,7 +261,6 @@
                 <button onclick="submitReturning()" id="retSubmitBtn" class="w-full bg-emerald-900 hover:bg-amber-500 text-white font-bold py-5 rounded-2xl shadow-xl hover:shadow-amber-500/30 text-xl transition-all duration-300 uppercase tracking-widest">Confirm My Attendance <i class="fas fa-arrow-right ml-2"></i></button>
             </div>
 
-            <!-- NEW ATTENDEE FORM WITH KEYSTROKE DETECTION -->
             <div id="newForm" class="hidden relative">
                 
                 <div id="duplicateWarning" class="hidden absolute top-0 left-0 w-full h-full bg-white/95 backdrop-blur-md z-50 flex flex-col items-center justify-center rounded-2xl p-8 text-center animate-fade-in border-4 border-amber-400 shadow-2xl">
@@ -308,7 +300,6 @@
                     <div class="md:col-span-2"><label class="block text-xs font-bold text-emerald-800 mb-2 uppercase tracking-widest pl-1">Advance Panel Question</label><textarea id="newQuestion" rows="4" class="w-full px-5 py-4 border-2 border-emerald-200 rounded-xl bg-white shadow-sm font-medium text-emerald-900 text-lg transition-all"></textarea></div>
                 </div>
 
-                <!-- DPA DISCLAIMER -->
                 <div class="mb-8 p-5 bg-emerald-100/50 rounded-xl border border-emerald-200">
                     <p class="text-xs text-emerald-800 leading-relaxed text-justify">
                         <strong class="uppercase tracking-widest text-emerald-950 block mb-1"><i class="fas fa-shield-alt mr-1"></i> Data Privacy Notice:</strong> By submitting this form, you consent to the processing of your data by the CCF Restore Deliverance Ministry strictly for event management in compliance with the <strong>Data Privacy Act of 2012 (RA 10173)</strong>.
@@ -318,7 +309,6 @@
                 <button onclick="submitNew()" id="newSubmitBtn" class="w-full bg-emerald-900 hover:bg-amber-500 text-white font-bold py-5 rounded-2xl shadow-xl hover:shadow-amber-500/30 text-xl transition-all duration-300 uppercase tracking-widest">Register & Confirm Attendance <i class="fas fa-check ml-2"></i></button>
             </div>
 
-            <!-- SUCCESS MESSAGE -->
             <div id="successMsg" class="hidden text-center py-8">
                 <h2 class="text-4xl font-bold text-emerald-950 mb-3 serif">Hallelujah!</h2>
                 <p class="text-emerald-700 text-lg mb-8 font-medium max-w-md mx-auto">Your registration is confirmed. Prepare your heart for an amazing time in the Lord.</p>
@@ -351,17 +341,6 @@
             </div>
         </section>
 
-        <!-- EXPERIENCE RESTORE: YOUTUBE VIDEO SECTION -->
-        <section class="mt-14 mb-10 glass-panel p-8 md:p-14 text-center">
-            <h3 class="text-3xl md:text-4xl font-bold text-emerald-950 serif inline-block border-b-4 border-amber-400 pb-2 mb-8">Experience Restore</h3>
-            <p class="text-emerald-700 font-medium text-lg mb-8 max-w-2xl mx-auto">Prepare your heart. Watch this powerful message of deliverance and freedom.</p>
-            
-            <div class="relative w-full max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-2xl border-4 border-white/80 aspect-video bg-emerald-950">
-                <div id="youtube-player" class="absolute top-0 left-0 w-full h-full"></div>
-            </div>
-        </section>
-
-        <!-- ASK THE PANEL SECTION -->
         <section class="mt-14 mb-12 glass-panel p-10 md:p-14 text-center">
             <h3 class="text-3xl md:text-4xl font-bold text-emerald-950 serif inline-block border-b-4 border-amber-400 pb-3 mb-6">Ask the Breakthrough Panel</h3>
             <p class="text-emerald-700 font-medium text-lg md:text-xl max-w-2xl mx-auto mb-10">We welcome your deepest questions on spiritual warfare and victory.</p>
@@ -376,7 +355,28 @@
             </div>
         </section>
 
-        <!-- ADMIN DASHBOARD -->
+        <section class="mt-14 mb-10 glass-panel p-8 md:p-14">
+            <div class="text-center mb-12">
+                <h3 class="text-3xl md:text-4xl font-bold text-emerald-950 serif inline-block border-b-4 border-amber-400 pb-2">Highlights from Past Gatherings</h3>
+                <p class="text-emerald-700 mt-4 font-medium text-lg">Testimonies of freedom and worship. Click to view.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
+                <div class="gallery-wrapper"><div class="gallery-img-container overflow-hidden rounded-2xl border-4 border-white shadow-xl bg-white"><img onclick="openLightbox(this.src)" src="https://i.ibb.co/nqCH003B/restore-group-photo-1.jpg" alt="Restore Highlight 1" class="w-full h-56 md:h-64 object-cover hover:scale-110 transition-transform duration-700"></div></div>
+                <div class="gallery-wrapper"><div class="gallery-img-container overflow-hidden rounded-2xl border-4 border-white shadow-xl bg-white"><img onclick="openLightbox(this.src)" src="https://i.ibb.co/ZrN1VrZ/restore-group-photo-2.jpg" alt="Restore Highlight 2" class="w-full h-56 md:h-64 object-cover hover:scale-110 transition-transform duration-700"></div></div>
+                <div class="gallery-wrapper"><div class="gallery-img-container overflow-hidden rounded-2xl border-4 border-white shadow-xl bg-white"><img onclick="openLightbox(this.src)" src="https://i.ibb.co/0pcn7TK8/restore-group-photo-3.jpg" alt="Restore Highlight 3" class="w-full h-56 md:h-64 object-cover hover:scale-110 transition-transform duration-700"></div></div>
+            </div>
+        </section>
+
+        <section id="videoSection" class="mt-14 mb-10 glass-panel p-8 md:p-14 text-center">
+            <h3 class="text-3xl md:text-4xl font-bold text-emerald-950 serif inline-block border-b-4 border-amber-400 pb-2 mb-8">Experience Restore</h3>
+            <p class="text-emerald-700 font-medium text-lg mb-8 max-w-2xl mx-auto">Prepare your heart. Watch this powerful song of deliverance and freedom.</p>
+            
+            <div class="relative w-full max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-2xl border-4 border-white/80 aspect-video bg-emerald-950">
+                <div id="youtube-player" class="absolute top-0 left-0 w-full h-full"></div>
+            </div>
+        </section>
+
         <section id="adminDashboard" class="hidden glass-panel p-8 md:p-12 border-t-8 border-emerald-900 mt-8">
             <div class="flex flex-col md:flex-row justify-between items-center mb-8 border-b-2 border-emerald-100 pb-6 gap-4">
                 <h3 class="text-3xl font-bold text-emerald-950 serif"><i class="fas fa-clipboard-list text-amber-500 mr-3 drop-shadow-sm"></i> On-Site Check-in</h3>
@@ -409,20 +409,6 @@
             </div>
             <div class="mt-8 text-center">
                 <button onclick="loadRoster()" class="text-sm text-emerald-700 font-bold hover:text-emerald-950 uppercase tracking-widest bg-emerald-50 px-6 py-3 rounded-lg border border-emerald-200 shadow-sm transition-colors hover:bg-emerald-100"><i class="fas fa-sync-alt mr-2"></i> Refresh List</button>
-            </div>
-        </section>
-        
-        <!-- HIGHLIGHTS SECTION -->
-        <section class="mt-14 mb-10 glass-panel p-8 md:p-14">
-            <div class="text-center mb-12">
-                <h3 class="text-3xl md:text-4xl font-bold text-emerald-950 serif inline-block border-b-4 border-amber-400 pb-2">Highlights from Past Gatherings</h3>
-                <p class="text-emerald-700 mt-4 font-medium text-lg">Testimonies of freedom and worship. Click to view.</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
-                <div class="gallery-wrapper"><div class="gallery-img-container overflow-hidden rounded-2xl border-4 border-white shadow-xl bg-white"><img onclick="openLightbox(this.src)" src="https://i.ibb.co/nqCH003B/restore-group-photo-1.jpg" alt="Restore Highlight 1" class="w-full h-56 md:h-64 object-cover hover:scale-110 transition-transform duration-700"></div></div>
-                <div class="gallery-wrapper"><div class="gallery-img-container overflow-hidden rounded-2xl border-4 border-white shadow-xl bg-white"><img onclick="openLightbox(this.src)" src="https://i.ibb.co/ZrN1VrZ/restore-group-photo-2.jpg" alt="Restore Highlight 2" class="w-full h-56 md:h-64 object-cover hover:scale-110 transition-transform duration-700"></div></div>
-                <div class="gallery-wrapper"><div class="gallery-img-container overflow-hidden rounded-2xl border-4 border-white shadow-xl bg-white"><img onclick="openLightbox(this.src)" src="https://i.ibb.co/0pcn7TK8/restore-group-photo-3.jpg" alt="Restore Highlight 3" class="w-full h-56 md:h-64 object-cover hover:scale-110 transition-transform duration-700"></div></div>
             </div>
         </section>
         
@@ -459,18 +445,19 @@
         let currentEventDate = "";
         let targetRowForOtp = null;
 
-        // YOUTUBE AUTOPLAY ON INTERACTION LOGIC
+        // YOUTUBE AUTOPLAY ON SCROLL LOGIC
         let ytPlayer;
         function onYouTubeIframeAPIReady() {
             ytPlayer = new YT.Player('youtube-player', {
                 videoId: 'wwH3fA3D690',
                 playerVars: {
-                    'autoplay': 0, // Controlled below to bypass strict browser policies
+                    'autoplay': 0, 
                     'playsinline': 1,
                     'controls': 1,
                     'rel': 0,
                     'showinfo': 0,
-                    'modestbranding': 1
+                    'modestbranding': 1,
+                    'mute': 1 // REQUIRED by modern browsers to allow programmatic autoplay
                 },
                 events: {
                     'onReady': onPlayerReady
@@ -479,22 +466,21 @@
         }
 
         function onPlayerReady(event) {
-            let hasPlayed = false;
-            const playVideoOnInteraction = () => {
-                if (!hasPlayed && ytPlayer && typeof ytPlayer.playVideo === 'function') {
-                    ytPlayer.playVideo();
-                    hasPlayed = true;
-                    // Remove listeners once triggered
-                    window.removeEventListener('scroll', playVideoOnInteraction);
-                    document.body.removeEventListener('click', playVideoOnInteraction);
-                    document.body.removeEventListener('touchstart', playVideoOnInteraction);
-                }
-            };
+            const videoSection = document.getElementById('videoSection');
+            if (!videoSection) return;
             
-            // Listen for any user interaction to trigger the video
-            window.addEventListener('scroll', playVideoOnInteraction, { once: true, passive: true });
-            document.body.addEventListener('click', playVideoOnInteraction, { once: true });
-            document.body.addEventListener('touchstart', playVideoOnInteraction, { once: true, passive: true });
+            // Intersection Observer detects when the video enters the screen while scrolling
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        event.target.playVideo();
+                    } else {
+                        event.target.pauseVideo();
+                    }
+                });
+            }, { threshold: 0.3 }); // Triggers when at least 30% of the video is visible on screen
+            
+            observer.observe(videoSection);
         }
 
         function openLightbox(src) {
