@@ -6,73 +6,25 @@
     <title>CCF Restore Deliverance Ministry | Registration</title>
     <link rel="icon" type="image/jpeg" href="https://i.ibb.co/QjTXFCbd/restore-logo.jpg">
     <meta name="description" content="Official registration and data hub for the CCF Restore Deliverance Ministry. Secure your spot for our next gathering, ask the panel, and experience freedom in Christ.">
-    <meta name="keywords" content="CCF Restore, CCF Deliverance Ministry, CCF Registration, Spiritual Warfare, Deliverance Gathering">
-    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
         
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: #f0fdf4; 
-            color: #064e3b; 
-            overflow-x: hidden;
-        }
+        body { font-family: 'Inter', sans-serif; background-color: #f0fdf4; color: #064e3b; overflow-x: hidden; }
         h1, h2, h3, h4, .serif { font-family: 'Playfair Display', serif; }
         
-        /* HYPNOTIC BACKGROUND ANIMATION */
-        @keyframes breathBackground {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        #lux-background {
-            position: fixed; 
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -2;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            grid-template-rows: repeat(2, 1fr);
-            opacity: 0.22; 
-            mix-blend-mode: luminosity; 
-            animation: breathBackground 40s ease-in-out infinite; /* Slow, hypnotic breathing */
-        }
+        @keyframes breathBackground { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+        #lux-background { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); opacity: 0.22; mix-blend-mode: luminosity; animation: breathBackground 40s ease-in-out infinite; }
         .bg-tile { background-size: cover; background-position: center; width: 100%; height: 100%; }
-        
-        #gradient-fade {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1;
-            background: radial-gradient(circle at 50% 15%, rgba(240, 253, 244, 0.3) 0%, rgba(240, 253, 244, 0.95) 60%, rgba(240, 253, 244, 1) 100%);
-        }
+        #gradient-fade { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: radial-gradient(circle at 50% 15%, rgba(240, 253, 244, 0.3) 0%, rgba(240, 253, 244, 0.95) 60%, rgba(240, 253, 244, 1) 100%); }
 
-        /* WORLD-CLASS UI CARDS & LUMINOUS GLOWS */
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.9);
-            box-shadow: 0 25px 50px -12px rgba(6, 78, 59, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
-            border-radius: 1.5rem;
-        }
-
+        .glass-panel { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.9); box-shadow: 0 25px 50px -12px rgba(6, 78, 59, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.5); border-radius: 1.5rem; }
         .gold-text-pop { text-shadow: 0px 4px 15px rgba(251, 191, 36, 0.3), 0px 1px 2px rgba(0, 0, 0, 0.05); }
 
-        /* Smooth Input Focus Glow */
-        input:focus, select:focus, textarea:focus {
-            box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.2) !important;
-            border-color: #fbbf24 !important;
-            outline: none;
-        }
-
+        input:focus, select:focus, textarea:focus { box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.2) !important; border-color: #fbbf24 !important; outline: none; }
         .autocomplete-wrapper { position: relative; }
-        .autocomplete-items {
-            position: absolute; border: 1px solid #34d399; border-top: none;
-            z-index: 99; top: 100%; left: 0; right: 0; background-color: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(10px);
-            max-height: 250px; overflow-y: auto; border-radius: 0 0 12px 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-        }
+        .autocomplete-items { position: absolute; border: 1px solid #34d399; border-top: none; z-index: 99; top: 100%; left: 0; right: 0; background-color: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px); max-height: 250px; overflow-y: auto; border-radius: 0 0 12px 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
         .autocomplete-items div { padding: 16px 20px; cursor: pointer; border-bottom: 1px solid #f0fdf4; color: #064e3b; font-weight: 600; transition: all 0.2s ease; }
         .autocomplete-items div:hover { background-color: #fef3c7; color: #d97706; padding-left: 24px; }
         .hidden { display: none !important; }
@@ -80,47 +32,22 @@
         .loader { border: 4px solid #e2e8f0; border-top: 4px solid #fbbf24; border-radius: 50%; width: 45px; height: 45px; animation: spin 1s linear infinite; margin: 0 auto; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         
-        /* FLOATING GALLERY ANIMATIONS */
-        @keyframes floatGallery {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-8px); }
-            100% { transform: translateY(0px); }
-        }
+        @keyframes floatGallery { 0% { transform: translateY(0px); } 50% { transform: translateY(-8px); } 100% { transform: translateY(0px); } }
         .gallery-wrapper { animation: floatGallery 6s ease-in-out infinite; }
         .gallery-wrapper:nth-child(2) { animation-delay: -2s; }
         .gallery-wrapper:nth-child(3) { animation-delay: -4s; }
-        
         .gallery-img-container { transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.5s; cursor: zoom-in; }
         .gallery-img-container:hover { transform: scale(1.05); box-shadow: 0 30px 60px -12px rgba(6, 78, 59, 0.3); z-index: 10; position: relative; }
     
-        /* LIGHTBOX STYLES */
-        #lightbox {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999;
-            background: rgba(2, 44, 34, 0.95); backdrop-filter: blur(15px);
-            display: flex; justify-content: center; align-items: center;
-            opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
-        }
+        #lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999; background: rgba(2, 44, 34, 0.95); backdrop-filter: blur(15px); display: flex; justify-content: center; align-items: center; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
         #lightbox.active { opacity: 1; pointer-events: auto; }
         #lightbox img { max-width: 90%; max-height: 85vh; border-radius: 1rem; box-shadow: 0 25px 50px rgba(0,0,0,0.5); transform: scale(0.95); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: 2px solid rgba(255,255,255,0.1); }
         #lightbox.active img { transform: scale(1); }
         .close-lightbox { position: absolute; top: 2rem; right: 2rem; color: rgba(255,255,255,0.7); font-size: 2.5rem; cursor: pointer; transition: all 0.3s ease; }
         .close-lightbox:hover { color: #fbbf24; transform: rotate(90deg); }
 
-        /* FLOATING FACEBOOK BUTTON */
-        .fb-float-btn {
-            position: fixed; bottom: 2rem; right: 2rem; z-index: 9000;
-            background: linear-gradient(135deg, #1877F2, #0e5a2);
-            color: white; border-radius: 50px; padding: 1rem;
-            display: flex; align-items: center; justify-content: center; gap: 0;
-            box-shadow: 0 15px 30px rgba(24, 119, 242, 0.4);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            overflow: hidden; text-decoration: none;
-        }
-        .fb-float-btn:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 20px 40px rgba(24, 119, 242, 0.6);
-            padding-left: 1.5rem; padding-right: 1.5rem; gap: 0.75rem;
-        }
+        .fb-float-btn { position: fixed; bottom: 2rem; right: 2rem; z-index: 9000; background: linear-gradient(135deg, #1877F2, #0e5a2); color: white; border-radius: 50px; padding: 1rem; display: flex; align-items: center; justify-content: center; gap: 0; box-shadow: 0 15px 30px rgba(24, 119, 242, 0.4); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); overflow: hidden; text-decoration: none; }
+        .fb-float-btn:hover { transform: translateY(-5px) scale(1.05); box-shadow: 0 20px 40px rgba(24, 119, 242, 0.6); padding-left: 1.5rem; padding-right: 1.5rem; gap: 0.75rem; }
         .fb-float-text { max-width: 0; opacity: 0; white-space: nowrap; font-weight: 600; transition: all 0.4s ease; }
         .fb-float-btn:hover .fb-float-text { max-width: 150px; opacity: 1; }
 
@@ -130,8 +57,12 @@
         .bible-ref { font-family: 'Inter', sans-serif; font-style: normal; text-transform: uppercase; letter-spacing: 0.15em; font-size: 0.75em; font-weight: 700; color: #047857; margin-top: 0.5rem; display: block;}
 
         .digital-pass { background-image: radial-gradient(circle at top left, transparent 10px, #ffffff 11px), radial-gradient(circle at top right, transparent 10px, #ffffff 11px), radial-gradient(circle at bottom left, transparent 10px, #ffffff 11px), radial-gradient(circle at bottom right, transparent 10px, #ffffff 11px); background-size: 51% 51%; background-repeat: no-repeat; background-position: top left, top right, bottom left, bottom right; border: 1px solid #d1fae5; box-shadow: 0 15px 35px -5px rgba(6, 78, 59, 0.15); }
-        .vip-pass { background-image: radial-gradient(circle at top left, transparent 10px, #ecfdf5 11px), radial-gradient(circle at top right, transparent 10px, #ecfdf5 11px), radial-gradient(circle at bottom left, transparent 10px, #ecfdf5 11px), radial-gradient(circle at bottom right, transparent 10px, #ecfdf5 11px); background-size: 51% 51%; background-repeat: no-repeat; background-position: top left, top right, bottom left, bottom right; border: 1px solid #6ee7b7; box-shadow: 0 15px 35px -5px rgba(6, 78, 59, 0.2); background-color: #ecfdf5; }
+        .vip-pass { background-image: radial-gradient(circle at top left, transparent 10px, #ecfdf5 11px), radial-gradient(circle at top right, transparent 10px, #ecfdf5 11px), radial-gradient(circle at bottom left, transparent 10px, #ecfdf5 11px), radial-gradient(circle at bottom right, transparent 10px, #ecfdf5 11px); background-size: 51% 51%; background-repeat: no-repeat; background-position: top left, top right, bottom left, bottom right; border: 1px solid #6ee7b7; box-shadow: 0 10px 30px -5px rgba(6, 78, 59, 0.2); background-color: #ecfdf5; }
+        
+        .otp-input { letter-spacing: 0.5em; text-align: center; font-size: 1.5rem; font-weight: 700; }
     </style>
+    <!-- Include YouTube IFrame API -->
+    <script src="https://www.youtube.com/iframe_api"></script>
 </head>
 <body class="antialiased flex flex-col min-h-screen relative">
 
@@ -155,15 +86,11 @@
 
     <header class="pt-16 pb-12 text-center px-4 relative z-10 w-full flex flex-col items-center animate-fade-in">
         <div class="mb-6 relative z-20">
-            <img src="https://i.ibb.co/QjTXFCbd/restore-logo.jpg" 
-                 alt="Restore Logo" class="h-32 w-32 rounded-full border-4 border-amber-400 shadow-2xl object-cover hover:scale-110 hover:shadow-amber-400/50 transition-all duration-500">
+            <img src="https://i.ibb.co/QjTXFCbd/restore-logo.jpg" alt="Restore Logo" class="h-32 w-32 rounded-full border-4 border-amber-400 shadow-2xl object-cover hover:scale-110 hover:shadow-amber-400/50 transition-all duration-500">
         </div>
-        
         <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 uppercase tracking-widest text-amber-500 serif gold-text-pop max-w-6xl leading-tight">CCF Restore Deliverance Ministry</h1>
-        
         <h2 id="displayTitle" class="text-xl md:text-2xl font-semibold tracking-wide text-emerald-800 relative z-20 mt-2 capitalize bg-white/50 px-6 py-2 rounded-full backdrop-blur-md shadow-sm border border-emerald-100/50 inline-block">Loading Event Details...</h2>
         <p id="displayDate" class="text-amber-600 font-bold mt-4 text-sm md:text-base tracking-widest uppercase relative z-20 drop-shadow-sm"><i class="fas fa-calendar-alt mr-2"></i> ---</p>
-
         <div class="mt-10 px-4 max-w-3xl mx-auto">
             <span class="bible-verse text-xl md:text-2xl">It is for freedom that Christ has set us free. Stand firm, then, and do not let yourselves be burdened again by a yoke of slavery.</span>
             <span class="bible-ref">Galatians 5:1 NIV</span>
@@ -172,6 +99,7 @@
 
     <main class="max-w-4xl mx-auto px-4 flex-grow w-full relative z-20 mt-4 mb-16">
         
+        <!-- REGISTRATION HUB SECTION -->
         <section id="mainCard" class="glass-panel p-8 md:p-14 relative overflow-hidden transition-all duration-700">
             <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-amber-300 via-amber-500 to-amber-600"></div>
 
@@ -226,6 +154,33 @@
                 </div>
             </div>
 
+            <!-- OTP SECURITY OVERLAY -->
+            <div id="otpView" class="hidden text-center py-8">
+                <i class="fas fa-shield-alt text-6xl text-emerald-600 mb-4 drop-shadow-sm"></i>
+                <h3 class="text-3xl font-bold text-emerald-950 serif mb-2">Identity Verification</h3>
+                <p class="text-emerald-700 font-medium text-base max-w-md mx-auto mb-6">To protect your profile, we have sent a 6-digit verification code to the email address on file.</p>
+                
+                <div class="bg-emerald-50/80 p-6 rounded-2xl border border-emerald-100 mb-8 max-w-md mx-auto shadow-inner text-left">
+                    <p class="text-xs font-bold text-emerald-600 uppercase tracking-widest mb-1">Code sent to:</p>
+                    <p id="otpMaskedEmail" class="text-emerald-950 font-semibold mb-3"><i class="fas fa-envelope text-amber-500 mr-2"></i>Loading...</p>
+                    
+                    <p class="text-xs font-bold text-emerald-600 uppercase tracking-widest mb-1 mt-4 border-t border-emerald-200 pt-4">Phone on file:</p>
+                    <p id="otpMaskedPhone" class="text-emerald-950 font-semibold"><i class="fas fa-mobile-alt text-amber-500 mr-2 ml-1"></i>Loading...</p>
+                </div>
+
+                <div class="max-w-xs mx-auto mb-8">
+                    <label class="block text-xs font-bold text-emerald-800 mb-2 uppercase tracking-widest text-left pl-1">Enter 6-Digit Code *</label>
+                    <input type="text" id="otpInput" maxlength="6" class="w-full px-5 py-4 border-2 border-emerald-300 rounded-xl bg-white shadow-sm font-medium text-emerald-900 transition-all otp-input placeholder:tracking-normal placeholder:font-normal" placeholder="XXXXXX">
+                    <p id="otpError" class="text-red-500 text-sm font-bold mt-2 hidden"><i class="fas fa-times-circle mr-1"></i> Incorrect code. Please try again.</p>
+                </div>
+
+                <div class="flex gap-4 max-w-md mx-auto">
+                    <button onclick="resetToSearch()" class="flex-1 bg-white border-2 border-emerald-200 text-emerald-800 font-bold py-4 rounded-xl hover:bg-emerald-50 transition-all shadow-sm uppercase tracking-widest text-xs">Cancel</button>
+                    <button onclick="verifyOtp()" id="verifyOtpBtn" class="flex-1 bg-emerald-900 hover:bg-amber-500 text-white font-bold py-4 rounded-xl shadow-xl hover:shadow-amber-500/30 transition-all duration-300 uppercase tracking-widest text-sm">Verify <i class="fas fa-check ml-1"></i></button>
+                </div>
+            </div>
+
+            <!-- ALREADY CONFIRMED VIEW -->
             <div id="alreadyConfirmedView" class="hidden text-center py-8">
                 <h2 class="text-4xl font-bold text-emerald-900 mb-3 serif">Already Confirmed!</h2>
                 <p class="text-emerald-700 text-lg mb-8 font-medium max-w-md mx-auto">You have successfully secured your spot. See you on the day of the event!</p>
@@ -257,6 +212,7 @@
                 <button onclick="location.reload()" class="bg-white border-2 border-emerald-200 text-emerald-800 font-bold py-4 px-10 rounded-xl hover:bg-emerald-50 hover:border-emerald-300 transition-all shadow-sm uppercase tracking-widest text-xs"><i class="fas fa-arrow-left mr-2"></i> Return to Home</button>
             </div>
 
+            <!-- ALREADY CHECKED-IN VIEW -->
             <div id="alreadyCheckedInView" class="hidden text-center py-8">
                 <h2 class="text-4xl font-bold text-emerald-900 mb-3 serif">Welcome to Restore!</h2>
                 <p class="text-emerald-700 text-lg mb-8 font-medium max-w-md mx-auto">You have successfully checked in at the venue today.</p>
@@ -284,17 +240,16 @@
                 </div>
 
                 <p class="text-emerald-900 bg-emerald-100/50 mb-10 max-w-md mx-auto font-medium text-base p-5 rounded-xl border border-emerald-200 shadow-sm leading-relaxed">Please find a comfortable seat and prepare your heart to enjoy the presence of the Lord today.</p>
-                
                 <button onclick="location.reload()" class="bg-white border-2 border-emerald-200 text-emerald-800 font-bold py-4 px-10 rounded-xl hover:bg-emerald-50 hover:border-emerald-300 transition-all shadow-sm uppercase tracking-widest text-xs"><i class="fas fa-arrow-left mr-2"></i> Return to Home</button>
             </div>
 
+            <!-- RETURNING ATTENDEE FORM -->
             <div id="returningForm" class="hidden">
                 <div class="bg-emerald-50 border-l-4 border-emerald-500 p-8 rounded-xl mb-10 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                     <div>
-                        <h4 class="text-emerald-950 font-bold text-2xl"><i class="fas fa-check-circle mr-2 text-emerald-600"></i>Welcome back, <span id="welcomeName" class="text-amber-600 serif italic"></span>!</h4>
-                        <p class="text-emerald-700 font-medium mt-2 text-base">Please submit a question and confirm your attendance.</p>
+                        <h4 class="text-emerald-950 font-bold text-2xl"><i class="fas fa-check-circle mr-2 text-emerald-600"></i>Identity Verified.</h4>
+                        <p class="text-emerald-700 font-medium mt-2 text-base">Welcome back, <strong id="welcomeName" class="text-amber-600 serif italic"></strong>! Please submit a question to confirm your attendance.</p>
                     </div>
-                    <button onclick="resetToSearch()" class="text-sm text-emerald-600 hover:text-emerald-900 font-bold bg-white px-5 py-3 rounded-lg shadow-sm transition-colors border border-emerald-100 whitespace-nowrap"><i class="fas fa-undo mr-1"></i> Not you?</button>
                 </div>
                 
                 <input type="hidden" id="retRow">
@@ -302,9 +257,18 @@
                     <label class="block text-xs font-bold text-emerald-800 mb-3 uppercase tracking-widest pl-2">Advance question for our panelists:</label>
                     <textarea id="retQuestion" rows="5" class="w-full px-5 py-5 border-2 border-emerald-200 rounded-2xl focus:ring-0 shadow-inner bg-white text-emerald-950 font-medium transition-all text-lg placeholder:text-emerald-300" placeholder="e.g., How do I maintain my freedom in daily life?"></textarea>
                 </div>
+
+                <!-- DPA DISCLAIMER -->
+                <div class="mb-8 p-5 bg-emerald-100/50 rounded-xl border border-emerald-200">
+                    <p class="text-xs text-emerald-800 leading-relaxed text-justify">
+                        <strong class="uppercase tracking-widest text-emerald-950 block mb-1"><i class="fas fa-shield-alt mr-1"></i> Data Privacy Notice:</strong> By submitting this form, you consent to the processing of your data by the CCF Restore Deliverance Ministry strictly for event management in compliance with the <strong>Data Privacy Act of 2012 (RA 10173)</strong>.
+                    </p>
+                </div>
+
                 <button onclick="submitReturning()" id="retSubmitBtn" class="w-full bg-emerald-900 hover:bg-amber-500 text-white font-bold py-5 rounded-2xl shadow-xl hover:shadow-amber-500/30 text-xl transition-all duration-300 uppercase tracking-widest">Confirm My Attendance <i class="fas fa-arrow-right ml-2"></i></button>
             </div>
 
+            <!-- NEW ATTENDEE FORM WITH KEYSTROKE DETECTION -->
             <div id="newForm" class="hidden relative">
                 
                 <div id="duplicateWarning" class="hidden absolute top-0 left-0 w-full h-full bg-white/95 backdrop-blur-md z-50 flex flex-col items-center justify-center rounded-2xl p-8 text-center animate-fade-in border-4 border-amber-400 shadow-2xl">
@@ -344,9 +308,17 @@
                     <div class="md:col-span-2"><label class="block text-xs font-bold text-emerald-800 mb-2 uppercase tracking-widest pl-1">Advance Panel Question</label><textarea id="newQuestion" rows="4" class="w-full px-5 py-4 border-2 border-emerald-200 rounded-xl bg-white shadow-sm font-medium text-emerald-900 text-lg transition-all"></textarea></div>
                 </div>
 
+                <!-- DPA DISCLAIMER -->
+                <div class="mb-8 p-5 bg-emerald-100/50 rounded-xl border border-emerald-200">
+                    <p class="text-xs text-emerald-800 leading-relaxed text-justify">
+                        <strong class="uppercase tracking-widest text-emerald-950 block mb-1"><i class="fas fa-shield-alt mr-1"></i> Data Privacy Notice:</strong> By submitting this form, you consent to the processing of your data by the CCF Restore Deliverance Ministry strictly for event management in compliance with the <strong>Data Privacy Act of 2012 (RA 10173)</strong>.
+                    </p>
+                </div>
+
                 <button onclick="submitNew()" id="newSubmitBtn" class="w-full bg-emerald-900 hover:bg-amber-500 text-white font-bold py-5 rounded-2xl shadow-xl hover:shadow-amber-500/30 text-xl transition-all duration-300 uppercase tracking-widest">Register & Confirm Attendance <i class="fas fa-check ml-2"></i></button>
             </div>
 
+            <!-- SUCCESS MESSAGE -->
             <div id="successMsg" class="hidden text-center py-8">
                 <h2 class="text-4xl font-bold text-emerald-950 mb-3 serif">Hallelujah!</h2>
                 <p class="text-emerald-700 text-lg mb-8 font-medium max-w-md mx-auto">Your registration is confirmed. Prepare your heart for an amazing time in the Lord.</p>
@@ -379,6 +351,17 @@
             </div>
         </section>
 
+        <!-- EXPERIENCE RESTORE: YOUTUBE VIDEO SECTION -->
+        <section class="mt-14 mb-10 glass-panel p-8 md:p-14 text-center">
+            <h3 class="text-3xl md:text-4xl font-bold text-emerald-950 serif inline-block border-b-4 border-amber-400 pb-2 mb-8">Experience Restore</h3>
+            <p class="text-emerald-700 font-medium text-lg mb-8 max-w-2xl mx-auto">Prepare your heart. Watch this powerful message of deliverance and freedom.</p>
+            
+            <div class="relative w-full max-w-4xl mx-auto rounded-2xl overflow-hidden shadow-2xl border-4 border-white/80 aspect-video bg-emerald-950">
+                <div id="youtube-player" class="absolute top-0 left-0 w-full h-full"></div>
+            </div>
+        </section>
+
+        <!-- ASK THE PANEL SECTION -->
         <section class="mt-14 mb-12 glass-panel p-10 md:p-14 text-center">
             <h3 class="text-3xl md:text-4xl font-bold text-emerald-950 serif inline-block border-b-4 border-amber-400 pb-3 mb-6">Ask the Breakthrough Panel</h3>
             <p class="text-emerald-700 font-medium text-lg md:text-xl max-w-2xl mx-auto mb-10">We welcome your deepest questions on spiritual warfare and victory.</p>
@@ -393,6 +376,7 @@
             </div>
         </section>
 
+        <!-- ADMIN DASHBOARD -->
         <section id="adminDashboard" class="hidden glass-panel p-8 md:p-12 border-t-8 border-emerald-900 mt-8">
             <div class="flex flex-col md:flex-row justify-between items-center mb-8 border-b-2 border-emerald-100 pb-6 gap-4">
                 <h3 class="text-3xl font-bold text-emerald-950 serif"><i class="fas fa-clipboard-list text-amber-500 mr-3 drop-shadow-sm"></i> On-Site Check-in</h3>
@@ -428,6 +412,7 @@
             </div>
         </section>
         
+        <!-- HIGHLIGHTS SECTION -->
         <section class="mt-14 mb-10 glass-panel p-8 md:p-14">
             <div class="text-center mb-12">
                 <h3 class="text-3xl md:text-4xl font-bold text-emerald-950 serif inline-block border-b-4 border-amber-400 pb-2">Highlights from Past Gatherings</h3>
@@ -464,7 +449,7 @@
 
     <script>
         // =======================================================================
-        // YOUR SECURE GOOGLE SHEET CONNECTION IS 100% INTACT BELOW
+        // YOUR SECURE GOOGLE SHEET CONNECTION
         // =======================================================================
         const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwlal0DgR5aKqvLkkyK2PR5QVZdmZJH4Koc4T0r8Dgw944pIOKxzqFonr3MqS6G1ozkZw/exec"; 
         // =======================================================================
@@ -472,8 +457,46 @@
         let databaseNames = [];
         let currentEventTitle = "";
         let currentEventDate = "";
+        let targetRowForOtp = null;
 
-        // LIGHTBOX LOGIC
+        // YOUTUBE AUTOPLAY ON INTERACTION LOGIC
+        let ytPlayer;
+        function onYouTubeIframeAPIReady() {
+            ytPlayer = new YT.Player('youtube-player', {
+                videoId: 'wwH3fA3D690',
+                playerVars: {
+                    'autoplay': 0, // Controlled below to bypass strict browser policies
+                    'playsinline': 1,
+                    'controls': 1,
+                    'rel': 0,
+                    'showinfo': 0,
+                    'modestbranding': 1
+                },
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            let hasPlayed = false;
+            const playVideoOnInteraction = () => {
+                if (!hasPlayed && ytPlayer && typeof ytPlayer.playVideo === 'function') {
+                    ytPlayer.playVideo();
+                    hasPlayed = true;
+                    // Remove listeners once triggered
+                    window.removeEventListener('scroll', playVideoOnInteraction);
+                    document.body.removeEventListener('click', playVideoOnInteraction);
+                    document.body.removeEventListener('touchstart', playVideoOnInteraction);
+                }
+            };
+            
+            // Listen for any user interaction to trigger the video
+            window.addEventListener('scroll', playVideoOnInteraction, { once: true, passive: true });
+            document.body.addEventListener('click', playVideoOnInteraction, { once: true });
+            document.body.addEventListener('touchstart', playVideoOnInteraction, { once: true, passive: true });
+        }
+
         function openLightbox(src) {
             const lb = document.getElementById('lightbox');
             document.getElementById('lightbox-img').src = src;
@@ -570,7 +593,7 @@
                     document.getElementById('duplicateWarningText').innerText = "You have already confirmed your attendance for this gathering. Redirecting you to your pass...";
                 } else {
                     document.getElementById('duplicateWarningTitle').innerText = "Record Found!";
-                    document.getElementById('duplicateWarningText').innerText = "We found your profile in our database. Redirecting you to confirm your attendance...";
+                    document.getElementById('duplicateWarningText').innerText = "We found your profile in our database. Redirecting you to secure verification...";
                 }
 
                 document.getElementById('duplicateWarning').classList.remove('hidden');
@@ -594,7 +617,6 @@
         document.getElementById('newEmail').addEventListener('blur', handleDuplicateCheck);
         document.getElementById('newName').addEventListener('keyup', (e) => { if(e.key === ' ' || e.key === 'Enter') handleDuplicateCheck(); });
 
-        // SEARCH BAR LOGIC
         const searchInput = document.getElementById("searchName");
         const listDiv = document.getElementById("autocomplete-list");
 
@@ -624,7 +646,7 @@
         });
         document.addEventListener("click", e => { if (e.target !== searchInput) listDiv.classList.add("hidden"); });
 
-        function selectReturningUser(userObj) {
+        async function selectReturningUser(userObj) {
             document.getElementById('step1').classList.add('hidden');
             
             if (userObj.status === "Checked-In (Onsite)") {
@@ -639,20 +661,62 @@
                 document.getElementById('ticketDate1').innerText = currentEventDate;
                 document.getElementById('alreadyConfirmedView').classList.remove('hidden');
             } else {
+                targetRowForOtp = userObj.row;
                 document.getElementById('welcomeName').innerText = userObj.name;
-                document.getElementById('retRow').value = userObj.row;
+                
+                document.getElementById('otpMaskedEmail').innerHTML = `<i class="fas fa-spinner fa-spin text-amber-500 mr-2"></i>Sending code...`;
+                document.getElementById('otpMaskedPhone').innerHTML = `<i class="fas fa-spinner fa-spin text-amber-500 mr-2"></i>Checking record...`;
+                document.getElementById('otpView').classList.remove('hidden');
+
+                const response = await fetch(WEB_APP_URL, { method: 'POST', body: JSON.stringify({ action: "send_otp", row: userObj.row }) });
+                const resData = await response.json();
+
+                if (resData.error) {
+                    alert("We could not find an email address on file for this profile. Please register as a First-Timer to update your records.");
+                    document.getElementById('otpView').classList.add('hidden');
+                    showNewForm();
+                } else {
+                    document.getElementById('otpMaskedEmail').innerHTML = `<i class="fas fa-envelope text-amber-500 mr-2"></i>` + resData.maskedEmail;
+                    document.getElementById('otpMaskedPhone').innerHTML = `<i class="fas fa-mobile-alt text-amber-500 mr-2 ml-1"></i>` + (resData.maskedPhone || "No phone on file");
+                }
+            }
+        }
+
+        async function verifyOtp() {
+            const code = document.getElementById('otpInput').value.trim();
+            if (code.length !== 6) return;
+
+            const btn = document.getElementById('verifyOtpBtn');
+            btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i>`;
+            btn.disabled = true;
+
+            const response = await fetch(WEB_APP_URL, { method: 'POST', body: JSON.stringify({ action: "verify_otp", row: targetRowForOtp, otp: code }) });
+            const resData = await response.json();
+
+            if (resData.status === "success") {
+                document.getElementById('otpError').classList.add('hidden');
+                document.getElementById('otpView').classList.add('hidden');
+                document.getElementById('retRow').value = targetRowForOtp;
                 document.getElementById('returningForm').classList.remove('hidden');
+            } else {
+                document.getElementById('otpError').classList.remove('hidden');
+                btn.innerHTML = `Verify <i class="fas fa-check ml-1"></i>`;
+                btn.disabled = false;
             }
         }
 
         function showNewForm() {
             document.getElementById('step1').classList.add('hidden');
+            document.getElementById('otpView').classList.add('hidden');
             document.getElementById('newForm').classList.remove('hidden');
             document.getElementById('newName').value = document.getElementById('searchName').value;
         }
         function resetToSearch() {
             document.getElementById('returningForm').classList.add('hidden');
             document.getElementById('newForm').classList.add('hidden');
+            document.getElementById('otpView').classList.add('hidden');
+            document.getElementById('otpInput').value = "";
+            document.getElementById('otpError').classList.add('hidden');
             document.getElementById('step1').classList.remove('hidden');
         }
 
@@ -693,7 +757,6 @@
             document.getElementById('successMsg').classList.remove('hidden');
         }
 
-        // ADMIN PANEL LOGIC
         function promptAdmin() {
             if (prompt("Admin Passcode:") === "admin123") {
                 document.getElementById('mainCard').classList.add('hidden');
