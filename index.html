@@ -460,16 +460,25 @@
         let currentEventDate = "";
         
         // ----------------------------------------------------
-        // YOUTUBE PLAYLIST PARSER
-        // Extracts the 11-char IDs and feeds them to the player
+        // BULLETPROOF YOUTUBE ID EXTRACTOR
         // ----------------------------------------------------
         let dynamicYouTubeIds = [];
 
         function extractYouTubeID(url) {
             if(!url) return null;
-            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-            const match = url.match(regExp);
-            return (match && match[2].length === 11) ? match[2] : null;
+            let videoId = null;
+            try {
+                let parsedUrl = new URL(url);
+                if (parsedUrl.hostname.includes("youtube.com")) {
+                    videoId = parsedUrl.searchParams.get("v");
+                } else if (parsedUrl.hostname.includes("youtu.be")) {
+                    videoId = parsedUrl.pathname.substring(1);
+                }
+            } catch (e) {
+                const match = url.match(/(?:v=|\/)([0-9A-Za-z_-]{11})/);
+                videoId = match ? match[1] : null;
+            }
+            return (videoId && videoId.length === 11) ? videoId : null;
         }
 
         let ytPlayer;
@@ -486,7 +495,6 @@
                 
                 let playerVars = { 'autoplay': 0, 'playsinline': 1, 'controls': 1, 'rel': 0, 'showinfo': 0, 'modestbranding': 1, 'mute': 0 };
                 
-                // If there are multiple videos, pass the rest as a playlist
                 if (dynamicYouTubeIds.length > 1) {
                     playerVars.playlist = dynamicYouTubeIds.slice(1).join(',');
                 }
@@ -557,7 +565,6 @@
                 currentEventTitle = data.settings.title;
                 currentEventDate = data.settings.date;
                 
-                // Extract YouTube IDs from Settings rows 6, 7, and 8
                 if(data.settings.youtubeUrl1) {
                     const id1 = extractYouTubeID(data.settings.youtubeUrl1);
                     if (id1) dynamicYouTubeIds.push(id1);
@@ -571,7 +578,6 @@
                     if (id3) dynamicYouTubeIds.push(id3);
                 }
                 
-                // Fallback to the main video if none are configured properly
                 if(dynamicYouTubeIds.length === 0) {
                     dynamicYouTubeIds = ["wwH3fA3D690"];
                 }
@@ -606,7 +612,6 @@
             }
         });
 
-        // FUZZY MATCH ALGORITHM
         function isNameDuplicate(inputStr, dbStr) {
             if(!inputStr || !dbStr) return false;
             const cleanInput = inputStr.toLowerCase().replace(/[.,]/g, '').trim().split(/\s+/);
@@ -701,7 +706,6 @@
                 document.getElementById('ticketNameVIP').innerText = userObj.name;
                 document.getElementById('ticketEventVIP').innerText = currentEventTitle;
                 document.getElementById('ticketDateVIP').innerText = currentEventDate;
-                document.getElementById('checkedInName').innerText = userObj.name;
                 document.getElementById('alreadyCheckedInView').classList.remove('hidden');
             } else if (userObj.status === "Confirmed") {
                 document.getElementById('ticketName1').innerText = userObj.name;
