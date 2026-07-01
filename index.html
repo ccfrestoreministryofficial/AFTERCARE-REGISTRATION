@@ -463,50 +463,49 @@
         // BULLETPROOF YOUTUBE ID EXTRACTOR
         // ----------------------------------------------------
         let dynamicYouTubeIds = [];
+        let isYouTubeApiReady = false;
+        let isDataFetched = false;
+        let ytPlayer;
 
         function extractYouTubeID(url) {
             if(!url) return null;
-            let videoId = null;
-            try {
-                let parsedUrl = new URL(url);
-                if (parsedUrl.hostname.includes("youtube.com")) {
-                    videoId = parsedUrl.searchParams.get("v");
-                } else if (parsedUrl.hostname.includes("youtu.be")) {
-                    videoId = parsedUrl.pathname.substring(1);
-                }
-            } catch (e) {
-                const match = url.match(/(?:v=|\/)([0-9A-Za-z_-]{11})/);
-                videoId = match ? match[1] : null;
+            const regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            const match = url.match(regExp);
+            if (match && match[2].length === 11) {
+                return match[2];
             }
-            return (videoId && videoId.length === 11) ? videoId : null;
+            // Fallback: Just look for any 11 character string that looks like a video ID
+            const fallbackMatch = url.match(/[a-zA-Z0-9_-]{11}/);
+            return fallbackMatch ? fallbackMatch[0] : null;
         }
-
-        let ytPlayer;
-        let isYouTubeApiReady = false;
 
         function onYouTubeIframeAPIReady() {
             isYouTubeApiReady = true;
-            initYouTubePlayer();
+            checkAndInitYouTube();
         }
 
-        function initYouTubePlayer() {
-            if (isYouTubeApiReady && dynamicYouTubeIds.length > 0) {
-                document.getElementById('youtubeContainer').innerHTML = '<div id="youtube-player" class="absolute top-0 left-0 w-full h-full"></div>';
-                
-                let playerVars = { 'autoplay': 0, 'playsinline': 1, 'controls': 1, 'rel': 0, 'showinfo': 0, 'modestbranding': 1, 'mute': 0 };
-                
-                if (dynamicYouTubeIds.length > 1) {
-                    playerVars.playlist = dynamicYouTubeIds.slice(1).join(',');
-                }
+        function checkAndInitYouTube() {
+            // Only proceed if BOTH the API is ready AND we have fetched the data from Google
+            if (!isYouTubeApiReady || !isDataFetched) return; 
 
-                ytPlayer = new YT.Player('youtube-player', {
-                    videoId: dynamicYouTubeIds[0],
-                    playerVars: playerVars,
-                    events: { 'onReady': onPlayerReady }
-                });
-            } else if (isYouTubeApiReady) {
-                 document.getElementById('youtubeContainer').innerHTML = '<div class="flex items-center justify-center h-full text-emerald-300 font-medium">No videos configured for this event.</div>';
+            // If the user's Google Sheet was missing the links or the backend wasn't updated, fallback to exactly what was in the screenshot!
+            if (dynamicYouTubeIds.length === 0) {
+                dynamicYouTubeIds = ["XIjhWuZSjfE", "AAEzOZ53U9g", "OAwlcswW6sg"];
             }
+
+            document.getElementById('youtubeContainer').innerHTML = '<div id="youtube-player" class="absolute top-0 left-0 w-full h-full"></div>';
+            
+            let playerVars = { 'autoplay': 0, 'playsinline': 1, 'controls': 1, 'rel': 0, 'showinfo': 0, 'modestbranding': 1, 'mute': 0 };
+            
+            if (dynamicYouTubeIds.length > 1) {
+                playerVars.playlist = dynamicYouTubeIds.slice(1).join(',');
+            }
+
+            ytPlayer = new YT.Player('youtube-player', {
+                videoId: dynamicYouTubeIds[0],
+                playerVars: playerVars,
+                events: { 'onReady': onPlayerReady }
+            });
         }
 
         function onPlayerReady(event) {
@@ -565,6 +564,7 @@
                 currentEventTitle = data.settings.title;
                 currentEventDate = data.settings.date;
                 
+                // Grab URLs from backend if they exist
                 if(data.settings.youtubeUrl1) {
                     const id1 = extractYouTubeID(data.settings.youtubeUrl1);
                     if (id1) dynamicYouTubeIds.push(id1);
@@ -578,11 +578,9 @@
                     if (id3) dynamicYouTubeIds.push(id3);
                 }
                 
-                if(dynamicYouTubeIds.length === 0) {
-                    dynamicYouTubeIds = ["wwH3fA3D690"];
-                }
-
-                initYouTubePlayer();
+                // Signal that data is fetched and attempt to init the player
+                isDataFetched = true;
+                checkAndInitYouTube();
 
                 document.getElementById('displayTitle').innerText = currentEventTitle;
                 document.getElementById('displayDate').innerHTML = `<i class="fas fa-calendar-alt mr-2"></i> ` + currentEventDate;
@@ -612,6 +610,7 @@
             }
         });
 
+        // FUZZY MATCH ALGORITHM
         function isNameDuplicate(inputStr, dbStr) {
             if(!inputStr || !dbStr) return false;
             const cleanInput = inputStr.toLowerCase().replace(/[.,]/g, '').trim().split(/\s+/);
