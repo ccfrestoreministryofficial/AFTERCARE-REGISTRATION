@@ -321,8 +321,8 @@
         </section>
 
         <section id="adminDashboard" class="hidden glass-panel p-8 md:p-12 border-t-8 border-emerald-900 mt-8">
-            <div class="flex flex-col md:flex-row justify-between items-center mb-8 border-b-2 border-emerald-100 pb-6 gap-4">
-                <h3 class="text-3xl font-bold text-emerald-950 serif"><i class="fas fa-clipboard-list text-amber-500 mr-3 drop-shadow-sm"></i> On-Site Check-in</h3>
+            <div class="flex flex-col md:flex-row justify-between items-center mb-6 border-b-2 border-emerald-100 pb-6 gap-4">
+                <h3 class="text-3xl font-bold text-emerald-950 serif"><i class="fas fa-shield-alt text-amber-500 mr-3 drop-shadow-sm"></i> Admin Portal</h3>
                 <button onclick="closeAdmin()" class="text-emerald-800 hover:bg-emerald-100 font-bold border-2 border-emerald-200 px-6 py-3 rounded-xl transition-colors bg-white text-sm shadow-sm uppercase tracking-widest"><i class="fas fa-times mr-2"></i> Close Dashboard</button>
             </div>
 
@@ -791,8 +791,13 @@
             document.getElementById('tab-roster').className = tab === 'roster' ? 'admin-tab active px-6 py-3 uppercase tracking-widest text-sm font-bold' : 'admin-tab inactive px-6 py-3 uppercase tracking-widest text-sm font-bold';
             document.getElementById('tab-questions').className = tab === 'questions' ? 'admin-tab active px-6 py-3 uppercase tracking-widest text-sm font-bold' : 'admin-tab inactive px-6 py-3 uppercase tracking-widest text-sm font-bold';
             
-            document.getElementById('view-roster').style.display = tab === 'roster' ? 'block' : 'none';
-            document.getElementById('view-questions').style.display = tab === 'questions' ? 'block' : 'none';
+            if (tab === 'roster') {
+                document.getElementById('view-roster').classList.remove('hidden');
+                document.getElementById('view-questions').classList.add('hidden');
+            } else {
+                document.getElementById('view-roster').classList.add('hidden');
+                document.getElementById('view-questions').classList.remove('hidden');
+            }
             
             document.getElementById('searchRoster').value = "";
             document.getElementById('searchQuestions').value = "";
@@ -873,8 +878,8 @@
                         </tr>`;
                     } else {
                         html += `<tr class="hover:bg-emerald-50/50 transition-colors">
-                            <td class="py-4 px-5 font-bold text-sm border-b border-emerald-50 align-top">${p.name}</td>
-                            <td class="py-4 px-5 text-sm text-emerald-800 border-b border-emerald-50 align-top"><div class="bg-emerald-50 p-3 rounded-lg border border-emerald-100 italic">"${p.question}"</div></td>
+                            <td class="py-4 px-5 font-bold text-sm border-b border-emerald-50 align-top w-1/4">${p.name}</td>
+                            <td class="py-4 px-5 text-sm text-emerald-800 border-b border-emerald-50 align-top w-3/4"><div class="bg-emerald-50 p-3 rounded-lg border border-emerald-100 italic">"${p.question}"</div></td>
                         </tr>`;
                     }
                 });
